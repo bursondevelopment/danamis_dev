@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Monitor Medios BMVzla</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+  <![endif]-->
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="http://www.burson-marsteller.com/wp-content/themes/bm/img/bm-logo.png">
+	<link type="image/x-icon" rel="icon" href="http://www.burson-marsteller.com/wp-content/themes/bm/img/bm-logo.png">
+
+</head>
+<body>
+	<%# render 'layouts/banner' %>
+  <%= render 'layouts/navigation' %>
+  <%= render 'layouts/header' %>
+	<%= render 'layouts/sesion' unless session[:usuario] %>
+
+		<%= render 'layouts/messages' %>
+			<div class="container">
+				<%= yield %>			
+			</div>
+
+</body>
+</html>

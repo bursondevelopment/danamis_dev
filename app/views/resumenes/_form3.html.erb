@@ -1,0 +1,213 @@
+<!-- Inicio de Form para resúmenes -->
+<%= form_for @resumen, :url=>{:action => "#{action_name}_guardar"},  :html => { :class => 'well well-small form-actions' } do |f| %>
+	<%= hidden_field_tag "website_activa", "#{@website_activa}" %>
+	<%= hidden_field_tag "id", @resumen.id %>
+
+	<!--retorno si viene de otro origen-->
+	<%= (hidden_field_tag 'url', @url) if @url %>
+
+	<!-- Gestión de Vocero (Selección, Agregación y Edición) -->
+	
+	<% if @total_notas > 0 %>
+		<div class="control-group form-inline">
+	    <%= f.collection_select :vocero_id, Vocero.order('nombre ASC'), :id, :descripcion_completa, {:prompt => "Vocero"}, {:required => true, :style => 'width: 50%;', :onChange => "mostrar_edit();"} %>
+			<b class='tooltip-btn' data_toggle='tooltip' title='Editar Vocero' >
+				<% ver_vocero = @resumen.vocero_id.nil? ? 'display: none;' : '' %>
+				<%= link_to (""), { :role => 'button',:class => 'btn btn-info btn-mini', :id => 'boton_editar_vocero', :style => ver_vocero, :data => {:toggle => 'modal'}, :onclick => "return form_editar_vocero();"} do %>
+					<%= content_tag(:i, "", class: "icon-edit icon-white") %>
+					<%= content_tag(:i, "", class: "icon-user icon-white") %>
+				<% end %>
+			</b>
+			
+			<b class='tooltip-btn' data_toggle='tooltip' title='Agregar Vocero Inusual'>
+				<%= f.text_field :otro_vocero, :class => 'input', :placeholder => "nombre del otro vocero…", :style => 'display:none' %>
+				<%= link_to (""), { :role => 'button', :class => 'btn btn-success btn-mini', :data => {:toggle => 'modal'}, :onclick => "	incluir_vocero_inusual();"} do %>
+					<%= content_tag(:i, "", class: "icon-user icon-white") %>
+					<%= content_tag(:i, "", class: 'icon-question-sign icon-white') %>					
+				<% end %>
+			</b>
+
+			<b class='tooltip-btn' data_toggle='tooltip' title='Agregar Nuevo Vocero' >
+				<%= link_to (""), { :role => 'button', :class => 'btn btn-success btn-mini', :data => {:toggle => 'modal'}, :onclick => "return $('#vocero_nuevo').modal();"} do %>
+					<%= content_tag(:i, "", class: "icon-plus icon-white") %>
+					<%= content_tag(:i, "", class: "icon-user icon-white") %>
+				<% end %>
+			</b>
+		</div>
+	<% end %>
+			
+			
+		<!-- Carga de resumen si existe dentro del tema -->
+		<% if @resumen.tema_id? %>
+			<div class="controls">
+				<%= f.grouped_collection_select :tema_id, Asunto.all, :temas, :nombre, :id, :nombre, {:prompt => "Tema"}, { :class => 'selects2', :style => 'width: 50%;'} %>
+			</div>
+		<% end %>
+
+		<!-- Carga de resúmenes o notas registradas si existen -->
+
+		<% case action_name %>
+		<% when 'paso2' %>
+			<% if @resumenes.count > 0 %>
+				<div class="control-group well well-small contenedor_notas_resumenes">
+						<table class="table-condensed table-striped table-hover contenido_nota" style="width:100%;">
+							<tbody>
+								<%- @resumenes.each do |resumen| %>
+									<tr class='info'><td><%= notas_estructuradas resumen %></td></tr>
+								<% end %>
+							</tbody>
+						</table>
+				</div>
+			<% end %>
+		
+			
+		<% when 'paso3' %>
+			<%- @notas = @resumen.notas.order "updated_at DESC" -%>
+			<div class="control-group">
+				<%= f.text_area :contenido, :class => 'text_area', :style => "width: 98%; height: 120px;", :placeholder=>"Contenido..." %>
+			</div>
+			<% if @notas.count > 0 %>
+				<div class="control-group well well-small contenedor_notas_resumenes">
+						<table class="table-condensed table-striped table-hover contenido_nota" style="width:100%;">
+							<tbody>
+								<%- @notas.each_with_index do |nota,i| %>
+								<tr class='info'> 
+									<td><b><%= nota.website.nombre %></b></td>
+									<td><%= link_to nota.titulo.truncate(100, :omission => "..."), nota.url, {:class => 'btn btn-link contenido_nota', :target => '_blank'} %></td>
+									<td>
+										<%= link_to ("/wizard/desagregar_nota?website_name=#{nota.website.nombre}&nota_id=#{nota.id}&resumen_id=#{@resumen.id}"), {:class => "btn btn-info btn-mini"} do %>
+											<%= content_tag(:i, "", class: "icon-arrow-down icon-white") %>
+										<% end %>
+										|
+										<%= link_descartar_nota nota.id, @resumen.id %>
+
+									</td>
+								</tr>
+								<% end %>
+							</tbody>
+						</table>
+				</div>
+			<% end %>
+		<% end %>
+
+
+		<!-- Wizard_nav de form -->
+	
+		<div class="form-actions-small">
+			<table border="0" style="width: 100%;">
+				<tr>
+					<td>
+						<% case action_name %>
+						<% when "paso2" %>
+							<%= link_to t('.back', :default => t("helpers.links.back")), {:action => "paso1"}, :class => 'btn', :title => 'Atrás' %>
+						<% when "paso3" %>
+							<%= link_to t('.back', :default => t("helpers.links.back")), {:action => "paso2/#{@resumen.id}"}, :class => 'btn'%>
+						<% end %>
+					</td>
+					<% if @total_notas > 0 or (action_name.eql? 'paso3') %>
+						<td >
+							<div style="text-align: right;">
+								<b class='tooltip-btn' data_toggle='tooltip' title='Agregar Nueva Nota' >
+									<%= link_to (""), { :role => 'button',:class => 'btn btn-success btn-mini ', :data => {:toggle => 'modal'}, :onclick => " $('#nota_nuevo').modal();"} do %>
+										<%= content_tag(:i, "", class: "icon-plus icon-white") %>
+										<%= content_tag(:i, "", class: "icon-file icon-white") %>
+									<% end %>
+								</b>
+ 								||
+								<b class='tooltip-btn' data_toggle='tooltip' title='Cambiar Selección de Websites'>
+									<%= link_to (""), { :role => 'button',:class => 'btn btn-info btn-mini ', :data => {:toggle => 'modal'}, :onclick => " $('#seleccionar_website').modal();"} do %>
+									<%# link_to "", {:href => "/wizard/cambiar_seleccion_websites", :class => 'btn btn-info btn-mini'}, { :role => 'button', :data => {:toggle => 'modal'}} do %>
+										<%= content_tag(:i, "", class: "icon-edit icon-white") %>
+										<%= content_tag(:i, "", class: "icon-list icon-white") %>
+									<% end %>
+								</b>
+
+								<%= f.submit "Guardar", :class => 'btn btn-primary'%>
+							</div>
+						</td>
+					<% end %>
+				</tr>
+			</table>
+		</div>
+
+<% end %>
+
+
+	<%= render 'voceros/editar_vocero_modal' %>
+	
+	<%- @url = request.original_url %>
+	<%= render :partial => 'seleccionar_website', :@url => @url %>
+	<div id="nota_nuevo" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	 <div class="modal-header">
+	   <button type="button" class="close fade" data-dismiss="modal" aria-hidden="true">×</button>
+	   <h3 id="myModalLabel">Nueva Nota</h3>
+	 </div>
+	 <div class="modal-body">
+	   <%= render 'notas/form', :@url => @url %>
+
+	 </div>
+	</div>
+
+
+	<div id="vocero_nuevo" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-header">
+     <button type="button" class="close fade" data-dismiss="modal" aria-hidden="true">×</button>
+     <h3 id="myModalLabel">Nuevo Vocero</h3>
+   </div>
+   <div class="modal-body">
+     <%= render 'voceros/form', :@url => @url %>
+   </div>
+	</div>
+
+
+<script type="text/javascript" charset="utf-8">
+
+	function incluir_vocero_inusual() {
+		$('#resumen_otro_vocero').show('slow');
+		$('#resumen_vocero_id').removeAttr('required');
+		$('#resumen_vocero_id').hide('slow');	
+		$('#resumen_otro_vocero').addAttr('autofocus');			
+	}
+
+	function format(vocero) {
+	    return vocero.text;
+	}
+	$("#resumen_vocero_id").select2({
+	    formatResult: format,
+	    formatSelection: format,
+	    escapeMarkup: function(m) { return m; }
+	});
+	
+	function mostrar_edit(){
+		// document.getElementById("boton_vocero").style.display="";
+		$('#boton_editar_vocero').show('slow');
+		// return false;
+	}
+	
+	function form_editar_vocero(){
+		
+		var vocero_id = $("#resumen_vocero_id").val();
+
+		$.getJSON( "/voceros/"+vocero_id+" .json", function( vocero ) {
+			var form = $('form#edit_vocero');
+			form.attr('action',"/voceros/update/"+vocero.id);
+			form.find('#vocero_nombre').val(vocero.nombre);
+			form.find('#vocero_foto').val(vocero.foto);
+			form.find('#vocero_descripcion').val(vocero.descripcion);						
+		 });
+
+		$('#vocero_editar').modal();
+		return false;
+	}
+	
+	function eliminar_nota(nota_id, resumen_id){
+		$.post('/notas/update/'+nota_id+"?resumen_id=-1");
+		$.post("/resumenes/update/"+resumen_id+"?nota_id="+nota_id+"&borrar_nota_en_contenido=1");
+		location.reload();
+		return false;
+	}
+	
+	$(document).ready(function() {
+		$('.tooltip-btn').tooltip();
+	});
+</script>

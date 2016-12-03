@@ -1,0 +1,50 @@
+<%= form_for(@candidate, :html => {:class =>"form-horizontal bs-docs-example"}) do |f| %>
+  <% if @candidate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@candidate.errors.count, "error") %> prohibited this candidate from being saved:</h2>
+
+      <ul>
+      <% @candidate.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label 'Nombre:', :class => 'control-label'%>
+    <div class="controls">
+      <%= f.text_field :name, :placeholder => 'Nombre' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label 'organización:', :class => 'control-label'%>
+    <div class="controls">
+	  <%= f.collection_select :organizacion_id, Organizacion.all, :id, :nombre, {:prompt => '--Seleccione Organización--'}%>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label 'Estado:', :class => 'control-label'%>
+    <div class="controls">
+      <%= f.collection_select :estado_id, Estado.all, :id, :nombre, {:prompt => '--Seleccione Estado--'}%>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label 'descripción:', :class => 'control-label'%>
+    <div class="controls">
+      <%= f.text_field :description, :placeholder => 'descripción' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label 'Imagen:', :class => 'control-label'%>
+    <div class="controls">
+      <%= f.text_field :foto, :placeholder => 'Imagen' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+	  <%= f.submit :class => 'btn' %>
+    </div>
+  </div>
+
+<% end %>

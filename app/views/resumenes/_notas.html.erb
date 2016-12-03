@@ -1,0 +1,118 @@
+<%= @error %>
+<%= "Última Actualización: #{@websites.first.notas.last.updated_at}" if @websites.first.notas %>
+
+<div class="bs-docs-example">
+	<ul id="myTab" class="nav nav-tabs">
+	<%- @websites.each_with_index do |website,i| -%>
+	 	<li class= "<%= "active" if i.eql? 0 %>" style="font-size: 10px;">
+			<%= link_to "#{website.descripcion} - #{(website.notas.creadas_hoy_no_incluidas_en_resumen @resumen.id).count}", "##{website.nombre}", :data => {:toggle => "tab"} %>
+	 	</li>
+	<%- end -%>
+	</ul>
+	<div data-spy="scroll" data-target="#myTab" data-offset="0" class="scrollspy-example">
+		<div id="myTabContent" class="tab-content">
+			<%- @websites.each_with_index do |website,i| -%>
+				<%# website.importar_notas_website unless website.carga_reciente? %>
+				<%- @notas = website.notas.creadas_hoy_no_incluidas_en_resumen @resumen.id -%>
+				<%- @notas = @notas.where('titulo LIKE ? OR contenido LIKE ?', "%#{@filtro}%", "%#{@filtro}%") unless @filtro.blank? -%>
+				<%- @notas.order("created_at DESC")  %>
+				<div class="tab-pane fade<%=" active in" if (i.eql? 0) %>" id="<%= website.nombre %>">
+
+					<table class="table table-hover">
+	        	<thead>
+	          	<tr>
+		            <th>#</th>
+								<th>Publicación</th>
+		            <th width="450px;"><%= Resumen.human_attribute_name(:titulo) %></th>
+		            <th>Enlace</th>
+								<th>Opciones</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+							<%- @notas.each_with_index do |nota,j| -%>
+			          <div>
+									<tr id="<%=nota.id%>">
+				            <td><%= j+1 %></td>
+										<td>
+											<%= nota.fecha_publicacion %>
+											<%- unless nota.imagen.blank? -%>
+												<%= image_tag nota.imagen, :title => "imagen", :class => "img-rounded", :style => 'max-width: 120px; max-height:120px;'%>
+											<% end %>
+										</td>
+				            <td>
+											<strong><%= nota.titulo %></strong>
+											<% unless nota.contenido.blank? %>
+												<%= link_to "detalle", " ", {:class => 'btn btn-mini', :onclick => "return detalle('#{nota.id}')"} %>
+												<div id="contenido_nota<%=nota.id%>", style = "display: none;">
+													<%= nota.contenido %>
+												</div>
+											<% end %>
+											
+										</td>
+				            <td><%= link_to website.descripcion, nota.url, :class => 'btn btn-link btn-mini', :target => '_blank' %></td>
+										<%# @agregar = "agregar("+nota.id.to_s+")" %>
+				            <td>
+											<%- unless (params[:controller].eql? 'resumenes') and (params[:action].eql? 'paso1') -%>
+												<%= link_to (""), {:class => 'btn btn-success btn-mini', :onclick => "return agregar(#{website.nombre},#{nota.id.to_s},#{@resumen.id.to_s})"} do %>
+													<i class="icon-plus icon-white"></i>
+												<% end %>
+											<% end %>
+										</td>
+				          </tr>
+								</div>
+							<% end %>
+	        	</tbody>
+	      	</table>
+				</div> <!-- class="tab-pane fade -->
+			<%- end -%>
+		</div> <!-- id="myTabContent" -->
+	</div> <!-- data-spy="scroll" -->
+</div>  <!-- class="bs-docs-example" -->
+
+<script type="text/javascript" charset="utf-8">
+	// function agregar(website_nombre, id, resumen_id){
+	// 	$("#"+id).hide();
+	// 	$.post("/notas/update/"+id+"?resumen_id="+resumen_id);
+	// 	$.post("/resumenes/update/"+resumen_id+"?nota_id="+id+">");
+	// 	// this = this+"#"+website_nombre;
+	// 	// location.form.reload();
+	// 	$(".edit_resumen_"+resumen_id).reload();
+	// 	return false;
+	// }
+	
+	function detalle(nota_id){
+		if ($('#contenido_nota'+nota_id).css("display") == "none") { $('#contenido_nota'+nota_id).show();}
+		else{$('#contenido_nota'+nota_id).hide();}
+		return false;
+	}
+
+	// setTimeout(function(){
+	// 
+	//     $('.progress .bar').each(function() {
+	//         var me = $(this);
+	//         var perc = me.attr("data-percentage");
+	// 
+	//         var current_perc = 0;
+	// 
+	//         var progress = setInterval(function() {
+	//             if (current_perc>=perc) {
+	//                 clearInterval(progress);
+	//             } else {
+	//                 current_perc +=1;
+	//                 me.css('width', (current_perc)+'%');
+	//             }
+	// 
+	//             me.text((current_perc)+'%');
+	// 
+	//         }, 50);
+	// 
+	//     });
+	// 
+	// 
+	// },0);
+	// 
+	
+</script>
+
+
+

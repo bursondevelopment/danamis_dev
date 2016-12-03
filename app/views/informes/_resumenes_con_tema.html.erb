@@ -1,0 +1,50 @@
+  <div class="thumbnail">
+		<div class="caption">
+			<h3>Resúmenes con Temas Asignados</h3>
+		</div>
+		<% if @asuntos %>
+			<div class ="well contenido_scroll_200">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td>
+						<% @asuntos.each do |asunto| %>
+
+							<% temas = asunto.temas %>
+							<% if temas.count > 0 %> 
+								</br>
+								<dd><em><strong><%= asunto.nombre %></strong></em></dd>
+								</br>
+								<ul>
+									<% temas.each do |tema| %>
+										<% resumenes = @resumenes_con_tema.where(:tema_id => tema.id) %>
+										<% if resumenes.count > 0 %> 
+										<li style = 'display:block;'>
+											<dd><u><%= tema.nombre %></u></dd>
+												<div class="well" style="padding: 5px; margin: 5px;">
+													<% resumenes.each do |resumen| %>
+														<div class="well" style="padding: 5px; margin: 5px;">
+															<p>
+																<dd style="text-align:justify;">
+																<%= notas_estructuradas resumen, "/#{controller_name}/#{action_name}" %>
+
+																</dd>												
+																<div style = "text-align: right;background-color: #ddd; padding: 5px;">
+																	<%= link_to ("/informes/desagregar_vocero/#{resumen.vocero_id}"), {:class => "btn btn-info btn-mini"} do %>
+																		<%= content_tag(:i, "", class: "icon-arrow-down icon-white") %> 
+																	<% end %>
+
+																</div>
+															</p>
+														</div>
+													<% end %><!-- each resumenes  -->
+												</div>
+											</li>
+										<% end %>	<!-- if resumenes > 0  -->
+									<% end %><!-- each temas  -->
+								</ul>
+							<% end %><!-- if temas  -->
+						<% end %><!-- each asuntos  -->
+					</td></tr>
+				</table>
+			</div>
+		<% end %>
+  </div>

@@ -1,0 +1,51 @@
+<%= form_for @candidato, :html => { :class => 'form-horizontal' } do |f| %>
+	<div class="control-group">
+	  <%= f.label :vocero_id, :class => 'control-label' %>
+	  <div class="controls">
+	    <%= f.collection_select :vocero_id, Vocero.all, :id, :nombre, {:prompt => true}, {:required => true, :class => 'selects2'} %>
+	  </div>
+	</div>
+
+	<div class="control-group">
+	  <%= f.label :eleccion_id, :class => 'control-label' %>
+	  <div class="controls">
+	    <%= f.collection_select :eleccion_id, Eleccion.all, :id, :nombre, {:prompt => true}, {:required => true} %>
+	  </div>
+	</div>
+	
+  <div class="control-group">
+    <%= f.label :municipio_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :municipio_id, Municipio.all, :id, :descripcion, {:prompt => true}, {:required => true, :class => 'selects2'} %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :municipio_id, :class => 'control-label' %>
+    <div class="controls">
+			<%= f.grouped_collection_select :municipio_id, Estado.all, :municipios, :nombre, :id, :nombre, {:prompt => "Tema"}, {:required => true, :class => 'selects2', :style => 'width: 600px;'} %>
+      
+    </div>
+  </div>
+
+
+  <div class="control-group">
+    <%= f.label :tipo_cargo_id, 'Cargo a optar', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :tipo_cargo_id, TipoCargo.where("nombre = 'Alcalde' OR nombre = 'Consejal'"), :id, :nombre, {:prompt => true}, {:required => true} %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :tipo_cargo_id, 'Partidos', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :partidos_id, Organizacion.where(:tipo_id => 1), :id, :nombre, {:prompt => true}, {:required => true} %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                candidatos_path, :class => 'btn' %>
+  </div>
+<% end %>
