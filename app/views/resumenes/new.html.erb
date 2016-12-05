@@ -1,9 +1,0 @@
-<%- model_class = Resumen -%>
-  <h3><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h3>
-
-<%= render :partial => 'lista' if @resumenes_hoy.count > 0 %>
-<%= render :partial => 'form' %>
-Resumen: <%= @resumen.id %>
-Notas agregadas: <%= @resumen.notas.count %>
-
-<%= render :partial => 'notas' %>
