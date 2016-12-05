@@ -1,5 +1,19 @@
 Dunamis::Application.routes.draw do
 
+  resources :toldas
+
+  resources :ambitos
+
+  resources :clases
+
+  resources :externas
+
+  resources :internas
+
+  resources :tipo_especializaciones
+
+  resources :especializaciones_medio
+
   resources :tipos_medios
 
   get "home/index"

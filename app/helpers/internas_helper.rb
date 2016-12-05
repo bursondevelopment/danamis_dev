@@ -1,0 +1,2 @@
+module InternasHelper
+end

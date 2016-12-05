@@ -1,0 +1,2 @@
+module EspecializacionesMedioHelper
+end
