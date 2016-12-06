@@ -1,0 +1,27 @@
+<h1>Listing claves</h1>
+
+<table>
+  <tr>
+    <th>Valor</th>
+    <th>Incluyente</th>
+    <th>Entorno</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @claves.each do |clave| %>
+  <tr>
+    <td><%= clave.valor %></td>
+    <td><%= clave.incluyente %></td>
+    <td><%= clave.entorno %></td>
+    <td><%= link_to 'Show', clave %></td>
+    <td><%= link_to 'Edit', edit_clave_path(clave) %></td>
+    <td><%= link_to 'Destroy', clave, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Clave', new_clave_path %>

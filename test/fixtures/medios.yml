@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  nombre: MyString
+  logo: MyString
+  descripcion: MyString
+  impacto: 1
+  tipo_medio: 
+  tipo_especializacion: 
+
+two:
+  nombre: MyString
+  logo: MyString
+  descripcion: MyString
+  impacto: 1
+  tipo_medio: 
+  tipo_especializacion: 

@@ -1,0 +1,2 @@
+module EstructurasMediosHelper
+end

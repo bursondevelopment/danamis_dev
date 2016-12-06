@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  nombres: MyString
+  cargo: MyString
+  tolda: 
+  organizacion: 
+  representante_legal: false
+
+two:
+  nombres: MyString
+  cargo: MyString
+  tolda: 
+  organizacion: 
+  representante_legal: false

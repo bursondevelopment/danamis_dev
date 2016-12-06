@@ -1,0 +1,44 @@
+<%= form_for @organizacion, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :razon_social, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :razon_social, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :entorno_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :entorno_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :interna_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :interna_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :externa_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :externa_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :ambito_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :ambito_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :clase_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :clase_id, :class => 'number_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                organizaciones_path, :class => 'btn' %>
+  </div>
+<% end %>

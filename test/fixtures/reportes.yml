@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  argumento: MyString
+  titulo: MyString
+  fecha: MyString
+  autor: 
+  informe: 
+
+two:
+  argumento: MyString
+  titulo: MyString
+  fecha: MyString
+  autor: 
+  informe: 

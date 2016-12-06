@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Valor:</b>
+  <%= @clave.valor %>
+</p>
+
+<p>
+  <b>Incluyente:</b>
+  <%= @clave.incluyente %>
+</p>
+
+<p>
+  <b>Entorno:</b>
+  <%= @clave.entorno %>
+</p>
+
+
+<%= link_to 'Edit', edit_clave_path(@clave) %> |
+<%= link_to 'Back', claves_path %>

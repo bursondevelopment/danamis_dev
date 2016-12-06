@@ -1,0 +1,38 @@
+<%= form_for @informe, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :fecha, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.datetime_select :fecha, :class => 'datetime_select' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :encabezado, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :encabezado, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :titulo, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :titulo, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :autor, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :autor, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :tema, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :tema, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                informes_path, :class => 'btn' %>
+  </div>
+<% end %>

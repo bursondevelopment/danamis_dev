@@ -1,0 +1,25 @@
+<h1>Listing productos_marcas</h1>
+
+<table>
+  <tr>
+    <th>Producto</th>
+    <th>Marca</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @productos_marcas.each do |producto_marca| %>
+  <tr>
+    <td><%= producto_marca.producto %></td>
+    <td><%= producto_marca.marca %></td>
+    <td><%= link_to 'Show', producto_marca %></td>
+    <td><%= link_to 'Edit', edit_producto_marca_path(producto_marca) %></td>
+    <td><%= link_to 'Destroy', producto_marca, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Producto marca', new_producto_marca_path %>

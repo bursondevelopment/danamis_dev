@@ -1,0 +1,29 @@
+<%- model_class = Reporte -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:argumento) %>:</strong></dt>
+  <dd><%= @reporte.argumento %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:titulo) %>:</strong></dt>
+  <dd><%= @reporte.titulo %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:fecha) %>:</strong></dt>
+  <dd><%= @reporte.fecha %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:autor_id) %>:</strong></dt>
+  <dd><%= @reporte.autor_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:informe_id) %>:</strong></dt>
+  <dd><%= @reporte.informe_id %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              reportes_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_reporte_path(@reporte), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              reporte_path(@reporte),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

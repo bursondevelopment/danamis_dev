@@ -1,5 +1,31 @@
 Dunamis::Application.routes.draw do
 
+  resources :medio_organizaciones
+
+  resources :productos_marcas
+
+  resources :reportes_adjuntos
+
+  resources :reportes
+
+  resources :informes
+
+  resources :actores
+
+  resources :adjuntos
+
+  resources :organizaciones
+
+  resources :estructuras_medios
+
+  resources :medios
+
+  resources :claves
+
+  resources :productos
+
+  resources :entornos
+
   resources :toldas
 
   resources :ambitos

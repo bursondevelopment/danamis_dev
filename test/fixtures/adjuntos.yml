@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  titulo: MyString
+  sumario: MyString
+  fecha: MyString
+  autor: MyString
+  medio: 
+
+two:
+  titulo: MyString
+  sumario: MyString
+  fecha: MyString
+  autor: MyString
+  medio: 

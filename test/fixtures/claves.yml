@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  valor: MyString
+  incluyente: false
+  entorno: 
+
+two:
+  valor: MyString
+  incluyente: false
+  entorno: 

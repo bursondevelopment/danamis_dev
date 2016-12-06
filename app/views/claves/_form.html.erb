@@ -1,0 +1,29 @@
+<%= form_for(@clave) do |f| %>
+  <% if @clave.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@clave.errors.count, "error") %> prohibited this clave from being saved:</h2>
+
+      <ul>
+      <% @clave.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :valor %><br />
+    <%= f.text_field :valor %>
+  </div>
+  <div class="field">
+    <%= f.label :incluyente %><br />
+    <%= f.check_box :incluyente %>
+  </div>
+  <div class="field">
+    <%= f.label :entorno %><br />
+    <%= f.text_field :entorno %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

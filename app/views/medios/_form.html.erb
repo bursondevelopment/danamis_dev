@@ -1,0 +1,44 @@
+<%= form_for @medio, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :nombre, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :nombre, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :logo, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :logo, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :descripcion, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :descripcion, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :impacto, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :impacto, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :tipo_medio_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :tipo_medio_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :tipo_especializacion_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :tipo_especializacion_id, :class => 'number_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                medios_path, :class => 'btn' %>
+  </div>
+<% end %>

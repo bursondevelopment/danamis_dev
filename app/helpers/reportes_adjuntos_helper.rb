@@ -1,0 +1,2 @@
+module ReportesAdjuntosHelper
+end

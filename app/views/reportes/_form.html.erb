@@ -1,0 +1,38 @@
+<%= form_for @reporte, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :argumento, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :argumento, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :titulo, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :titulo, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :fecha, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :fecha, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :autor_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :autor_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :informe_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :informe_id, :class => 'number_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                reportes_path, :class => 'btn' %>
+  </div>
+<% end %>
