@@ -47,7 +47,7 @@ class OrganizacionesController < ApplicationController
 
     respond_to do |format|
       if @organizacion.save
-        format.html { redirect_to @organizacion, notice: 'Organizacion was successfully created.' }
+        format.html { redirect_to @organizacion, notice: 'Organizacion registrada con éxito.' }
         format.json { render json: @organizacion, status: :created, location: @organizacion }
       else
         format.html { render action: "new" }
@@ -63,7 +63,7 @@ class OrganizacionesController < ApplicationController
 
     respond_to do |format|
       if @organizacion.update_attributes(params[:organizacion])
-        format.html { redirect_to @organizacion, notice: 'Organizacion was successfully updated.' }
+        format.html { redirect_to @organizacion, notice: 'Organizacion editada con éxito.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

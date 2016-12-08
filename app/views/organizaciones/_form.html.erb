@@ -2,37 +2,44 @@
   <div class="control-group">
     <%= f.label :razon_social, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :razon_social, :class => 'text_field' %>
+      <%= f.text_field :razon_social, :class => 'text_field', :autofocus => true, :placeholder => "Nombre de la Organización", :required => true %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :entorno_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :entorno_id, :class => 'number_field' %>
+      <%= f.collection_select :entorno_id, Entorno.all, :id, :nombre, {:prompt => "Entorno"}, {:required => true} %>
+      <%# f.number_field :entorno_id, :class => 'number_field' %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :interna_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :interna_id, :class => 'number_field' %>
+      <%= f.collection_select :interna_id, Interna.all, :id, :description, {:prompt => "Cl. Interna"}, {:required => true} %>
+      <%# f.number_field :interna_id, :class => 'number_field' %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :externa_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :externa_id, :class => 'number_field' %>
+      <%= f.collection_select :externa_id, Externa.all, :id, :description, {:prompt => "Cl. Externa"}, {:required => true} %>
+      <%# f.number_field :externa_id, :class => 'number_field' %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :ambito_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :ambito_id, :class => 'number_field' %>
+      <%= f.collection_select :ambito_id, Ambito.all, :id, :description, {:prompt => "Ámbito"}, {:required => true} %>
+
+      <%# f.number_field :ambito_id, :class => 'number_field' %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :clase_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :clase_id, :class => 'number_field' %>
+      <%= f.collection_select :clase_id, Clase.all, :id, :description, {:prompt => "Clase"}, {:required => true} %>
+
+      <%# f.number_field :clase_id, :class => 'number_field' %>
     </div>
   </div>
 
