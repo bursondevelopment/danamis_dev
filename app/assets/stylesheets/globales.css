@@ -42,10 +42,7 @@ ol.ordenable li.placeholder:before {
 }
 
 
-#banner {
-	background-image: url('header.png');
-	background-size: contain;
-	background-repeat: no-repeat;
+#banner2 {
 	height: 70px;
 	margin-top: 42px;
 	margin-bottom: 10px;

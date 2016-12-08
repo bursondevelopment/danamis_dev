@@ -1,6 +1,7 @@
 class MediosController < ApplicationController
   # GET /medios
   # GET /medios.json
+  before_filter :filtro_logueado
   def index
     @medios = Medio.all
 

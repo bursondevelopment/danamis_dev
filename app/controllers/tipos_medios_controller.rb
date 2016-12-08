@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class TiposMediosController < ApplicationController
   # GET /tipos_medios
   # GET /tipos_medios.json
@@ -44,7 +45,7 @@ class TiposMediosController < ApplicationController
 
     respond_to do |format|
       if @tipo_medio.save
-        format.html { redirect_to @tipo_medio, notice: 'Tipo medio was successfully created.' }
+        format.html { redirect_to @tipo_medio, notice: 'Tipo medio registrado con éxito.' }
         format.json { render json: @tipo_medio, status: :created, location: @tipo_medio }
       else
         format.html { render action: "new" }
@@ -60,7 +61,7 @@ class TiposMediosController < ApplicationController
 
     respond_to do |format|
       if @tipo_medio.update_attributes(params[:tipo_medio])
-        format.html { redirect_to @tipo_medio, notice: 'Tipo medio was successfully updated.' }
+        format.html { redirect_to @tipo_medio, notice: 'Tipo medio actualizado con éxito.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

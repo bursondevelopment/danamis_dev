@@ -6,16 +6,16 @@
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:nombre) %>:</strong></dt>
   <dd><%= @medio.nombre %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:logo) %>:</strong></dt>
-  <dd><%= @medio.logo %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
+  <dd><%= @medio.url %></dd>
   <dt><strong><%= model_class.human_attribute_name(:descripcion) %>:</strong></dt>
   <dd><%= @medio.descripcion %></dd>
   <dt><strong><%= model_class.human_attribute_name(:impacto) %>:</strong></dt>
   <dd><%= @medio.impacto %></dd>
   <dt><strong><%= model_class.human_attribute_name(:tipo_medio_id) %>:</strong></dt>
-  <dd><%= @medio.tipo_medio_id %></dd>
+  <dd><%= @medio.tipo_medio.description %></dd>
   <dt><strong><%= model_class.human_attribute_name(:tipo_especializacion_id) %>:</strong></dt>
-  <dd><%= @medio.tipo_especializacion_id %></dd>
+  <dd><%= @medio.tipo_especializacion.description %></dd>
 </dl>
 
 <div class="form-actions">

@@ -1,6 +1,9 @@
+# encoding: UTF-8
 class OrganizacionesController < ApplicationController
   # GET /organizaciones
   # GET /organizaciones.json
+
+  before_filter :filtro_logueado
   def index
     @organizaciones = Organizacion.all
 

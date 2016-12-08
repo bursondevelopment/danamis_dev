@@ -2,19 +2,19 @@
   <div class="control-group">
     <%= f.label :nombre, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :nombre, :class => 'text_field' %>
+      <%= f.text_field :nombre, :class => 'text_field', :autofocus => true, :placeholder => "El Medio", :required => true  %>
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :logo, :class => 'control-label' %>
+    <%= f.label :url, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :logo, :class => 'text_field' %>
+      <%= f.text_field :url, :class => 'text_field', :placeholder => "http://www.medio.com", :required => true %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :descripcion, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :descripcion, :class => 'text_field' %>
+      <%= f.text_field :descripcion, :class => 'text_field', :placeholder => "medio.com", :required => true %>
     </div>
   </div>
   <div class="control-group">
@@ -26,13 +26,16 @@
   <div class="control-group">
     <%= f.label :tipo_medio_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :tipo_medio_id, :class => 'number_field' %>
+      <%# f.number_field :tipo_medio_id, :class => 'number_field' %>
+      <%= f.collection_select :tipo_medio_id, TipoMedio.all, :id, :description, {:prompt => "Medio"}, {:required => true, :style => 'width: 50%;', :onChange => "mostrar_edit();"} %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :tipo_especializacion_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :tipo_especializacion_id, :class => 'number_field' %>
+      <%# f.number_field :tipo_especializacion_id, :class => 'number_field' %>
+      <%= f.collection_select :tipo_especializacion_id, TipoEspecializacion.order('description ASC'), :id, :description, {:prompt => "Especialidad"}, {:required => true, :style => 'width: 50%;', :onChange => "mostrar_edit();"} %>
+
     </div>
   </div>
 

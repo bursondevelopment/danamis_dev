@@ -1,5 +1,7 @@
 Dunamis::Application.routes.draw do
 
+  resources :usuarios
+
   resources :medio_organizaciones
 
   resources :productos_marcas

@@ -1,6 +1,8 @@
+# encoding: UTF-8
 class ActoresController < ApplicationController
   # GET /actores
   # GET /actores.json
+  before_filter :filtro_logueado
   def index
     @actores = Actor.all
 

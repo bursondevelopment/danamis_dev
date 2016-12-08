@@ -10,9 +10,9 @@
       <th><%= model_class.human_attribute_name(:logo) %></th>
       <th><%= model_class.human_attribute_name(:descripcion) %></th>
       <th><%= model_class.human_attribute_name(:impacto) %></th>
-      <th><%= model_class.human_attribute_name(:tipo_medio_id) %></th>
-      <th><%= model_class.human_attribute_name(:tipo_especializacion_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>Tipo</th>
+      <th>Especialidad</th>
+      <th>Adjuntos</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -24,17 +24,21 @@
         <td><%= medio.logo %></td>
         <td><%= medio.descripcion %></td>
         <td><%= medio.impacto %></td>
-        <td><%= medio.tipo_medio_id %></td>
-        <td><%= medio.tipo_especializacion_id %></td>
-        <td><%=l medio.created_at %></td>
+        <td><%= medio.tipo_medio.description.capitalize %></td>
+        <td><%= medio.tipo_especializacion.description.capitalize %></td>
+        <td><%= medio.adjuntos.count %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_medio_path(medio), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      medio_path(medio),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
+          <b class='tooltip-btn' data_toggle='tooltip' title='Editar Medio' >
+            <%= link_to edit_medio_path(medio), { :role => 'button', :class => 'btn btn-info btn-mini'} do %>
+              <%= content_tag(:i, "", class: "icon-edit icon-white") %>
+            <% end %>
+          </b>  
+
+          <b class='tooltip-btn' data_toggle='tooltip' title='Eliminar Medio' >
+            <%= link_to medio_path(medio), { :role => 'button', :class => 'btn btn-danger btn-mini', :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estas seguro de esta acción?')) }} do %>
+              <%= content_tag(:i, "", class: "icon-trash icon-white") %>
+            <% end %>
+          </b>
         </td>
       </tr>
     <% end %>
@@ -44,3 +48,10 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_medio_path,
             :class => 'btn btn-primary' %>
+
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    $('.tooltip-btn').tooltip();
+  });
+</script>

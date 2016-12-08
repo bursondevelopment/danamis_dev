@@ -8,26 +8,10 @@
 			</a>
 			
       <div class="nav-collapse">
-				<% if session[:usuario] %>
+		<% if session[:usuario] %>
         	<ul class="nav">
-	      		<li><%# link_to image_tag("cne_logo.png", :border => 0), 'http://www.cne.gov.ve', :class => 'brand', :target => '_blank' %></li>
 			      <li><%= link_to 'Inicio', root_path, :class => 'brand' %></li>
 						<li class="divider-vertical"></li>
-
-						<li class="dropdown">
-					    <a class="dropdown-toggle"
-					       data-toggle="dropdown"
-					       href="#">
-					        Informe Web 
-					        <b class="caret"></b>
-					    </a>
-					    <ul class="dropdown-menu">
-								<li><%= link_to 'Lista de Informes', informes_path %></li>
-								<li><%= link_to 'Compilar Nuevo Informe', paso1_informes_path %></li>
-								<li><%= link_to 'Barrer Sitios Web', :action => 'paso1', :controller => 'wizard' %></li>
-								<li><%= link_to 'Crear Notas', new_nota_path %></li>           
-					    </ul>
-					  </li>
 
 						<li class="dropdown">
 					    <a class="dropdown-toggle"
@@ -37,36 +21,12 @@
 					        <b class="caret"></b>
 					    </a>
 					    <ul class="dropdown-menu">
-								<li><%= link_to 'Websites', websites_path %></li>
-								<li><%= link_to 'Notas', notas_path %></li>           
+								<li><%= link_to 'Medios', medios_path %></li>
+								<li><%= link_to 'Organizaciones', organizaciones_path %></li>
+								<li><%= link_to 'Actores', actores_path %></li>
 					    </ul>
 					  </li>
 							
-						<li class="dropdown">
-					    <a class="dropdown-toggle"
-					       data-toggle="dropdown"
-					       href="#">
-					        Asuntos y Temas
-					        <b class="caret"></b>
-					    </a>
-					    <ul class="dropdown-menu">
-								<li><%= link_to 'Temas', temas_path %></li>
-								<li><%= link_to 'Asunto', asuntos_path %></li>
-					    </ul>
-					  </li>
-
-						<li class="dropdown">
-					    <a class="dropdown-toggle"
-					       data-toggle="dropdown"
-					       href="#">
-					        Alertas
-					        <b class="caret"></b>
-					    </a>
-					    <ul class="dropdown-menu">
-								<li><%= link_to 'Lista de Alertas', alertas_path %></li>
-								<li><%= link_to 'Nueva Alerta', new_alerta_path %></li>
-					    </ul>
-					  </li>
 
         	</ul>
 					<div class= "pull-right" style="padding-top:10px;">
@@ -77,12 +37,9 @@
 					</div>
 					
 				<% else %>
-      	<ul class="nav row">
-	      	<li><%# link_to image_tag("cne_logo.png", :border => 0), 'http://www.cne.gov.ve', :class => 'brand', :target => '_blank' %></li>
-      	</ul>
-				<div class="pull-right" style="padding-top:8px;">
-					<%# link_to "Iniciar Sesión", "", :data => {:toggle => 'modal'}, :onclick => "return $('#iniciar_sesion').modal();", :style=> "text" %>
-				</div>
+					<div class="pull-right" style="padding-top:8px;">
+						<%= link_to "Iniciar Sesión", "", :data => {:toggle => 'modal'}, :onclick => "return $('#iniciar_sesion').modal();", :style=> "text" %>
+					</div>
 
 				<% end %>					
 
