@@ -2,7 +2,7 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<table class="table table-striped">
+<table class="table table-striped table-hover table-condensed">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
@@ -11,7 +11,6 @@
       <th><%= model_class.human_attribute_name(:tolda_id) %></th>
       <th><%= model_class.human_attribute_name(:organizacion_id) %></th>
       <th><%= model_class.human_attribute_name(:representante_legal) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -21,18 +20,25 @@
         <td><%= link_to actor.id, actor_path(actor) %></td>
         <td><%= actor.nombres %></td>
         <td><%= actor.cargo %></td>
-        <td><%= actor.tolda_id %></td>
-        <td><%= actor.organizacion_id %></td>
-        <td><%= actor.representante_legal %></td>
-        <td><%=l actor.created_at %></td>
+        <td><%= actor.tolda.description %></td>
+        <td><%= actor.organizacion.razon_social %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_actor_path(actor), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      actor_path(actor),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
+          <% if actor.representante_legal -%>
+            <i class="icon-ok"></i>
+          <% end -%>
+        </td>
+        <td>
+          <b class='tooltip-btn' data_toggle='tooltip' title='Editar Actor' >
+            <%= link_to edit_actor_path(actor), { :role => 'button', :class => 'btn btn-info btn-mini'} do %>
+              <%= content_tag(:i, "", class: "icon-edit icon-white") %>
+            <% end %>
+          </b>  
+
+          <b class='tooltip-btn' data_toggle='tooltip' title='Eliminar Actor' >
+            <%= link_to actor_path(actor), { :role => 'button', :class => 'btn btn-danger btn-mini', :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estas seguro de esta acción?')) }} do %>
+              <%= content_tag(:i, "", class: "icon-trash icon-white") %>
+            <% end %>
+          </b>
         </td>
       </tr>
     <% end %>

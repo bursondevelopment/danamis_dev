@@ -9,11 +9,17 @@
   <dt><strong><%= model_class.human_attribute_name(:cargo) %>:</strong></dt>
   <dd><%= @actor.cargo %></dd>
   <dt><strong><%= model_class.human_attribute_name(:tolda_id) %>:</strong></dt>
-  <dd><%= @actor.tolda_id %></dd>
+  <dd><%= @actor.tolda.description %></dd>
   <dt><strong><%= model_class.human_attribute_name(:organizacion_id) %>:</strong></dt>
-  <dd><%= @actor.organizacion_id %></dd>
+  <dd><%= @actor.organizacion.razon_social %></dd>
   <dt><strong><%= model_class.human_attribute_name(:representante_legal) %>:</strong></dt>
-  <dd><%= @actor.representante_legal %></dd>
+  <dd>
+
+    <% if @actor.representante_legal -%>
+      <i class="icon-ok"></i>
+    <% end %>    
+
+  </dd>
 </dl>
 
 <div class="form-actions">

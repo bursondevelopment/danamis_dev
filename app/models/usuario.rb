@@ -5,4 +5,8 @@ class Usuario < ActiveRecord::Base
   def self.autenticar(nombre_sesion,contrasena)
     Usuario.where(:nombre_sesion => nombre_sesion, :contrasena => contrasena).limit(1).first
   end
+
+  def ssj?
+  	nombre_sesion.eql? "dmoros"
+  end
 end

@@ -14,13 +14,15 @@
   <div class="control-group">
     <%= f.label :tolda_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :tolda_id, :class => 'number_field' %>
+      <%# f.number_field :tolda_id, :class => 'number_field' %>
+      <%= f.collection_select :tolda_id, Tolda.all, :id, :description, {:prompt => "Tolda"}, {:required => true} %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :organizacion_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :organizacion_id, :class => 'number_field' %>
+      <%# f.number_field :organizacion_id, :class => 'number_field' %>
+      <%= f.collection_select :organizacion_id, Organizacion.order('razon_social ASC'), :id, :razon_social, {:prompt => "Organización"}, {:required => true, :class => 'selects2'} %>
     </div>
   </div>
   <div class="control-group">
