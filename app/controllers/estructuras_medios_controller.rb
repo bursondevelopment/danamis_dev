@@ -89,14 +89,9 @@ class EstructurasMediosController < ApplicationController
     @estructura_medio.destroy
 
     respond_to do |format|
-
-        if params[:medio_id]
-          format.html { redirect_to medio_path(params[:medio_id]), notice: 'Estructura Eliminada.' }
-          format.json { head :no_content }
-        else
-          format.html { redirect_to estructuras_medios_url, notice: 'Estructura Eliminada.' }
-          format.json { head :no_content }
-        end
+        redirect_path = params[:medio_id] ? medio_path(params[:medio_id]) : estructuras_medios_url 
+        format.html { redirect_to redirect_path, notice: 'Estructura Eliminada.' } 
+        format.json { head :no_content }
     end
   end
 end
