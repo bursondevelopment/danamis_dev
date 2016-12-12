@@ -51,7 +51,7 @@ class EstructurasMediosController < ApplicationController
         if params[:medio_id]
           format.html { redirect_to medio_path(params[:medio_id]), notice: 'Estructura medio cargada con éxito.' }
         else
-          format.html { redirect_to @estructura_medio, notice: 'Estructura medio cargada con éxito..' }
+          format.html { redirect_to @estructura_medio, notice: 'Estructura medio cargada con éxito.' }
           format.json { render json: @estructura_medio, status: :created, location: @estructura_medio }
         end
       else

@@ -1,44 +1,70 @@
 <%- model_class = Adjunto -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-</div>
+<%- unless @medio%>
+  <div class="page-header">
+    <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  </div>
+<% end -%>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:id) unless @medio%></th>
       <th><%= model_class.human_attribute_name(:titulo) %></th>
       <th><%= model_class.human_attribute_name(:sumario) %></th>
       <th><%= model_class.human_attribute_name(:fecha) %></th>
       <th><%= model_class.human_attribute_name(:autor) %></th>
-      <th><%= model_class.human_attribute_name(:medio_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:medio_id) unless @medio %></th>
+      <th> Fecha Carga</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @adjuntos.each do |adjunto| %>
       <tr>
-        <td><%= link_to adjunto.id, adjunto_path(adjunto) %></td>
+        <td><%= link_to adjunto.id, adjunto_path(adjunto) unless @medio %></td>
         <td><%= adjunto.titulo %></td>
-        <td><%= adjunto.sumario %></td>
+        <td><%= link_to adjunto.sumario[0..100], adjunto.url, :target => '_blank' %></td>
         <td><%= adjunto.fecha %></td>
         <td><%= adjunto.autor %></td>
-        <td><%= adjunto.medio_id %></td>
+        <td><%= adjunto.medio.nombre.capitalize unless @medio %></td>
         <td><%=l adjunto.created_at %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_adjunto_path(adjunto), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      adjunto_path(adjunto),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
+          <% if @medio %>
+            <%- path = "#{edit_adjunto_path(adjunto)}?medio_id=#{@medio.id}" %>
+            <%- del_path = "#{adjunto_path(adjunto)}?medio_id=#{@medio.id}" %>
+          <% else %>
+            <%- path = edit_adjunto_path(adjunto) %>
+            <%- del_path = adjunto_path(adjunto) %>
+          <% end %>
+          <b class='tooltip-btn' data_toggle='tooltip' title='Ver enlace foraneo'>
+            <%= link_to adjunto.url, { :role => 'button', :class => 'btn btn-success btn-mini', :target => '_blank'} do %>
+              <%= content_tag(:i, "", class: "icon-share icon-white") %>
+            <% end %>
+          </b>
+
+          <b class='tooltip-btn' data_toggle='tooltip' title='Editar Nota Adjunta'>
+            <%= link_to path, { :role => 'button', :class => 'btn btn-info btn-mini'} do %>
+              <%= content_tag(:i, "", class: "icon-edit icon-white") %>
+            <% end %>
+          </b>  
+
+          <b class='tooltip-btn' data_toggle='tooltip' title='Eliminar Nota Adjunta' >
+            <%= link_to del_path, { :role => 'button', :class => 'btn btn-danger btn-mini', :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estas seguro de esta acción?')) }} do %>
+              <%= content_tag(:i, "", class: "icon-trash icon-white") %>
+            <% end %>
+          </b>
+
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<% if @medio %>
+  <%- path = "#{new_adjunto_path}?medio_id=#{@medio.id}" %>
+<% else %>
+  <%- path = new_adjunto_path %>
+<% end %>
+
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_adjunto_path,
-            :class => 'btn btn-primary' %>
+            path,
+            {:class => 'btn btn-primary'} %>

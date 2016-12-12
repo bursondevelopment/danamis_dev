@@ -3,36 +3,60 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:nombre) %>:</strong></dt>
-  <dd><%= @medio.nombre %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
-  <dd><%= @medio.url %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:descripcion) %>:</strong></dt>
-  <dd><%= @medio.descripcion %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:impacto) %>:</strong></dt>
-  <dd><%= @medio.impacto %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:tipo_medio_id) %>:</strong></dt>
-  <dd><%= @medio.tipo_medio.description %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:tipo_especializacion_id) %>:</strong></dt>
-  <dd><%= @medio.tipo_especializacion.description %></dd>
-</dl>
 
-<div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              medios_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_medio_path(@medio), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              medio_path(@medio),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+
+
+<ul class="nav nav-tabs" id="TabMedios">
+  <li class="active"><a href="#general">General</a></li>
+  <li><a href="#estructuras"><%= "Estructuras de sus páginas (#{@medio.estructura_medios.count})" %></a></li>
+  <li><a href="#adjuntos"><%= "Notas Adjuntas (#{@medio.adjuntos.count})" %></a></li>
+</ul>
+ 
+<div class="tab-content">
+  <div class="active tab-pane" id="general">
+    <dl class="dl-horizontal">
+      <dt><strong><%= model_class.human_attribute_name(:nombre) %>:</strong></dt>
+      <dd><%= @medio.nombre %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
+      <dd><%= @medio.url %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:descripcion) %>:</strong></dt>
+      <dd><%= @medio.descripcion %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:impacto) %>:</strong></dt>
+      <dd><%= @medio.impacto %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:tipo_medio_id) %>:</strong></dt>
+      <dd><%= @medio.tipo_medio.description %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:tipo_especializacion_id) %>:</strong></dt>
+      <dd><%= @medio.tipo_especializacion.description %></dd>
+    </dl>
+
+    <div class="form-actions">
+      <%= link_to t('.back', :default => t("helpers.links.back")),
+                  medios_path, :class => 'btn'  %>
+      <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_medio_path(@medio), :class => 'btn' %>
+      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  medio_path(@medio),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-danger' %>
+    </div>
+    
+  </div>
+  <div class="tab-pane" id="estructuras">
+    
+    <%- @estructuras_medios = @medio.estructura_medios %>
+    <%= render :file =>'/estructuras_medios/index', :layouts => false %>
+
+  </div>
+  <div class="tab-pane" id="adjuntos">
+    
+    <%- @adjuntos = @medio.adjuntos %>
+    <%= render :file =>'/adjuntos/index', :layouts => false %>
+
+  </div>
 </div>
+ 
 
-<div class='well well-small'>
-  <%- @estructuras_medios = @medio.estructura_medios %>
-  <h3>Estructuras de sus páginas</h3>
-  <%= render :file =>'/estructuras_medios/index', :layouts => false %>
 
-</div>
+
+

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class AdjuntosController < ApplicationController
   # GET /adjuntos
   # GET /adjuntos.json
@@ -25,6 +26,7 @@ class AdjuntosController < ApplicationController
   # GET /adjuntos/new.json
   def new
     @adjunto = Adjunto.new
+    @adjunto.medio_id = @medio_id = params[:medio_id] if params[:medio_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +37,7 @@ class AdjuntosController < ApplicationController
   # GET /adjuntos/1/edit
   def edit
     @adjunto = Adjunto.find(params[:id])
+    @medio_id = params[:medio_id] if params[:medio_id]    
   end
 
   # POST /adjuntos
@@ -44,8 +47,12 @@ class AdjuntosController < ApplicationController
 
     respond_to do |format|
       if @adjunto.save
-        format.html { redirect_to @adjunto, notice: 'Adjunto was successfully created.' }
-        format.json { render json: @adjunto, status: :created, location: @adjunto }
+        if params[:medio_id]
+          format.html { redirect_to medio_path(params[:medio_id]), notice: 'Nota Adjunta cargada con éxito.' }
+        else
+          format.html { redirect_to @adjunto, notice: 'Nota Adjunta cargada con éxito.' }
+          format.json { render json: @adjunto, status: :created, location: @adjunto }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @adjunto.errors, status: :unprocessable_entity }
@@ -60,11 +67,16 @@ class AdjuntosController < ApplicationController
 
     respond_to do |format|
       if @adjunto.update_attributes(params[:adjunto])
-        format.html { redirect_to @adjunto, notice: 'Adjunto was successfully updated.' }
-        format.json { head :no_content }
+        if params[:medio_id]
+          format.html { redirect_to medio_path(params[:medio_id]), notice: 'Nota Adjunta actualizada con éxito.' }
+        else
+          format.html { redirect_to @adjunto, notice: 'Nota Adjunta actualizada con éxito.' }
+          format.json { render json: @adjunto, status: :created, location: @adjunto }
+        end
       else
         format.html { render action: "edit" }
-        format.json { render json: @adjunto.errors, status: :unprocessable_entity }
+        format.json { render json: 
+          @adjunto.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -76,7 +88,8 @@ class AdjuntosController < ApplicationController
     @adjunto.destroy
 
     respond_to do |format|
-      format.html { redirect_to adjuntos_url }
+        redirect_path = params[:medio_id] ? medio_path(params[:medio_id]) : adjuntos_url 
+        format.html { redirect_to redirect_path, notice: 'Estructura Eliminada.' }
       format.json { head :no_content }
     end
   end

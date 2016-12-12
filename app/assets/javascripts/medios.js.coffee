@@ -5,4 +5,9 @@
 
 $(document).ready ->
   $('.tooltip-btn').tooltip()
+
+  $('#TabMedios a').click (e) ->
+    e.preventDefault()
+    $(this).tab 'show' 
   return
+

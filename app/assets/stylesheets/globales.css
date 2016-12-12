@@ -8,7 +8,14 @@
 .titulo {
 	padding: 2px 10px 2px 10px;
 	margin: 10px 0px 10px 0px;
-	background-color:lightblue;
+	background-color:aliceblue;
+	border-radius: 5px;	
+}
+
+.subtitulo{
+	padding: 2px 10px 2px 10px;
+	margin: 10px 0px 10px 0px;
+	background-color:lavender;
 	border-radius: 5px;	
 }
 .justificar {text-align: justify;}

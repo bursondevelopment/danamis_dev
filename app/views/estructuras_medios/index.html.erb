@@ -27,7 +27,7 @@
         <td><%= estructura_medio.titulo %></td>
         <td><%= estructura_medio.contenido %></td>
         <td><%= estructura_medio.fecha %></td>
-        <td><%= estructura_medio.medio_id unless @medio%></td>
+        <td><%= estructura_medio.medio.nombre.capitalize unless @medio%></td>
         <td>
           <b class='tooltip-btn' data_toggle='tooltip' title='Editar Estructura'>
             <% if @medio %>
