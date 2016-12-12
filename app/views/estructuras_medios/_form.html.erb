@@ -1,50 +1,54 @@
 <%= form_for @estructura_medio, :html => { :class => 'form-horizontal' } do |f| %>
+
   <div class="control-group">
     <%= f.label :url, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :url, :class => 'text_field' %>
+      <%= f.text_field :url, :class => 'text_field', :placeholder => "www.medio.com/pagina", :required => true %>
     </div>
   </div>
+
   <div class="control-group">
     <%= f.label :articulo, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :articulo, :class => 'text_field' %>
+      <%= f.text_field :articulo, :class => 'text_field', :placeholder => ".article", :required => true %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :titulo, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :titulo, :class => 'text_field' %>
+      <%= f.text_field :titulo, :class => 'text_field', :placeholder => "h1.title", :required => true %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :contenido, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :contenido, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :imagen, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :imagen, :class => 'text_field' %>
+      <%= f.text_field :contenido, :class => 'text_field', :placeholder => ".content"%>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :fecha, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :fecha, :class => 'text_field' %>
+      <%= f.text_field :fecha, :class => 'text_field', :placeholder => ".date" %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :medio_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :medio_id, :class => 'number_field' %>
+  <% if @estructura_medio.medio_id%>
+    <%= hidden_field_tag 'medio_id', @estructura_medio.medio_id %>
+    <%= f.hidden_field :medio_id %>
+  <% else %>
+    <div class="control-group">
+      <%= f.label :medio_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.collection_select :medio_id, Medio.order('nombre ASC'), :id, :nombre, {:prompt => "Medio"}, {:required => true} %>
+      </div>
     </div>
-  </div>
-
+  <% end %>
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                estructuras_medios_path, :class => 'btn' %>
+    <% if @estructura_medio.medio_id %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")), medio_path(@estructura_medio.medio_id), :class => 'btn' %>
+    <% else %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")), estructuras_medios_path, :class => 'btn' %>
+    <% end %>
+
   </div>
 <% end %>

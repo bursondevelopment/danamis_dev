@@ -29,3 +29,10 @@
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
 </div>
+
+<div class='well well-small'>
+  <%- @estructuras_medios = @medio.estructura_medios %>
+  <h3>Estructuras de sus páginas</h3>
+  <%= render :file =>'/estructuras_medios/index', :layouts => false %>
+
+</div>

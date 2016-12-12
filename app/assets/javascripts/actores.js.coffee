@@ -5,6 +5,5 @@
 
 
 $(document).ready ->
-  $('.tooltip-btn').tooltip()
-  $(".selects2").select2()
+  $('.tooltip-btn').tooltip();
   return

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class EstructurasMediosController < ApplicationController
   # GET /estructuras_medios
   # GET /estructuras_medios.json
@@ -25,7 +26,7 @@ class EstructurasMediosController < ApplicationController
   # GET /estructuras_medios/new.json
   def new
     @estructura_medio = EstructuraMedio.new
-
+    @estructura_medio.medio_id = params[:medio_id] if params[:medio_id]
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @estructura_medio }
@@ -44,8 +45,12 @@ class EstructurasMediosController < ApplicationController
 
     respond_to do |format|
       if @estructura_medio.save
-        format.html { redirect_to @estructura_medio, notice: 'Estructura medio was successfully created.' }
-        format.json { render json: @estructura_medio, status: :created, location: @estructura_medio }
+        if params[:medio_id]
+          format.html { redirect_to medio_path(params[:medio_id]), notice: 'Estructura medio cargada con éxito.' }
+        else
+          format.html { redirect_to @estructura_medio, notice: 'Estructura medio cargada con éxito..' }
+          format.json { render json: @estructura_medio, status: :created, location: @estructura_medio }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @estructura_medio.errors, status: :unprocessable_entity }
@@ -60,8 +65,12 @@ class EstructurasMediosController < ApplicationController
 
     respond_to do |format|
       if @estructura_medio.update_attributes(params[:estructura_medio])
-        format.html { redirect_to @estructura_medio, notice: 'Estructura medio was successfully updated.' }
-        format.json { head :no_content }
+        if params[:medio_id]
+          format.html { redirect_to medio_path(params[:medio_id]), notice: 'Estructura medio actualizada con éxito.' }
+        else
+          format.html { redirect_to @estructura_medio, notice: 'Estructura medio actualizada con éxito..' }
+          format.json { render json: @estructura_medio, status: :created, location: @estructura_medio }
+        end
       else
         format.html { render action: "edit" }
         format.json { render json: @estructura_medio.errors, status: :unprocessable_entity }

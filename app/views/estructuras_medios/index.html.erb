@@ -1,7 +1,10 @@
 <%- model_class = EstructuraMedio -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-</div>
+
+<%- unless @medio%>
+  <div class="page-header">
+    <h1>Estructura de los campos de los medios</h1>
+  </div>
+<% end -%>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -10,10 +13,8 @@
       <th><%= model_class.human_attribute_name(:articulo) %></th>
       <th><%= model_class.human_attribute_name(:titulo) %></th>
       <th><%= model_class.human_attribute_name(:contenido) %></th>
-      <th><%= model_class.human_attribute_name(:imagen) %></th>
       <th><%= model_class.human_attribute_name(:fecha) %></th>
-      <th><%= model_class.human_attribute_name(:medio_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:medio_id) unless @medio%></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -27,8 +28,7 @@
         <td><%= estructura_medio.contenido %></td>
         <td><%= estructura_medio.imagen %></td>
         <td><%= estructura_medio.fecha %></td>
-        <td><%= estructura_medio.medio_id %></td>
-        <td><%=l estructura_medio.created_at %></td>
+        <td><%= estructura_medio.medio_id unless @medio%></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_estructura_medio_path(estructura_medio), :class => 'btn btn-mini' %>
@@ -43,6 +43,13 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_estructura_medio_path,
-            :class => 'btn btn-primary' %>
+<% if @medio %>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              "#{new_estructura_medio_path}?medio_id=#{@medio.id}",
+              {:class => 'btn btn-primary'} %>
+<% else %>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_estructura_medio_path,
+              {:class => 'btn btn-primary'} %>
+<% end %>
+
