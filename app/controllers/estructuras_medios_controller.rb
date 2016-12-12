@@ -1,5 +1,7 @@
 # encoding: UTF-8
 class EstructurasMediosController < ApplicationController
+
+
   # GET /estructuras_medios
   # GET /estructuras_medios.json
   def index

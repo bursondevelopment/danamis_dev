@@ -14,4 +14,17 @@ class Medio < ActiveRecord::Base
   accepts_nested_attributes_for :estructura_medios
 
 
+  def importar_notas_medios_web
+    total = 0
+    begin
+      estructura_medios.each do |estructura_medio|
+        total = estructura_medio.importar_notas
+      end
+      return total
+    rescue Exception => ex
+      return ex
+    end
+  end
+
+
 end

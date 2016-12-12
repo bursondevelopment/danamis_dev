@@ -1,7 +1,33 @@
+# encoding: UTF-8
 class MediosController < ApplicationController
   # GET /medios
   # GET /medios.json
   before_filter :filtro_logueado
+
+
+  def barrer
+    if params[:id]
+      @medio = Medio.find(params[:id])
+      total = @medio.importar_notas_medios_web
+
+      if total.is_a? Numeric and total > 0 
+        flash[:success] = "Barrido exitoso de #{total} página(s)."
+      else
+        flash[:alert] = "No se cargaron nuevas páginas. Error: #{total}"
+      end
+      
+    else
+      @medios = Medio.all
+      total = ""
+      @medios.each do |medio|
+        total += "#{medio.descripcion}: #{medio.importar_notas_medios_web}"
+      end
+      flash[:success] = "Resultado: #{total}."
+    end
+            
+    redirect_to :back
+  end
+
   def index
     @medios = Medio.all
 

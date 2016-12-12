@@ -4,8 +4,14 @@
 </div>
 
 
-
-
+<b class='tooltip-btn' data_toggle='tooltip' title= "Barrer <%= @medio.descripcion %> " >
+  <%= link_to "", {:href => "/medios/barrer/#{@medio.id}", :class => 'btn'}, { :role => 'button', :data => {:toggle => 'modal'}} do %>
+    <%= "Barrer #{@medio.nombre}" %>
+    <%= content_tag(:i, "", class: "icon-road") %>
+  <% end %>
+</b>
+</br>
+</br>
 <ul class="nav nav-tabs" id="TabMedios">
   <li class="active"><a href="#general">General</a></li>
   <li><a href="#estructuras"><%= "Estructuras de sus páginas (#{@medio.estructura_medios.count})" %></a></li>
@@ -24,7 +30,7 @@
       <dt><strong><%= model_class.human_attribute_name(:impacto) %>:</strong></dt>
       <dd><%= @medio.impacto %></dd>
       <dt><strong><%= model_class.human_attribute_name(:tipo_medio_id) %>:</strong></dt>
-      <dd><%= @medio.tipo_medio.description %></dd>
+      <dd><%= @medio.tipo_medio.description.capitalize %></dd>
       <dt><strong><%= model_class.human_attribute_name(:tipo_especializacion_id) %>:</strong></dt>
       <dd><%= @medio.tipo_especializacion.description %></dd>
     </dl>

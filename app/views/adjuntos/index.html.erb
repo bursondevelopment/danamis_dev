@@ -7,12 +7,13 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) unless @medio%></th>
-      <th><%= model_class.human_attribute_name(:titulo) %></th>
-      <th><%= model_class.human_attribute_name(:sumario) %></th>
-      <th><%= model_class.human_attribute_name(:fecha) %></th>
-      <th><%= model_class.human_attribute_name(:autor) %></th>
-      <th><%= model_class.human_attribute_name(:medio_id) unless @medio %></th>
+      <% unless @medio %>      
+        <th>id</th>
+      <% end %>
+      <th style="width: 70%;">Descripción</th>
+      <%- unless @medio %>      
+      <th><%= model_class.human_attribute_name(:medio_id)%></th>
+      <% end -%>
       <th> Fecha Carga</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -20,12 +21,13 @@
   <tbody>
     <% @adjuntos.each do |adjunto| %>
       <tr>
-        <td><%= link_to adjunto.id, adjunto_path(adjunto) unless @medio %></td>
-        <td><%= adjunto.titulo %></td>
-        <td><%= link_to adjunto.sumario[0..100], adjunto.url, :target => '_blank' %></td>
-        <td><%= adjunto.fecha %></td>
-        <td><%= adjunto.autor %></td>
-        <td><%= adjunto.medio.nombre.capitalize unless @medio %></td>
+        <%- unless @medio %>
+          <td><%= link_to adjunto.id, adjunto_path(adjunto)%></td>        
+        <% end -%>
+        <td><p style="text-align=justify;"><%= link_to raw(adjunto.descripcion),  adjunto.url, :target => '_blank' %></p></td>
+        <%- unless @medio %>
+          <td><%= adjunto.medio.nombre.capitalize %></td>
+        <% end -%>          
         <td><%=l adjunto.created_at %></td>
         <td>
           <% if @medio %>
