@@ -5,38 +5,50 @@
     <h1>Estructura de los campos de los medios</h1>
   </div>
 <% end -%>
-<table class="table table-striped">
+<table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:id) unless @medio %></th>
       <th><%= model_class.human_attribute_name(:url) %></th>
       <th><%= model_class.human_attribute_name(:articulo) %></th>
       <th><%= model_class.human_attribute_name(:titulo) %></th>
       <th><%= model_class.human_attribute_name(:contenido) %></th>
       <th><%= model_class.human_attribute_name(:fecha) %></th>
-      <th><%= model_class.human_attribute_name(:medio_id) unless @medio%></th>
+      <th><%= model_class.human_attribute_name(:medio_id) unless @medio %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @estructuras_medios.each do |estructura_medio| %>
       <tr>
-        <td><%= link_to estructura_medio.id, estructura_medio_path(estructura_medio) %></td>
+        <td><%= link_to estructura_medio.id, estructura_medio_path(estructura_medio) unless @medio %></td>
         <td><%= estructura_medio.url %></td>
         <td><%= estructura_medio.articulo %></td>
         <td><%= estructura_medio.titulo %></td>
         <td><%= estructura_medio.contenido %></td>
-        <td><%= estructura_medio.imagen %></td>
         <td><%= estructura_medio.fecha %></td>
         <td><%= estructura_medio.medio_id unless @medio%></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_estructura_medio_path(estructura_medio), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      estructura_medio_path(estructura_medio),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
+          <b class='tooltip-btn' data_toggle='tooltip' title='Editar Estructura'>
+            <% if @medio %>
+              <%- path = "#{edit_estructura_medio_path(estructura_medio)}?medio_id=#{@medio.id}" %>
+              <%- del_path = "#{estructura_medio_path(estructura_medio)}?medio_id=#{@medio.id}" %>
+            <% else %>
+              <%- path = edit_estructura_medio_path(estructura_medio) %>
+              <%- del_path = estructura_medio_path(estructura_medio) %>
+
+            <% end %>
+            <%= link_to path, { :role => 'button', :class => 'btn btn-info btn-mini'} do %>
+              <%= content_tag(:i, "", class: "icon-edit icon-white") %>
+            <% end %>
+          </b>  
+
+          <b class='tooltip-btn' data_toggle='tooltip' title='Eliminar Estructura' >
+            <%= link_to del_path, { :role => 'button', :class => 'btn btn-danger btn-mini', :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estas seguro de esta acción?')) }} do %>
+              <%= content_tag(:i, "", class: "icon-trash icon-white") %>
+            <% end %>
+          </b>
+
         </td>
       </tr>
     <% end %>
@@ -44,12 +56,12 @@
 </table>
 
 <% if @medio %>
-  <%= link_to t('.new', :default => t("helpers.links.new")),
-              "#{new_estructura_medio_path}?medio_id=#{@medio.id}",
-              {:class => 'btn btn-primary'} %>
+  <%- path = "#{new_estructura_medio_path}?medio_id=#{@medio.id}" %>
 <% else %>
-  <%= link_to t('.new', :default => t("helpers.links.new")),
-              new_estructura_medio_path,
-              {:class => 'btn btn-primary'} %>
+  <%- path = new_estructura_medio_path %>
 <% end %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            path,
+            {:class => 'btn btn-primary'} %>
 

@@ -31,8 +31,8 @@
       <%= f.text_field :fecha, :class => 'text_field', :placeholder => ".date" %>
     </div>
   </div>
-  <% if @estructura_medio.medio_id%>
-    <%= hidden_field_tag 'medio_id', @estructura_medio.medio_id %>
+  <% if @medio_id %>
+    <%= hidden_field_tag 'medio_id', @medio_id %>
     <%= f.hidden_field :medio_id %>
   <% else %>
     <div class="control-group">
@@ -44,7 +44,7 @@
   <% end %>
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
-    <% if @estructura_medio.medio_id %>
+    <% if @medio_id %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")), medio_path(@estructura_medio.medio_id), :class => 'btn' %>
     <% else %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")), estructuras_medios_path, :class => 'btn' %>

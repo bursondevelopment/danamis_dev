@@ -26,7 +26,8 @@ class EstructurasMediosController < ApplicationController
   # GET /estructuras_medios/new.json
   def new
     @estructura_medio = EstructuraMedio.new
-    @estructura_medio.medio_id = params[:medio_id] if params[:medio_id]
+    @estructura_medio.medio_id = @medio_id = params[:medio_id] if params[:medio_id]
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @estructura_medio }
@@ -36,6 +37,8 @@ class EstructurasMediosController < ApplicationController
   # GET /estructuras_medios/1/edit
   def edit
     @estructura_medio = EstructuraMedio.find(params[:id])
+    @medio_id = params[:medio_id] if params[:medio_id]
+
   end
 
   # POST /estructuras_medios
@@ -67,8 +70,9 @@ class EstructurasMediosController < ApplicationController
       if @estructura_medio.update_attributes(params[:estructura_medio])
         if params[:medio_id]
           format.html { redirect_to medio_path(params[:medio_id]), notice: 'Estructura medio actualizada con éxito.' }
+#          format.json { render json: @estructura_medio, status: :created, location: @estructura_medio }
         else
-          format.html { redirect_to @estructura_medio, notice: 'Estructura medio actualizada con éxito..' }
+          format.html { redirect_to @estructura_medio, notice: 'Estructura medio actualizada con éxito.' }
           format.json { render json: @estructura_medio, status: :created, location: @estructura_medio }
         end
       else
@@ -85,8 +89,14 @@ class EstructurasMediosController < ApplicationController
     @estructura_medio.destroy
 
     respond_to do |format|
-      format.html { redirect_to estructuras_medios_url }
-      format.json { head :no_content }
+
+        if params[:medio_id]
+          format.html { redirect_to medio_path(params[:medio_id]), notice: 'Estructura Eliminada.' }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to estructuras_medios_url, notice: 'Estructura Eliminada.' }
+          format.json { head :no_content }
+        end
     end
   end
 end
