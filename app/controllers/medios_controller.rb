@@ -71,7 +71,7 @@ class MediosController < ApplicationController
 
     respond_to do |format|
       if @medio.save
-        format.html { redirect_to @medio, notice: 'Medio was successfully created.' }
+        format.html { redirect_to @medio, notice: 'Medio registrado con éxito.' }
         format.json { render json: @medio, status: :created, location: @medio }
       else
         format.html { render action: "new" }
@@ -87,7 +87,7 @@ class MediosController < ApplicationController
 
     respond_to do |format|
       if @medio.update_attributes(params[:medio])
-        format.html { redirect_to @medio, notice: 'Medio was successfully updated.' }
+        format.html { redirect_to @medio, notice: 'Medio actualizado con éxito.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

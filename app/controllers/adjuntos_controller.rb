@@ -2,6 +2,13 @@
 class AdjuntosController < ApplicationController
   # GET /adjuntos
   # GET /adjuntos.json
+  def borrar_total_adjuntos
+    sql = "TRUNCATE TABLE adjuntos"
+    ActiveRecord::Base.connection.execute(sql)
+    
+    redirect_to :back, notice: "Borrado total de Adjuntos"
+  end
+
   def index
     @adjuntos = Adjunto.all
 
@@ -89,7 +96,7 @@ class AdjuntosController < ApplicationController
 
     respond_to do |format|
         redirect_path = params[:medio_id] ? medio_path(params[:medio_id]) : adjuntos_url 
-        format.html { redirect_to redirect_path, notice: 'Estructura Eliminada.' }
+        format.html { redirect_to redirect_path, notice: 'Nota Adjunta Eliminada.' }
       format.json { head :no_content }
     end
   end

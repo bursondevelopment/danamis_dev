@@ -1,17 +1,26 @@
 <%- model_class = Medio -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h2><%= "#{@medio.nombre} - #{@medio.tipo_especializacion.description}"%></h2>
+  <div class="form-action">
+    <%= link_to t('.back', :default => t("helpers.links.back")), medios_path, :class => 'btn' %>
+    |
+    <b class='tooltip-btn' data_toggle='tooltip' title= "Barrer <%= @medio.descripcion %> " >
+      <%= link_to "", {:href => "/medios/barrer/#{@medio.id}", :class => 'btn btn-success'}, { :role => 'button', :data => {:toggle => 'modal'}} do %>
+        <%= "Barrer #{@medio.nombre}" %>
+        <%= content_tag(:i, "", class: "icon-globe icon-white") %>
+      <% end %>
+    </b>
+
+    <%= link_to 'Borrado total de notas adjuntas (uso temporal para pruebas)', '/adjuntos/borrar_total_adjuntos', :class => 'btn btn-danger pull-right', 'data-confirm' => 'Recuerde que esta acción es irreversible, ¿Está totalmente seguro?' %> 
+
+    <%# link_to t('.destroy', :default => t("helpers.links.destroy")),
+                "",
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-danger pull-right', :disabled => true %>
+  </div>
 </div>
 
 
-<b class='tooltip-btn' data_toggle='tooltip' title= "Barrer <%= @medio.descripcion %> " >
-  <%= link_to "", {:href => "/medios/barrer/#{@medio.id}", :class => 'btn'}, { :role => 'button', :data => {:toggle => 'modal'}} do %>
-    <%= "Barrer #{@medio.nombre}" %>
-    <%= content_tag(:i, "", class: "icon-road") %>
-  <% end %>
-</b>
-</br>
-</br>
 <ul class="nav nav-tabs" id="TabMedios">
   <li class="active"><a href="#general">General</a></li>
   <li><a href="#estructuras"><%= "Estructuras de sus páginas (#{@medio.estructura_medios.count})" %></a></li>
@@ -33,20 +42,18 @@
       <dd><%= @medio.tipo_medio.description.capitalize %></dd>
       <dt><strong><%= model_class.human_attribute_name(:tipo_especializacion_id) %>:</strong></dt>
       <dd><%= @medio.tipo_especializacion.description %></dd>
-    </dl>
-
-    <div class="form-actions">
-      <%= link_to t('.back', :default => t("helpers.links.back")),
-                  medios_path, :class => 'btn'  %>
-      <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                  edit_medio_path(@medio), :class => 'btn' %>
-      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                  medio_path(@medio),
-                  :method => 'delete',
-                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                  :class => 'btn btn-danger' %>
-    </div>
+      <dt></dt>
+      <dd>
+        <e class='tooltip-btn' data_toggle='tooltip' title= "Editar" >
+          <%= link_to "", {:href => edit_medio_path(@medio), :class => 'btn btn-info'}, { :role => 'button', :data => {:toggle => 'modal'}} do %>
+            <%= "Editar" %>
+            <%= content_tag(:i, "", class: "icon-edit icon-white") %>
+          <% end %>
+        </e>
+      </dd>
     
+    
+    </dl>
   </div>
   <div class="tab-pane" id="estructuras">
     

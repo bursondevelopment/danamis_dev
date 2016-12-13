@@ -14,7 +14,13 @@ Dunamis::Application.routes.draw do
 
   resources :actores
 
-  resources :adjuntos
+  resources :adjuntos do
+    
+    collection do
+      get :borrar_total_adjuntos
+    end
+
+  end
 
   resources :organizaciones
 
