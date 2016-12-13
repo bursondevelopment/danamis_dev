@@ -17,7 +17,7 @@ Dunamis::Application.routes.draw do
   resources :adjuntos do
     
     collection do
-      get :borrar_total_adjuntos
+      get :eliminar_total_adjuntos
     end
 
   end

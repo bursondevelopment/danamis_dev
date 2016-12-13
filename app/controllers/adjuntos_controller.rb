@@ -2,11 +2,11 @@
 class AdjuntosController < ApplicationController
   # GET /adjuntos
   # GET /adjuntos.json
-  def borrar_total_adjuntos
+  def eliminar_total_adjuntos
+    total_inicial = Adjunto.all.count
     sql = "TRUNCATE TABLE adjuntos"
     ActiveRecord::Base.connection.execute(sql)
-    
-    redirect_to :back, notice: "Borrado total de Adjuntos"
+    redirect_to :back, notice: "#{total_inicial} Nota(s) adjunta(s) eliminadas del sistema"
   end
 
   def index
