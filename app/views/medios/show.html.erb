@@ -13,8 +13,8 @@
     </b>
 
     <e class='tooltip-btn' data_toggle='tooltip' title= "Sólo para uso temporal de pruebas" >
-      <%= link_to "", {:href => "/adjuntos/eliminar_total_adjuntos", :class => 'btn btn-danger pull-right'} do %>
-        <%= "Eliminar total de notas adjuntas" %>
+      <%= link_to "", {:href => "/adjuntos/eliminar_total_adjuntos/#{@medio.id}", :class => 'btn btn-danger pull-right'} do %>
+        <%= "Eliminar notas adjuntas" %>
         <%= content_tag(:i, "", class: "icon-exclamation-sign icon-white") %>
       <% end -%>
     </e>
@@ -38,9 +38,12 @@
       <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
       <dd><%= @medio.url %></dd>
       <dt><strong><%= model_class.human_attribute_name(:descripcion) %>:</strong></dt>
-      <dd><%= @medio.descripcion %></dd>
+      <dd><%= link_to @medio.descripcion, @medio.url, :target => '_blank' %></dd>
+
       <dt><strong><%= model_class.human_attribute_name(:impacto) %>:</strong></dt>
       <dd><%= @medio.impacto %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:vpe) %>:</strong></dt>
+      <dd><%= @medio.vpe %></dd>
       <dt><strong><%= model_class.human_attribute_name(:tipo_medio_id) %>:</strong></dt>
       <dd><%= @medio.tipo_medio.description.capitalize %></dd>
       <dt><strong><%= model_class.human_attribute_name(:tipo_especializacion_id) %>:</strong></dt>
@@ -49,10 +52,16 @@
       <dd>
         <e class='tooltip-btn' data_toggle='tooltip' title= "Editar" >
           <%= link_to "", {:href => edit_medio_path(@medio), :class => 'btn btn-info'}, { :role => 'button'} do %>
-            <%= "Editar" %>
+            <%# "Editar" %>
             <%= content_tag(:i, "", class: "icon-edit icon-white") %>
           <% end %>
         </e>
+        |
+        <b class='tooltip-btn' data_toggle='tooltip' title="ir a <%=@medio.descripcion %>" >
+            <%= link_to @medio.url, { :role => 'button', :class => 'btn', :target => '_blank'} do %>
+              <%= content_tag(:i, "", class: "icon-share") %>
+            <% end %>
+          </b>
       </dd>
     
     

@@ -18,16 +18,16 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :impacto, :class => 'control-label' %>
+    <%= f.label :vpe, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :impacto, :class => 'number_field' %>
+      <%= f.number_field :vpe, :class => 'number_field' %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :tipo_medio_id, :class => 'control-label' %>
     <div class="controls">
       <%# f.number_field :tipo_medio_id, :class => 'number_field' %>
-      <%= f.collection_select :tipo_medio_id, TipoMedio.all, :id, :description, {:prompt => "Medio"}, {:required => true} %>
+      <%= f.collection_select :tipo_medio_id, TipoMedio.all, :id, :descripcion_cap, {:prompt => "Medio"}, {:required => true} %>
     </div>
   </div>
   <div class="control-group">

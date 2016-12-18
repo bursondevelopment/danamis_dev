@@ -9,7 +9,7 @@
     <%= f.label :entorno_id, :class => 'control-label' %>
     <div class="controls">
       <%# f.collection_select :entorno_id, Entorno.all, :id, :nombre, {:prompt => "Entorno"}, {:required => true} %>
-      <%= f.collection_select :entorno_id, Entorno.order('nombre ASC'), :id, :nombre, {:prompt => "Entorno"}, {:required => true, :class => 'selects2'} %>
+      <%= f.collection_select :entorno_id, Entorno.order('nombre ASC'), :id, :nombre, {:prompt => "Entorno"}, { :class => 'selects2'} %>
       <%# f.number_field :entorno_id, :class => 'number_field' %>
     </div>
   </div>

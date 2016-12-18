@@ -4,4 +4,8 @@ class TipoMedio < ActiveRecord::Base
   has_many :medios
   accepts_nested_attributes_for :medios
 
+  def descripcion_cap
+  	description.capitalize
+  end
+
 end

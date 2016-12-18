@@ -1,6 +1,14 @@
 <%- model_class = Medio -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+
+  <e class='tooltip-btn' data_toggle='tooltip' title= "Sólo para uso temporal de pruebas" >
+    <%= link_to "", {:href => "/adjuntos/eliminar_total_adjuntos", :class => 'btn btn-danger pull-right'} do %>
+      <%= "Eliminar notas adjuntas" %>
+      <%= content_tag(:i, "", class: "icon-exclamation-sign icon-white") %>
+    <% end -%>
+  </e>
+
 </div>
 <table class="table table-striped table-hover table-condensed">
   <thead>
@@ -8,6 +16,7 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:nombre) %></th>
       <th><%= model_class.human_attribute_name(:descripcion) %></th>
+      <th><%= model_class.human_attribute_name(:vpe) %></th>
       <th><%= model_class.human_attribute_name(:impacto) %></th>
       <th>Especialidad</th>
       <th>Adjuntos</th>
@@ -19,7 +28,8 @@
       <tr>
         <td><%= link_to medio.id, medio_path(medio) %></td>
         <td><%= medio.nombre %></td>
-        <td><%= link_to medio.descripcion, medio.url, :target => '_blank' %></td>
+        <td><%= link_to medio.descripcion, medio_path(medio) %></td>
+        <td><%= medio.vpe %></td>
         <td><%= medio.impacto %></td>
         <td><%= medio.tipo_especializacion.description.capitalize %></td>
         <td><%= medio.adjuntos.count %></td>
@@ -35,6 +45,12 @@
               <%= content_tag(:i, "", class: "icon-edit icon-white") %>
             <% end %>
           </b>
+          |
+          <b class='tooltip-btn' data_toggle='tooltip' title="ir a <%=medio.descripcion %>" >
+            <%= link_to medio.url, { :role => 'button', :class => 'btn btn-mini', :target => '_blank'} do %>
+              <%= content_tag(:i, "", class: "icon-share") %>
+            <% end %>
+          </b>          
         </td>
       </tr>
     <% end %>

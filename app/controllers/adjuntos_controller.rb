@@ -3,9 +3,16 @@ class AdjuntosController < ApplicationController
   # GET /adjuntos
   # GET /adjuntos.json
   def eliminar_total_adjuntos
-    total_inicial = Adjunto.all.count
-    sql = "TRUNCATE TABLE adjuntos"
-    ActiveRecord::Base.connection.execute(sql)
+    if params[:id]
+      total_inicial = Adjunto.all.count
+      sql = "DELETE FROM adjuntos WHERE medio_id = #{params[:id]} "
+      ActiveRecord::Base.connection.execute(sql)
+    else
+      total_inicial = Adjunto.all.count
+      sql = "TRUNCATE TABLE adjuntos"
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     redirect_to :back, notice: "#{total_inicial} Nota(s) adjunta(s) eliminadas del sistema"
   end
 
