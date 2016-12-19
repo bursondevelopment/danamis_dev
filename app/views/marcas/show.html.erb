@@ -1,0 +1,52 @@
+<%- model_class = Marca -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:nombre) %>:</strong></dt>
+  <dd><%= @marca.nombre %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:organizacion_id) %>:</strong></dt>
+  <dd><%= @marca.organizacion.razon_social %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              marcas_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_marca_path(@marca), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              marca_path(@marca),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
+
+
+<div class='well well-small'>
+
+<%-@productos = @marca.productos%>
+
+<% if @productos.count > 0 %>
+  <h3 id="productos">Productos</h3>
+  <% @productos.each do |producto| -%>
+    <h6><%= producto.nombre -%></h6>
+  <%- end -%>
+<% end %>
+<%= form_tag({:controller => 'productos_marcas', :action => 'create'}, {:remote => true}) do |f| %>
+
+  <div class="control-group">
+    <div class="controls">
+      <h6>
+
+      <%= hidden_field_tag 'producto_marca[marca_id]', @marca.id %>
+
+      <%# select_tag "producto_marca[producto_id]", options_from_collection_for_select(Producto.joins(:marcas).where("productos_marcas.marca_id <> #{@marca.id}" ), :id, :nombre, :required => true), { :class => 'selects2 span3', :prompt => "Productos"} %>
+      <%= select_tag "producto_marca[producto_id]", options_from_collection_for_select(Producto.all, :id, :nombre, :required => true), { :class => 'selects2 span3', :prompt => "Productos"} %>
+      |
+      <%= submit_tag 'Agregar Producto', :class => 'btn btn-small btn-primary' %>
+      </h6>
+    </div>
+  </div>
+<% end %>
+</div>

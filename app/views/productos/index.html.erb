@@ -1,6 +1,10 @@
 <%- model_class = Producto -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %>
+    <%= link_to t('.new', :default => t("helpers.links.new")),
+            new_producto_path,
+            :class => 'btn btn-primary' %>
+  </h1>
 </div>
 <table class="table table-striped">
   <thead>
@@ -8,8 +12,8 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:nombre) %></th>
       <th><%= model_class.human_attribute_name(:descripcion) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th>Marcas</th>
+      
     </tr>
   </thead>
   <tbody>
@@ -18,7 +22,8 @@
         <td><%= link_to producto.id, producto_path(producto) %></td>
         <td><%= producto.nombre %></td>
         <td><%= producto.descripcion %></td>
-        <td><%=l producto.created_at %></td>
+        <td><%= producto.marcas.collect{|c| c.nombre}.join(",") %></td>
+
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_producto_path(producto), :class => 'btn btn-mini' %>
@@ -36,3 +41,5 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_producto_path,
             :class => 'btn btn-primary' %>
+
+

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ProductosController < ApplicationController
   # GET /productos
   # GET /productos.json
@@ -44,7 +45,7 @@ class ProductosController < ApplicationController
 
     respond_to do |format|
       if @producto.save
-        format.html { redirect_to @producto, notice: 'Producto was successfully created.' }
+        format.html { redirect_to @producto, notice: 'Producto registrado con éxito.' }
         format.json { render json: @producto, status: :created, location: @producto }
       else
         format.html { render action: "new" }

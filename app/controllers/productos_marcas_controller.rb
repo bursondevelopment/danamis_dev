@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ProductosMarcasController < ApplicationController
   # GET /productos_marcas
   # GET /productos_marcas.json
@@ -44,11 +45,30 @@ class ProductosMarcasController < ApplicationController
 
     respond_to do |format|
       if @producto_marca.save
-        format.html { redirect_to @producto_marca, notice: 'Producto marca was successfully created.' }
+        format.html { redirect_to @producto_marca, notice: 'Producto Marca Registrado con éxito.' }
         format.json { render json: @producto_marca, status: :created, location: @producto_marca }
+        @marca = @producto_marca.marca
+        @productos = @producto_marca.productos
+        format.js { render @productos, status: :created, location: @productos}
       else
         format.html { render action: "new" }
         format.json { render json: @producto_marca.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def create_remote
+    1/0
+    @marca = Marca.find(params[:id])
+
+    @producto_marca = ProductoMarca.new(params[:pm])
+    #@producto = @marca.productos.create(params[:producto])
+      
+    respond_to do |format|
+      if @producto_marca.save 
+        format.html {redirect_to :back}
+        format.js {render js: @producto}
+      else
       end
     end
   end
@@ -60,7 +80,7 @@ class ProductosMarcasController < ApplicationController
 
     respond_to do |format|
       if @producto_marca.update_attributes(params[:producto_marca])
-        format.html { redirect_to @producto_marca, notice: 'Producto marca was successfully updated.' }
+        format.html { redirect_to @producto_marca, notice: 'Producto Marca Actualizado.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

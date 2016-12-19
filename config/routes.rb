@@ -1,5 +1,13 @@
 Dunamis::Application.routes.draw do
 
+  resources :marcas do
+    resources :productos_marcas do
+      collection do
+        get :create_remote
+      end
+    end
+  end
+
   resources :usuarios
 
   resources :medio_organizaciones
@@ -30,7 +38,11 @@ Dunamis::Application.routes.draw do
 
   resources :claves
 
-  resources :productos
+#  resources :productos
+
+  resources :productos do
+    resources :productos_marcas
+  end
 
   resources :entornos
 

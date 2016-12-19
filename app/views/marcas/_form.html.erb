@@ -1,0 +1,21 @@
+<%= form_for @marca, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :nombre, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :nombre, :class => 'text_field', :autofocus => true, :placeholder => "Nombre de la Marca", :required => true %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :organizacion_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :organizacion_id, @clientes, :id, :razon_social, {:prompt => "Clientes", :required => true}, { :class => 'selects2 span3'} %>
+      <%# f.number_field :organizacion_id, :class => 'number_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                marcas_path, :class => 'btn' %>
+  </div>
+<% end %>

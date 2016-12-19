@@ -1,0 +1,32 @@
+RECOLETO TAREAS
+
+Para el Medio
+
+ -Tipos Medios: Impreso Digital
+
+ - Tipo Especializacion: Portal de Noticias | Portal Web Especializado | Versión Web de TV | Versión Web de Radio | Versión Web de Impreso
+
+ Para la Organización:
+
+  - Clase: Gobierno | Corporación | Oposición
+
+  - Interna: Competencia | Cliente | Entorno
+
+  - Externa: Empresarial | Ejecutivo
+
+  - Ambito: Nacional | Internacional | Local
+
+  Actor:
+
+  - Tolda: ProGobierno | ProOposición | No Definido
+
+  filtro_logueado_ssj
+
+
+TAREAS:
+
+verificar funcionamiento de Select2. 
+
+implantar will paginate bootstrap
+
+Plugin Ordenar tables 

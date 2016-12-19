@@ -1,25 +1,22 @@
-<%= form_for(@producto_marca) do |f| %>
-  <% if @producto_marca.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@producto_marca.errors.count, "error") %> prohibited this producto_marca from being saved:</h2>
-
-      <ul>
-      <% @producto_marca.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @producto_marca, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :producto_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :producto_id, Producto.order('nombre ASC'), :id, :nombre, {:prompt => "Productos", :required => true, :autofocus => true}, { :class => 'selects2 span3'} %>
+      <%# f.number_field :producto_id, :class => 'number_field' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :marca_id, :class => 'control-label' %>
+    <div class="controls">
+      <%# f.number_field :marca_id, :class => 'number_field' %>
+      <%= f.collection_select :marca_id, Marca.order('nombre ASC'), :id, :nombre, {:prompt => "Marcas", :required => true}, { :class => 'selects2 span3'} %>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :producto %><br />
-    <%= f.text_field :producto %>
-  </div>
-  <div class="field">
-    <%= f.label :marca %><br />
-    <%= f.text_field :marca %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                productos_marcas_path, :class => 'btn' %>
   </div>
 <% end %>
