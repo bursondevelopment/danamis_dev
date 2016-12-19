@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161218235002) do
+ActiveRecord::Schema.define(:version => 20161219185159) do
 
   create_table "actores", :force => true do |t|
     t.string   "nombres"
@@ -32,9 +32,10 @@ ActiveRecord::Schema.define(:version => 20161218235002) do
     t.string   "fecha"
     t.string   "autor"
     t.integer  "medio_id"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
     t.text     "url"
+    t.boolean  "valida",                         :default => false
   end
 
   add_index "adjuntos", ["medio_id"], :name => "index_adjuntos_on_medio_id"
@@ -153,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20161218235002) do
     t.integer  "clase_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "usuario_id"
   end
 
   add_index "organizaciones", ["ambito_id"], :name => "index_organizaciones_on_ambito_id"
@@ -160,6 +162,7 @@ ActiveRecord::Schema.define(:version => 20161218235002) do
   add_index "organizaciones", ["entorno_id"], :name => "index_organizaciones_on_entorno_id"
   add_index "organizaciones", ["externa_id"], :name => "index_organizaciones_on_externa_id"
   add_index "organizaciones", ["interna_id"], :name => "index_organizaciones_on_interna_id"
+  add_index "organizaciones", ["usuario_id"], :name => "index_organizaciones_on_usuario_id"
 
   create_table "productos", :force => true do |t|
     t.string   "nombre"

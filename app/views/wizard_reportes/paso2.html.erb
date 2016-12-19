@@ -1,0 +1,18 @@
+<h3><%="Usuario: #{@cliente.usuario.nombre}"%></h3>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Descripcion</th>
+			<th>Opciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%- @notas_cliente_razon.each do |notas| %>
+			<tr>
+				<td><%= raw notas.descripcion_completa %></td>
+				<td><%= link_to 'opciones'%></td>
+			</tr>
+		<% end -%>
+	</tbody>
+</table>

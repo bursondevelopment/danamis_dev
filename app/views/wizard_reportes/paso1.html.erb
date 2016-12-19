@@ -1,0 +1,24 @@
+<br>
+<div class="well well-small">
+	<h3>
+		Wizard Monitoreo de Clientes >>
+		<b><%=@titulo%></b>
+	</h3>
+
+	<h4>Selecionados por el Usuario:</h4>
+	<%- if @mis_clientes.count <= 0 %>
+		<p class= 'label label-info'>Sin Clientes Seleccionados</p>
+	<%else%>
+		<%- @mis_clientes.each do |cliente| %>
+			<%= link_to cliente.razon_social, {:action => 'paso1_liberar', :id => cliente.id}, :class => 'btn' %>
+		<% end -%>
+	<% end -%>
+	<h4>Selecionados Pendientes por asignar:</h4>
+	<%- if @clientes_libres.count <= 0 %>
+		<p class= 'label label-info'>Sin clientes pendientes</p>
+	<%else%>
+		<%- @clientes_libres.each do |cliente| %>
+			<%= link_to cliente.razon_social, {:action => :paso2, :id => cliente.id}, :class => 'btn' %>
+		<% end -%>
+	<% end -%>
+</div>

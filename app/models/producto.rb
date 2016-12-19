@@ -7,8 +7,6 @@ class Producto < ActiveRecord::Base
   validates_presence_of :nombre
   validates :nombre, :uniqueness => true
 
-
-
   def descripcion_completa
   	aux = "#{nombre}"
   	aux += " - #{descripcion}" if descripcion
