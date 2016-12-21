@@ -15,7 +15,7 @@ class Adjunto < ActiveRecord::Base
   # scope :organizacion, lambda {|name| where(["name ILIKE ? OR aliases ILIKE ?","%#{name}%","%#{name}%"])}
   # scope :creadas_hoy_no_incluidas_en_resumen, -> resumen_id {creadas_hoy.validas.where("resumen_id != ? OR resumen_id IS ?", resumen_id, nil)}
 
-  scope :buscar_clave_general, lambda {|clave| where('sumario LIKE ? OR titulo LIKE ? OR autor LIKE ? OR url LIKE ?',"%#{clave}%","%#{clave}%","%#{clave}%","%#{clave}%")}
+  scope :buscar_clave_general, lambda {|clave| where('sumario LIKE ? OR titulo LIKE ? OR autor LIKE ? OR url LIKE ?',"% #{clave} %","% #{clave} %","% #{clave} %","% #{clave} %")}
     
   scope :creadas_hoy, -> {where("created_at >= ?", Date.today)}
   

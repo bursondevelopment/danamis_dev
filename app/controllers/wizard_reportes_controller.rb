@@ -9,7 +9,7 @@ class WizardReportesController < ApplicationController
   # mensaje: "Se procederá a hacer un barrido previo para obtener resultados de notas más recientes, por favor espere"
 
   def paso1
-    @titulo = "Selección de Clientes"
+    @titulo = "(Selección de Clientes)"    
     @clientes_libres = Organizacion.clientes.where(:usuario_id => nil).order('razon_social ASC')
     @mis_clientes = Organizacion.clientes.where(:usuario_id => session[:usuario].id).order('razon_social ASC')
     
@@ -25,31 +25,82 @@ class WizardReportesController < ApplicationController
   end
 
   def paso2
+    @titulo = "(Preselección de Notas)"
     @cliente = Organizacion.find params[:id]
     @cliente.usuario_id = session[:usuario].id
     @cliente.save
 
-    # hacer un grupo que contenga todas las palabras claves
-    # - Palabras claves del cliente:
     # Razon social
-    notas_cliente_razon = Adjunto.creadas_hoy.buscar_clave_general @cliente.razon_social
+    @total_notas = Adjunto.creadas_hoy.buscar_clave_general @cliente.razon_social
+
+    @notas_cliente_razon_social = Adjunto.creadas_hoy.buscar_clave_general @cliente.razon_social
 
     #representante
     representantes = @cliente.actores
+    
+    @notas_cliente_representante = Adjunto.where("1 = 0")
+    @notas_cliente_cargo = Adjunto.where("1 = 0")
+    
     if representantes.count > 0
-      # notas_cliente_representantes = Hash.new
       representantes.each do |representante|
-#        notas_cliente_representantes = Adjunto.creadas_hoy.buscar_clave_general(representante.nombres)
- #       notas_cliente_representantes = Adjunto.creadas_hoy.buscar_clave_general(representante.cargo)
+        @total_notas += Adjunto.creadas_hoy.buscar_clave_general(representante.nombres)
+        @notas_cliente_representante += Adjunto.creadas_hoy.buscar_clave_general(representante.nombres)
+
+        @total_notas += Adjunto.creadas_hoy.buscar_clave_general(representante.cargo)
+        @notas_cliente_cargo += Adjunto.creadas_hoy.buscar_clave_general(representante.cargo)
       end
     end
-    @total_notas = notas_cliente_razon#.merge(notas_cliente_representantes)
 
-    #@notas_cliente_razon = @notas_cliente_razon.merge(@notas_cliente_razon)    
+    # Medios y Productos
+    marcas = @cliente.marcas
 
-    # Lista de Cliente Medios
+    @notas_cliente_marcas = Adjunto.where("1 = 0")
+    @notas_cliente_productos = Adjunto.where("1 = 0")
+    if marcas.count > 0
 
-    # Gerarquizarlo
+      marcas.each do |marca|
+        @total_notas += Adjunto.creadas_hoy.buscar_clave_general(marca.nombre)
+        @notas_cliente_marcas += Adjunto.creadas_hoy.buscar_clave_general(marca.nombre)
+        productos = marca.productos
+        productos.each do |producto|
+          @total_notas += Adjunto.creadas_hoy.buscar_clave_general(producto.nombre)
+          @notas_cliente_productos += Adjunto.creadas_hoy.buscar_clave_general(producto.nombre)
+        end
+      end
+    end
+
+    @total_notas_cliente = @notas_cliente_razon_social.count + @notas_cliente_representante.count + @notas_cliente_cargo.count + @notas_cliente_marcas.count + @notas_cliente_productos.count
+
+
+    # Entorno
+    @total_notas += Adjunto.creadas_hoy.buscar_clave_general(@cliente.entorno.nombre)
+    @notas_entorno = Adjunto.creadas_hoy.buscar_clave_general(@cliente.entorno.nombre)
+
+    #Competencia
+
+    competencias = @cliente.competencia
+
+    @notas_competencias = Adjunto.where("1 = 0")
+    if competencias.count > 0
+      competencias.each do |competencia|
+        @total_notas += Adjunto.creadas_hoy.buscar_clave_general(competencia.razon_social)
+        @notas_competencias += Adjunto.creadas_hoy.buscar_clave_general(competencia.razon_social)
+      end
+    end
+
+    # Claves de Entorno
+    palabras_claves = @cliente.entorno.claves
+
+    @notas_entorno_claves = Adjunto.where("1 = 0")
+    if palabras_claves.count > 0
+      palabras_claves.each do |clave|
+        @total_notas += Adjunto.creadas_hoy.buscar_clave_general(clave.valor)
+        @notas_entorno_claves += Adjunto.creadas_hoy.buscar_clave_general(clave.valor)
+      end
+    end
+    @total_notas_entorno = @notas_entorno.count + @notas_entorno_claves.count
+
+    @total_notas = @total_notas.uniq
 
   end
 

@@ -1,9 +1,15 @@
+<div id="wizard_bar">
+	<div class="form-actions">
+	  <h3><%= "Wizard Reportes: #{action_name} #{@titulo}" %> </h3>
+	    <%# link_to 'Atrás', {action: 'paso1'}, class: 'btn' %>
+	    <%# link_to 'Siguiente', 'paso3', :class => 'btn pull-right btn-primary' %>
+	</div>
+
+</div>
+
+
 <br>
 <div class="well well-small">
-	<h3>
-		Wizard Monitoreo de Clientes >>
-		<b><%=@titulo%></b>
-	</h3>
 
 	<h4>Selecionados por el Usuario:</h4>
 	<%- if @mis_clientes.count <= 0 %>

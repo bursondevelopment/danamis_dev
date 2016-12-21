@@ -1,25 +1,72 @@
-<h3><%="Usuario: #{@cliente.usuario.nombre}"%></h3>
+<div id="wizard_bar">
+	<div class="form-actions">
+	  <h3><%= "Wizard Reportes: #{action_name} #{@titulo}" %> </h3>
+	    <%= link_to 'Atrás', {action: 'paso1'}, class: 'btn' %>
+	    <%= link_to 'Siguiente', 'paso3', class: 'btn pull-right btn-primary', disabled: true %>
+	</div>
 
-<table class="table">
-	<thead>
-		<tr>
-			<th>Descripcion</th>
-			<th>Opciones</th>
-		</tr>
-	</thead>
-	<tbody>
-		<%- @total_notas.each do |notas| %>
-			<tr>
-				<td>
-					<div class="media">
-						<div class="media-body">
-							<h4><%= notas.titulo %></h4>
-							<%= raw notas.descripcion_completa %>
-						</div>
-					</div>
-				</td>
-				<td><%= link_to 'opciones'%></td>
-			</tr>
-		<% end -%>
-	</tbody>
-</table>
+</div>
+
+<ul class="nav nav-tabs" id="TabMedios">
+  <li class="active"><a href="#resumen"><%="Resumen (#{@total_notas.count})"%></a></li>
+  <li><a href="#cliente"><%="Cliente (#{@total_notas_cliente})"%></a></li>
+  <li><a href="#competencia"><%="Competencia (#{@notas_competencias.count})"%></a></li>
+  <li><a href="#entorno"><%="Entorno (#{@total_notas_entorno})"%></a></li>
+</ul>
+
+
+
+<div class="tab-content">
+
+  <div class="active tab-pane" id="resumen">
+  	<%-@notas = @total_notas %>
+  	<%= render partial: 'tabla_adjuntos' if @notas %>
+  </div>
+  <div class="tab-pane" id="cliente">
+  	<%-@notas = @notas_cliente_razon_social %>
+  	<h3>Razón Social</h3>
+  	<%= render partial: 'tabla_adjuntos' if @notas %>
+
+  	<%-@notas = @notas_cliente_representante%>
+  	<h3>Representantes</h3>
+  	<%= render partial: 'tabla_adjuntos' if @notas %>
+
+  	<%-@notas = @notas_cliente_cargo%>
+  	<h3>Cargos</h3>
+  	<%= render partial: 'tabla_adjuntos' if @notas %>
+
+  	<%-@notas = @notas_cliente_marcas %>
+  	<h3>Marcas</h3>
+  	<%= render partial: 'tabla_adjuntos' if @notas %>
+
+  	<%-@notas = @notas_cliente_productos%>
+  	<h3>Productos</h3>
+  	<%= render partial: 'tabla_adjuntos' if @notas %>
+
+
+  </div>
+
+  <div class="tab-pane" id="competencia">
+  	<%-@notas = @notas_competencias %>
+  	<h3>Competencia</h3>
+  	<%= render partial: 'tabla_adjuntos' if @notas %>
+  </div>
+
+
+  <div class="tab-pane" id="entorno">
+  	<%-@notas = @notas_entorno%>
+  	<h3>Entorno</h3>
+  	<%= render partial: 'tabla_adjuntos' if @notas %>
+
+  	<%-@notas = @notas_entorno_claves %>
+  	<h3>Palabras Claves</h3>
+  	<%= render partial: 'tabla_adjuntos' if @notas %>
+
+  </div>
+
+
+</div>
+
+
+
+

@@ -28,4 +28,8 @@ class Organizacion < ActiveRecord::Base
 
   scope :clientes, joins(:interna).where("description = 'Cliente'")
 
+  def competencia
+    entorno.organizaciones.where('id != ?', id)
+  end
+
 end
