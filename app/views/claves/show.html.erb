@@ -1,20 +1,25 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Clave -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <b>Valor:</b>
-  <%= @clave.valor %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:valor) %>:</strong></dt>
+  <dd><%= @clave.valor %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:incluyente) %>:</strong></dt>
+  <dd><%= @clave.incluyente %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:entorno_id) %>:</strong></dt>
+  <dd><%= @clave.entorno_id %></dd>
+</dl>
 
-<p>
-  <b>Incluyente:</b>
-  <%= @clave.incluyente %>
-</p>
-
-<p>
-  <b>Entorno:</b>
-  <%= @clave.entorno %>
-</p>
-
-
-<%= link_to 'Edit', edit_clave_path(@clave) %> |
-<%= link_to 'Back', claves_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              claves_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_clave_path(@clave), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              clave_path(@clave),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

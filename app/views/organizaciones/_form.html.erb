@@ -5,14 +5,17 @@
       <%= f.text_field :razon_social, :class => 'text_field', :autofocus => true, :placeholder => "Nombre de la Organización", :required => true %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :entorno_id, :class => 'control-label' %>
-    <div class="controls">
-      <%# f.collection_select :entorno_id, Entorno.all, :id, :nombre, {:prompt => "Entorno"}, {:required => true} %>
-      <%= f.collection_select :entorno_id, Entorno.order('nombre ASC'), :id, :nombre, {:prompt => "Entorno"}, { :class => 'selects2 span3'} %>
-      <%# f.number_field :entorno_id, :class => 'number_field' %>
+  <%- if @entorno %>
+    <%= f.hidden_field :entorno_id %>
+    <%= hidden_field_tag :entorno, true %>
+  <% else %>
+    <div class="control-group">
+      <%= f.label :entorno_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.collection_select :entorno_id, Entorno.order('nombre ASC'), :id, :nombre, {:prompt => "Entorno"}, { :class => 'selects2 span3'} %>
+      </div>
     </div>
-  </div>
+  <% end -%>
   <div class="control-group">
     <%= f.label :interna_id, :class => 'control-label' %>
     <div class="controls">
@@ -43,11 +46,15 @@
       <%# f.number_field :clase_id, :class => 'number_field' %>
     </div>
   </div>
-
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+    <%- if @entorno %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                entorno_path(@organizacion.entorno), :class => 'btn' %>
+    <% else %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 organizaciones_path, :class => 'btn' %>
+    <% end %>
   </div>
 <% end %>
 

@@ -8,9 +8,16 @@
 		</tr>
 	</thead>
 	<tbody>
-		<%- @notas_cliente_razon.each do |notas| %>
+		<%- @total_notas.each do |notas| %>
 			<tr>
-				<td><%= raw notas.descripcion_completa %></td>
+				<td>
+					<div class="media">
+						<div class="media-body">
+							<h4><%= notas.titulo %></h4>
+							<%= raw notas.descripcion_completa %>
+						</div>
+					</div>
+				</td>
 				<td><%= link_to 'opciones'%></td>
 			</tr>
 		<% end -%>

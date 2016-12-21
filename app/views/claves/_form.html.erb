@@ -1,29 +1,38 @@
-<%= form_for(@clave) do |f| %>
-  <% if @clave.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@clave.errors.count, "error") %> prohibited this clave from being saved:</h2>
-
-      <ul>
-      <% @clave.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @clave, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= label_tag :multi, '¿MultiClaves?', {:class => 'control-label'} %>
+    <div class="controls">
+      <%= check_box_tag :multi, true, :class => 'check_box' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :valor, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :valor, :class => 'text_field', :size => '5x4', :autofocus => true, :placeholder => "Incluye multiple palabras claves separadas por ';'. Recuerda activar la casilla de arriba MultiClaves.", :required => true %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :incluyente, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :incluyente, :checked => true, :class => 'check_box' %>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :valor %><br />
-    <%= f.text_field :valor %>
+<%- if controller_name.eql? 'entornos' %>
+  <%= f.hidden_field :entorno_id %>
+<% else %>
+  <div class="control-group">
+    <%= f.label :entorno_id, :class => 'control-label' %>
+    <div class="controls">
+      <%# f.number_field :entorno_id, :class => 'number_field' %>
+      <%= f.collection_select :entorno_id, Entorno.order('nombre ASC'), :id, :nombre, {:prompt => "Entorno", :required => true}, { :class => 'selects2 span3'} %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :incluyente %><br />
-    <%= f.check_box :incluyente %>
-  </div>
-  <div class="field">
-    <%= f.label :entorno %><br />
-    <%= f.text_field :entorno %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+<% end -%>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                claves_path, :class => 'btn' %>
   </div>
 <% end %>

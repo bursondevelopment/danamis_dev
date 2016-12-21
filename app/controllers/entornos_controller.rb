@@ -14,7 +14,8 @@ class EntornosController < ApplicationController
   # GET /entornos/1.json
   def show
     @entorno = Entorno.find(params[:id])
-
+    @clave = Clave.new
+    @clave.entorno_id = @entorno.id
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @entorno }
@@ -25,6 +26,7 @@ class EntornosController < ApplicationController
   # GET /entornos/new.json
   def new
     @entorno = Entorno.new
+    @entorno.organizacion_id = params[:organizacion_id] if params[:organizacion_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +37,8 @@ class EntornosController < ApplicationController
   # GET /entornos/1/edit
   def edit
     @entorno = Entorno.find(params[:id])
+    @entorno.organizacion_id = params[:organizacion_id] if params[:organizacion_id]
+    
   end
 
   # POST /entornos

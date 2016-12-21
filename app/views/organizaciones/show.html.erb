@@ -29,3 +29,35 @@
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
 </div>
+
+  <ul class="nav nav-tabs" id="TabMedios">
+    <li class="active"><a href="#actores">Actores</a></li>
+    <%- if @organizacion.interna.description.eql? 'Cliente' %>
+      <li><a href="#marcas">Marcas</a></li>
+    <% end -%>
+  </ul>
+
+  <div class="tab-content">
+
+    <div class="active tab-pane" id="actores">
+      <%- @actores = @organizacion.actores %>
+      <%= render file: '/actores/index', layouts: false %>
+      <%= link_to 'Agregar' , "javascript:void(0)", onclick: "$('#nuevo_actor').show(300); $(this).hide();", class: 'btn btn-primary' %>
+
+      <div id="nuevo_actor" style="display: none;">
+        <%= render partial: '/actores/form' %>
+      </div>
+    </div>
+    <%- if @organizacion.interna.description.eql? 'Cliente' %>  
+      <div class="tab-pane" id="marcas">
+        <%- @marcas = @organizacion.marcas %>
+        <%= render file: '/marcas/index', :layouts => false %>
+        <%= link_to 'Agregar' , "javascript:void(0)", onclick: "$('#nueva_marca').show(300); $(this).hide();", class: 'btn btn-primary' %>
+
+        <div id="nueva_marca" style="display: none;">
+          <%= render partial: '/marcas/form' %>
+        </div>
+
+      </div>
+    <% end -%>
+  </div>

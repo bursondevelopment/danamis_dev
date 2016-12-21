@@ -1,18 +1,24 @@
+
 <%- model_class = Marca -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %>
-    <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_marca_path,
-            :class => 'btn btn-primary' %>
-  </h1>
-</div>
-<table class="table table-striped">
+<%- if controller_name.eql? 'marcas' %>
+  <div class="page-header">
+    <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %>
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_marca_path,
+              :class => 'btn btn-primary' %>
+    </h1>
+  </div>
+<% end -%>  
+
+<table class="table table-striped table-hover table-condensed">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:nombre) %></th>
-      <th><%= model_class.human_attribute_name(:organizacion_id) %></th>
-      <th>Productos</th>
+      <%- unless controller_name.eql? 'organizaciones' %>
+        <th><%= model_class.human_attribute_name(:organizacion_id) %></th>
+      <% end -%>
+      <th style="width: 50%;">Productos</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -21,22 +27,39 @@
       <tr>
         <td><%= link_to marca.id, marca_path(marca) %></td>
         <td><%= marca.nombre %></td>
-        <td><%= marca.organizacion.razon_social %></td>
+        <%- unless controller_name.eql? 'organizaciones' %>
+          <td><%= marca.organizacion.razon_social %></td>
+        <% end -%>
         <td><%= marca.productos.collect{|c| c.nombre}.join(",") %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_marca_path(marca), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      marca_path(marca),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
+
+
+          <%- edit_marca_path_temp = edit_marca_path(marca) %>
+          <%- edit_marca_path_temp += "?organizacion_id=#{marca.organizacion_id}" if controller_name.eql? 'organizaciones' %>
+
+          <b class='tooltip-btn' data_toggle='tooltip' title='Editar marca' >
+            <%= link_to edit_marca_path_temp, { :role => 'button', :class => 'btn btn-info btn-mini'} do %>
+              <%= content_tag(:i, "", class: "icon-edit icon-white") %>
+            <% end %>
+          </b>  
+
+          <%- marca_path_temp = marca_path(marca) %>
+          <%- marca_path_temp += "?organizacion=#{marca.organizacion_id}" if controller_name.eql? 'organizaciones' %>
+
+          <b class='tooltip-btn' data_toggle='tooltip' title='Eliminar marca' >
+            <%= link_to marca_path_temp, { :role => 'button', :class => 'btn btn-danger btn-mini', :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estas seguro de esta acción?')) }} do %>
+              <%= content_tag(:i, "", class: "icon-trash icon-white") %>
+            <% end %>
+          </b>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
+<%- if controller_name.eql? 'marcas' %>
+
+  <%= link_to t('.new', :default => t("helpers.links.new")),
             new_marca_path,
             :class => 'btn btn-primary' %>
+<% end -%>

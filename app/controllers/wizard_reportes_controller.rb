@@ -30,9 +30,22 @@ class WizardReportesController < ApplicationController
     @cliente.save
 
     # hacer un grupo que contenga todas las palabras claves
-    # - Palabras claves del cliente: razon social
+    # - Palabras claves del cliente:
+    # Razon social
+    notas_cliente_razon = Adjunto.creadas_hoy.buscar_clave_general @cliente.razon_social
 
-    @notas_cliente_razon = Adjunto.creadas_hoy.buscar_clave_general @cliente.razon_social
+    #representante
+    representantes = @cliente.actores
+    if representantes.count > 0
+      # notas_cliente_representantes = Hash.new
+      representantes.each do |representante|
+#        notas_cliente_representantes = Adjunto.creadas_hoy.buscar_clave_general(representante.nombres)
+ #       notas_cliente_representantes = Adjunto.creadas_hoy.buscar_clave_general(representante.cargo)
+      end
+    end
+    @total_notas = notas_cliente_razon#.merge(notas_cliente_representantes)
+
+    #@notas_cliente_razon = @notas_cliente_razon.merge(@notas_cliente_razon)    
 
     # Lista de Cliente Medios
 

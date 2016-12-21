@@ -1,21 +1,46 @@
 <%- model_class = Entorno -%>
 <div class="page-header">
-  <h1>Actividad Económica</h1>
+  <h2>Actividad Económica: </h2>
+  <h3>
+
+
+
+    <%= link_to t('.back', :default => t("helpers.links.back")), entornos_path, :class => 'btn' %>
+    <%= @entorno.nombre %> 
+
+    <b class='tooltip-btn' data_toggle='tooltip' title= "Editar" >
+      <%= link_to "", {:href => edit_entorno_path(@entorno), :class => 'btn btn-info'}, { :role => 'button'} do %>
+        <%= content_tag(:i, "", class: "icon-edit icon-white") %>
+      <% end %>
+    </b>
+
+  </h3>
+
+<ul class="nav nav-tabs" id="TabMedios">
+  <li class="active"><a href="#claves">Palabras Claves</a></li>
+  <li><a href="#clientes">Clientes</a></li>
+</ul>
+
+<div class="tab-content">
+
+  <div class="active tab-pane" id="claves">
+    <%- @claves = @entorno.claves%>
+    <%= render file:'/claves/index', layouts: false %>
+
+      <%= link_to 'Agregar' , "javascript:void(0)", onclick: "$('#nueva_clave').show(300); $(this).hide();", class: 'btn btn-primary' %>
+
+      <div id="nueva_clave" style="display: none;">
+        <h4>Agregar Clave:</h4>
+        <%= render partial: '/claves/form' %>
+      </div>
+
+  </div>
+  <div class="tab-pane" id="clientes">
+    <%- @organizaciones = @entorno.organizaciones %>
+    <%= render :file =>'/organizaciones/index', :layouts => false %>
+    <%= link_to t('.new', :default => t("helpers.links.new")), "#{new_organizacion_path}?entorno_id=#{@entorno.id}", :class => 'btn btn-primary' %>
+  </div>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:nombre) %>:</strong></dt>
-  <dd><%= @entorno.nombre %></dd>
-</dl>
 
-<div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              entornos_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_entorno_path(@entorno), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              entorno_path(@entorno),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
-</div>
+

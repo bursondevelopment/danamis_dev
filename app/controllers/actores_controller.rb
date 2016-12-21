@@ -4,8 +4,7 @@ class ActoresController < ApplicationController
   # GET /actores.json
   before_filter :filtro_logueado
   def index
-    @actores = Actor.all
-
+    @actores = Actor.order('nombres ASC')
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @actores }
@@ -27,7 +26,7 @@ class ActoresController < ApplicationController
   # GET /actores/new.json
   def new
     @actor = Actor.new
-
+    @actor.organizacion_id = params[:organizacion_id] if params[:organizacion_id]
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @actor }
@@ -37,6 +36,7 @@ class ActoresController < ApplicationController
   # GET /actores/1/edit
   def edit
     @actor = Actor.find(params[:id])
+    @organizacion = params[:organizacion_id] if params[:organizacion_id] 
   end
 
   # POST /actores
@@ -46,7 +46,11 @@ class ActoresController < ApplicationController
 
     respond_to do |format|
       if @actor.save
-        format.html { redirect_to @actor, notice: 'Actor registrado con éxito.' }
+        if params[:organizacion]
+          format.html { redirect_to "/organizaciones/#{@actor.organizacion_id}", notice: 'Actor registrado con éxito.' }
+        else
+          format.html { redirect_to @actor, notice: 'Actor registrado con éxito.' }
+        end
         format.json { render json: @actor, status: :created, location: @actor }
       else
         format.html { render action: "new" }
@@ -59,10 +63,14 @@ class ActoresController < ApplicationController
   # PUT /actores/1.json
   def update
     @actor = Actor.find(params[:id])
-
     respond_to do |format|
       if @actor.update_attributes(params[:actor])
-        format.html { redirect_to @actor, notice: 'Actor registrado con éxito.' }
+
+        if params[:organizacion]
+          format.html { redirect_to "/organizaciones/#{@actor.organizacion_id}", notice: 'Actor actualizado con éxito.' }
+        else
+          format.html { redirect_to @actor, notice: 'Actor actualizado con éxito.' }
+        end
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -78,7 +86,11 @@ class ActoresController < ApplicationController
     @actor.destroy
 
     respond_to do |format|
-      format.html { redirect_to actores_url }
+      if params[:organizacion]
+        format.html { redirect_to "/organizaciones/#{params[:organizacion]}", notice: 'Actor eliminado del sistema.' }
+      else
+        format.html { redirect_to actores_url, notice: 'Actor eliminado del sistema.' }
+      end
       format.json { head :no_content }
     end
   end

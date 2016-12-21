@@ -5,8 +5,13 @@ class OrganizacionesController < ApplicationController
 
   before_filter :filtro_logueado
   def index
-    @organizaciones = Organizacion.all
-
+    if params[:clientes]
+      @organizaciones = Organizacion.clientes 
+      @titulo = "Clientes"
+    else
+      @organizaciones = Organizacion.all
+      @titulo = "Organizaciones"
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @organizaciones }
@@ -17,7 +22,10 @@ class OrganizacionesController < ApplicationController
   # GET /organizaciones/1.json
   def show
     @organizacion = Organizacion.find(params[:id])
-
+    @actor = Actor.new
+    @actor.organizacion_id = @organizacion.id
+    @marca = Marca.new
+    @marca.organizacion_id = @organizacion.id
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @organizacion }
@@ -28,6 +36,10 @@ class OrganizacionesController < ApplicationController
   # GET /organizaciones/new.json
   def new
     @organizacion = Organizacion.new
+    if params[:entorno_id]
+      @organizacion.entorno_id = params[:entorno_id]
+      @entorno = true
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,6 +50,10 @@ class OrganizacionesController < ApplicationController
   # GET /organizaciones/1/edit
   def edit
     @organizacion = Organizacion.find(params[:id])
+    if params[:entorno_id]
+      @organizacion.entorno_id = params[:entorno_id]
+      @entorno = true
+    end
   end
 
   # POST /organizaciones
@@ -47,7 +63,11 @@ class OrganizacionesController < ApplicationController
 
     respond_to do |format|
       if @organizacion.save
-        format.html { redirect_to @organizacion, notice: 'Organizacion registrada con éxito.' }
+        if params[:entorno]
+          format.html { redirect_to entorno_path(@organizacion.entorno), notice: 'Organizacion registrada con éxito.' }
+        else
+          format.html { redirect_to @organizacion, notice: 'Organizacion registrada con éxito.' }
+        end
         format.json { render json: @organizacion, status: :created, location: @organizacion }
       else
         format.html { render action: "new" }
@@ -63,7 +83,11 @@ class OrganizacionesController < ApplicationController
 
     respond_to do |format|
       if @organizacion.update_attributes(params[:organizacion])
-        format.html { redirect_to @organizacion, notice: 'Organizacion editada con éxito.' }
+        if params[:entorno]
+          format.html { redirect_to entorno_path(@organizacion.entorno), notice: 'Organizacion registrada con éxito.' }
+        else
+          format.html { redirect_to @organizacion, notice: 'Organizacion registrada con éxito.' }
+        end
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -76,10 +100,15 @@ class OrganizacionesController < ApplicationController
   # DELETE /organizaciones/1.json
   def destroy
     @organizacion = Organizacion.find(params[:id])
+    @entorno = @organizacion.entorno if params[:entorno]
     @organizacion.destroy
 
     respond_to do |format|
-      format.html { redirect_to organizaciones_url }
+      if params[:entorno]
+        format.html { redirect_to entorno_path(@entorno), notice: 'Organización Eliminada' }
+      else
+        format.html { redirect_to organizaciones_url, notice: 'Organización Eliminada' }
+      end
       format.json { head :no_content }
     end
   end

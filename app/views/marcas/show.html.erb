@@ -12,7 +12,7 @@
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              marcas_path, :class => 'btn'  %>
+              organizacion_path(@marca.organizacion), :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_marca_path(@marca), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
@@ -25,28 +25,31 @@
 
 <div class='well well-small'>
 
-<%-@productos = @marca.productos%>
+  <%-@productos = @marca.productos%>
 
-<% if @productos.count > 0 %>
-  <h3 id="productos">Productos</h3>
-  <% @productos.each do |producto| -%>
-    <h6><%= producto.nombre -%></h6>
-  <%- end -%>
-<% end %>
-<%= form_tag({:controller => 'productos_marcas', :action => 'create'}, {:remote => true}) do |f| %>
+  <% if @productos.count > 0 %>
+    <h3>Productos</h3>
+      <%= render file: '/productos/index', :layouts => false %>
+  <% end %>
+  <%= link_to 'Agregar' , "javascript:void(0)", onclick: "$('#nuevo_producto').show(300); $(this).hide();", class: 'btn btn-primary' %>
 
-  <div class="control-group">
-    <div class="controls">
-      <h6>
+  <div id="nuevo_producto" style="display: none;">
 
-      <%= hidden_field_tag 'producto_marca[marca_id]', @marca.id %>
+    <%= form_tag({:controller => 'productos_marcas', :action => 'create'}, {:remote => true}) do |f| %>
 
-      <%# select_tag "producto_marca[producto_id]", options_from_collection_for_select(Producto.joins(:marcas).where("productos_marcas.marca_id <> #{@marca.id}" ), :id, :nombre, :required => true), { :class => 'selects2 span3', :prompt => "Productos"} %>
-      <%= select_tag "producto_marca[producto_id]", options_from_collection_for_select(Producto.all, :id, :nombre, :required => true), { :class => 'selects2 span3', :prompt => "Productos"} %>
-      |
-      <%= submit_tag 'Agregar Producto', :class => 'btn btn-small btn-primary' %>
-      </h6>
-    </div>
+      <div class="control-group">
+        <div class="controls">
+          <h6>
+
+          <%= hidden_field_tag 'producto_marca[marca_id]', @marca.id %>
+
+          <%= select_tag "producto_marca[producto_id]", options_from_collection_for_select(Producto.all, :id, :nombre, :required => true), { :class => 'selects2 span3', :prompt => "Productos"} %>
+          |
+          <%= submit_tag 'Asociar Producto', :onclick => 'location.reload();', :class => 'btn btn-small btn-primary' %>
+          </h6>
+        </div>
+      </div>
+    <% end %>
+
   </div>
-<% end %>
 </div>

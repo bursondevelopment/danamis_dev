@@ -24,7 +24,7 @@
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              actores_path, :class => 'btn'  %>
+              organizacion_path(@actor.organizacion), :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_actor_path(@actor), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

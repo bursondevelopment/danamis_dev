@@ -5,17 +5,22 @@
       <%= f.text_field :nombre, :class => 'text_field', :autofocus => true, :placeholder => "Nombre de la Marca", :required => true %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :organizacion_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.collection_select :organizacion_id, @clientes, :id, :razon_social, {:prompt => "Clientes", :required => true}, { :class => 'selects2 span3'} %>
-      <%# f.number_field :organizacion_id, :class => 'number_field' %>
-    </div>
-  </div>
 
+  <%- if controller_name.eql? 'organizaciones' or @organizacion %>
+    <%= f.hidden_field :organizacion_id%>
+    <%= hidden_field_tag :organizacion, true %> 
+  <% else %>
+    <div class="control-group">
+      <%= f.label :organizacion_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.collection_select :organizacion_id, @clientes, :id, :razon_social, {:prompt => "Clientes", :required => true}, { :class => 'selects2 span3'} %>
+        <%# f.number_field :organizacion_id, :class => 'number_field' %>
+      </div>
+    </div>
+  <% end -%>
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                marcas_path, :class => 'btn' %>
+                organizacion_path(@marca.organizacion), :class => 'btn' %>
   </div>
 <% end %>

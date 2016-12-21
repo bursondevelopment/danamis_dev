@@ -1,27 +1,50 @@
-<h1>Listing claves</h1>
-
-<table>
-  <tr>
-    <th>Valor</th>
-    <th>Incluyente</th>
-    <th>Entorno</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @claves.each do |clave| %>
-  <tr>
-    <td><%= clave.valor %></td>
-    <td><%= clave.incluyente %></td>
-    <td><%= clave.entorno %></td>
-    <td><%= link_to 'Show', clave %></td>
-    <td><%= link_to 'Edit', edit_clave_path(clave) %></td>
-    <td><%= link_to 'Destroy', clave, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<%- model_class = Clave -%>
+<%- if controller_name.eql? 'clave' %>
+  <div class="page-header">
+    <h1>Palabras Claves
+      <%= link_to 'Nueva',
+              new_clave_path,
+              :class => 'btn btn-primary' %>    
+    </h1>
+  </div>
+<% end -%>  
+<table class="table table-striped table-hover table-condensed">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:valor) %></th>
+      <th><%= model_class.human_attribute_name(:incluyente) %></th>
+      <%- if controller_name.eql? 'claves' %>
+        <th><%= model_class.human_attribute_name(:entorno_id) %></th>
+      <% end -%>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @claves.each do |clave| %>
+      <tr>
+        <td><%= clave.valor %></td>
+        <td>
+          <% if clave.incluyente -%>
+            <i class="icon-ok"></i>
+          <% end -%>
+        </td>
+        <%- if controller_name.eql? 'claves' %>
+          <td><%= clave.entorno.nombre if clave.entorno %></td>
+        <% end -%>
+        <td>
+          <b class='tooltip-btn' data_toggle='tooltip' title='Eliminar palabra clave' >
+            <%= link_to clave_path(clave), { :role => 'button', :class => 'btn btn-danger btn-mini', :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estas seguro de esta acción?')) }} do %>
+              <%= content_tag(:i, "", class: "icon-trash icon-white") %>
+            <% end %>
+          </b>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
+<%- if controller_name.eql? 'clave' %>
 
-<br />
-
-<%= link_to 'New Clave', new_clave_path %>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+            new_clave_path,
+            :class => 'btn btn-primary' %>
+<% end -%>

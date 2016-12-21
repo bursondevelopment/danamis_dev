@@ -3,8 +3,7 @@ class MarcasController < ApplicationController
   # GET /marcas
   # GET /marcas.json
   def index
-    @marcas = Marca.all
-
+    @marcas = Marca.order('nombre ASC')
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @marcas }
@@ -15,7 +14,7 @@ class MarcasController < ApplicationController
   # GET /marcas/1.json
   def show
     @marca = Marca.find(params[:id])
-
+    @producto = Producto.new
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @marca }
@@ -36,6 +35,7 @@ class MarcasController < ApplicationController
   # GET /marcas/1/edit
   def edit
     @marca = Marca.find(params[:id])
+    @clientes = Organizacion.clientes
   end
 
   # POST /marcas

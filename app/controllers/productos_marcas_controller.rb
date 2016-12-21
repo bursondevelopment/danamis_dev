@@ -93,10 +93,11 @@ class ProductosMarcasController < ApplicationController
   # DELETE /productos_marcas/1.json
   def destroy
     @producto_marca = ProductoMarca.find(params[:id])
+    @marca = @producto_marca.marca
     @producto_marca.destroy
 
     respond_to do |format|
-      format.html { redirect_to productos_marcas_url }
+      format.html { redirect_to marca_path(@marca) }
       format.json { head :no_content }
     end
   end
