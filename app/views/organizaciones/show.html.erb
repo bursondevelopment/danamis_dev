@@ -7,7 +7,7 @@
   <dt><strong><%= model_class.human_attribute_name(:razon_social) %>:</strong></dt>
   <dd><%= @organizacion.razon_social %></dd>
   <dt><strong><%= model_class.human_attribute_name(:entorno_id) %>:</strong></dt>
-  <dd><%= @organizacion.entorno.nombre %></dd>
+  <dd><%= link_to @organizacion.entorno.nombre, entorno_path(@organizacion.entorno)%></dd>
   <dt><strong><%= "Cl. #{model_class.human_attribute_name(:interna_id)}" %>:</strong></dt>
   <dd><%= @organizacion.interna.description %></dd>
   <dt><strong><%= "Cl. #{model_class.human_attribute_name(:externa_id)}" %>:</strong></dt>
@@ -34,6 +34,7 @@
     <li class="active"><a href="#actores">Actores</a></li>
     <%- if @organizacion.interna.description.eql? 'Cliente' %>
       <li><a href="#marcas">Marcas</a></li>
+      <li><a href="#medios">Medios</a></li>
     <% end -%>
   </ul>
 
@@ -59,5 +60,13 @@
         </div>
 
       </div>
+      <div class="tab-pane" id="medios">
+        <%- @medios = @organizacion.medios %>
+        <%= render file: '/medios/index', :layouts => false %>
+        <%= link_to 'Agregar' , "javascript:void(0)", onclick: "$('#nuevo_medio').show(300); $(this).hide();", class: 'btn btn-primary' %>
+
+        <div id="nuevo_medio" style="display: none;">
+          <%= render partial: '/medio_organizaciones/form' %>
+      </div>      
     <% end -%>
   </div>

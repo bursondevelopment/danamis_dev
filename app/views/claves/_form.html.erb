@@ -1,16 +1,17 @@
 <%= form_for @clave, :html => { :class => 'form-horizontal' } do |f| %>
-  <div class="control-group">
-    <%= label_tag :multi, '¿MultiClaves?', {:class => 'control-label'} %>
-    <div class="controls">
-      <%= check_box_tag :multi, true, :class => 'check_box' %>
+
+  <b class='tooltip-btn' data_toggle='tooltip' title="Incluye múltiples palabras o fraces separados por ';'" >
+
+    <div class="control-group">
+      <%= f.label :valor, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_area :valor, :class => 'text_field', :size => '5x2', :autofocus => true, :placeholder => "Chocolate;Café;Cacao", :required => true %>
+
+      </div>
     </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :valor, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :valor, :class => 'text_field', :size => '5x4', :autofocus => true, :placeholder => "Incluye multiple palabras claves separadas por ';'. Recuerda activar la casilla de arriba MultiClaves.", :required => true %>
-    </div>
-  </div>
+  </b>
+
+
   <div class="control-group">
     <%= f.label :incluyente, :class => 'control-label' %>
     <div class="controls">

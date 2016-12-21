@@ -3,7 +3,7 @@ class ProductosController < ApplicationController
   # GET /productos
   # GET /productos.json
   def index
-    @productos = Producto.all
+    @productos = Producto.order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -40,18 +40,31 @@ class ProductosController < ApplicationController
 
   # POST /productos
   # POST /productos.json
-  def create
-    @producto = Producto.new(params[:producto])
 
-    respond_to do |format|
-      if @producto.save
-        format.html { redirect_to @producto, notice: 'Producto registrado con éxito.' }
-        format.json { render json: @producto, status: :created, location: @producto }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @producto.errors, status: :unprocessable_entity }
+
+  def create
+
+    producto = params[:producto]
+    palabras = producto[:nombre].split(";")
+    errores = ""
+    total = 0
+    palabras.each_with_index do |pa,i|
+      producto[:nombre] = producto[:descripcion] = pa
+      begin
+        obj = Producto.new(producto)
+        obj.save
+        total += 1
+      rescue Exception => e
+        errores = "error en la palabra #{i+1}:< #{e} > |"
       end
+
     end
+    mensaje = "Total de palabras: #{total}. "
+      
+    mensaje += "Errores: #{errores}" unless (errores.eql? '')
+
+    redirect_to productos_path, notice: mensaje
+
   end
 
   # PUT /productos/1

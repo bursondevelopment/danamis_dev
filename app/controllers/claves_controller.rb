@@ -3,7 +3,7 @@ class ClavesController < ApplicationController
   # GET /claves
   # GET /claves.json
   def index
-    @claves = Clave.all
+    @claves = Clave.order('created_at ASC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,43 +41,25 @@ class ClavesController < ApplicationController
   # POST /claves
   # POST /claves.json
   def create
+    clave = params[:clave]
+    palabras = clave[:valor].split(";")
+    errores = ""
+    total = 0
+    palabras.each_with_index do |pa,i|
+      clave[:valor] = pa
+      begin
+        obj = Clave.new(clave)
+        obj.save
+        total += 1
+      rescue Exception => e
+        errores = "error en la palabra #{i+1}:< #{e} > |"
+      end
 
-    if params[:multi]
-      clave = params[:clave]
-      palabras = clave[:valor].split(";")
-      errores = ""
-      total = 0
-      palabras.each_with_index do |pa,i|
-        clave[:valor] = pa
-        begin
-          obj = Clave.new(clave)
-          obj.save
-          total += 1
-        rescue Exception => e
-          errores = "error en la palabra #{i+1}:< #{e} > |"
-        end
-
-      end
-      mensaje = "Total de palabras: #{total}. "
-      @entorno = Entorno.find params[:clave][:entorno_id]
-      unless (errores.eql? '')  
-        mensaje += "Errores: #{errores}"
-        redirect_to entorno_path(@entorno), notice: mensaje
-      else
-        redirect_to entorno_path(@entorno), notice: mensaje
-      end
-    else
-      @clave = Clave.new(params[:clave])
-      respond_to do |format|
-        if @clave.save
-          format.html { redirect_to entorno_path(@calve.entorno), notice: 'Palabra clave agragada con éxito.' }
-          format.json { render json: @clave, status: :created, location: @clave }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @clave.errors, status: :unprocessable_entity }
-        end
-      end
-    end 
+    end
+    mensaje = "Total de palabras: #{total}. "
+    @entorno = Entorno.find params[:clave][:entorno_id]        
+    mensaje += "Errores: #{errores}" unless (errores.eql? '')
+    redirect_to entorno_path(@entorno), notice: mensaje
 
   end
 

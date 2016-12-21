@@ -1,30 +1,28 @@
 <%- model_class = Entorno -%>
 <div class="page-header">
   <h2>Actividad Económica: </h2>
-  <h3>
 
-
-
+<div class="form-actions">
+  <h3><%= @entorno.nombre %> </h3>
     <%= link_to t('.back', :default => t("helpers.links.back")), entornos_path, :class => 'btn' %>
-    <%= @entorno.nombre %> 
-
     <b class='tooltip-btn' data_toggle='tooltip' title= "Editar" >
       <%= link_to "", {:href => edit_entorno_path(@entorno), :class => 'btn btn-info'}, { :role => 'button'} do %>
         <%= content_tag(:i, "", class: "icon-edit icon-white") %>
       <% end %>
     </b>
 
-  </h3>
+</div>
+
 
 <ul class="nav nav-tabs" id="TabMedios">
   <li class="active"><a href="#claves">Palabras Claves</a></li>
-  <li><a href="#clientes">Clientes</a></li>
+  <li><a href="#organizaciones">Organizaciones</a></li>
 </ul>
 
 <div class="tab-content">
 
   <div class="active tab-pane" id="claves">
-    <%- @claves = @entorno.claves%>
+    <%- @claves = @entorno.claves.order('created_at DESC')%>
     <%= render file:'/claves/index', layouts: false %>
 
       <%= link_to 'Agregar' , "javascript:void(0)", onclick: "$('#nueva_clave').show(300); $(this).hide();", class: 'btn btn-primary' %>
@@ -35,8 +33,8 @@
       </div>
 
   </div>
-  <div class="tab-pane" id="clientes">
-    <%- @organizaciones = @entorno.organizaciones %>
+  <div class="tab-pane" id="organizaciones">
+    <%- @organizaciones = @entorno.organizaciones.order(['interna_id DESC','created_at DESC']) %>
     <%= render :file =>'/organizaciones/index', :layouts => false %>
     <%= link_to t('.new', :default => t("helpers.links.new")), "#{new_organizacion_path}?entorno_id=#{@entorno.id}", :class => 'btn btn-primary' %>
   </div>

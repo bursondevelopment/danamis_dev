@@ -1,20 +1,26 @@
 <%= form_for @medio_organizacion, :html => { :class => 'form-horizontal' } do |f| %>
-  <div class="control-group">
-    <%= f.label :organizacion_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :organizacion_id, :class => 'number_field' %>
+  <%- if @medio_organizacion.organizacion %>
+    <%= f.hidden_field :organizacion_id %>
+  <% else %>
+    <div class="control-group">
+      <%= f.label :organizacion_id, :class => 'control-label' %>
+      <div class="controls">
+        <%# f.number_field :organizacion_id, :class => 'number_field' %>
+        <%= f.collection_select :medio_id, Medio.order('razon_social ASC'), :id, :razon_social, {:prompt => "Organización"}, {:required => true, :class => 'selects2 span5'} %>
+      </div>
     </div>
-  </div>
+  <% end -%>
   <div class="control-group">
     <%= f.label :medio_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :medio_id, :class => 'number_field' %>
+      <%# f.number_field :medio_id, :class => 'number_field' %>
+      <%= f.collection_select :medio_id, Medio.order('nombre ASC'), :id, :nombre, {:prompt => "Medio"}, {:required => true, :class => 'selects2 span5', :multiple => true} %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :propio, :class => 'control-label' %>
     <div class="controls">
-      <%= f.check_box :propio, :class => 'check_box' %>
+      <%= f.check_box :propio, :checked => true, :class => 'check_box' %>
     </div>
   </div>
 

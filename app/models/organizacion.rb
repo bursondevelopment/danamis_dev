@@ -8,6 +8,15 @@ class Organizacion < ActiveRecord::Base
 
   attr_accessible :razon_social, :entorno_id, :interna_id, :externa_id, :ambito_id, :clase_id, :usuario_id
 
+
+  has_and_belongs_to_many :medios, :join_table => "medio_organizaciones"
+  accepts_nested_attributes_for :medios
+
+=begin
+  has_and_belongs_to_many :medio_organizaciones
+  accepts_nested_attributes_for :medio_organizaciones
+=end
+
   has_many :actores
   accepts_nested_attributes_for :actores
 

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class EntornosController < ApplicationController
   # GET /entornos
   # GET /entornos.json
@@ -48,7 +49,7 @@ class EntornosController < ApplicationController
 
     respond_to do |format|
       if @entorno.save
-        format.html { redirect_to @entorno, notice: 'Entorno was successfully created.' }
+        format.html { redirect_to @entorno, notice: 'Actividad Económica registrada con éxito.' }
         format.json { render json: @entorno, status: :created, location: @entorno }
       else
         format.html { render action: "new" }
@@ -64,7 +65,7 @@ class EntornosController < ApplicationController
 
     respond_to do |format|
       if @entorno.update_attributes(params[:entorno])
-        format.html { redirect_to @entorno, notice: 'Entorno was successfully updated.' }
+        format.html { redirect_to @entorno, notice: 'Actividad Económica actualizada con éxito.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

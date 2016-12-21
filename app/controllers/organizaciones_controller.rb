@@ -6,10 +6,10 @@ class OrganizacionesController < ApplicationController
   before_filter :filtro_logueado
   def index
     if params[:clientes]
-      @organizaciones = Organizacion.clientes 
+      @organizaciones = Organizacion.clientes.order(['interna_id DESC'])
       @titulo = "Clientes"
     else
-      @organizaciones = Organizacion.all
+      @organizaciones = Organizacion.order(['interna_id DESC'])
       @titulo = "Organizaciones"
     end
     respond_to do |format|
@@ -26,6 +26,8 @@ class OrganizacionesController < ApplicationController
     @actor.organizacion_id = @organizacion.id
     @marca = Marca.new
     @marca.organizacion_id = @organizacion.id
+    @medio_organizacion = MedioOrganizacion.new
+    @medio_organizacion.organizacion_id = @organizacion.id
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @organizacion }

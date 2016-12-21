@@ -29,4 +29,8 @@ verificar funcionamiento de Select2.
 
 implantar will paginate bootstrap
 
-Plugin Ordenar tables 
+Plugin Ordenar tables
+
+
+ 1144  rails g scaffold Marca nombre:string organizacion:belongs_to
+ 1146  rails g bootstrap:themed marcas	

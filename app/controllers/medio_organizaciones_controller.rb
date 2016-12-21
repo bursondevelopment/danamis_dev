@@ -40,17 +40,25 @@ class MedioOrganizacionesController < ApplicationController
   # POST /medio_organizaciones
   # POST /medio_organizaciones.json
   def create
-    @medio_organizacion = MedioOrganizacion.new(params[:medio_organizacion])
+    errores = ""
+    total = 0
+    medios = params[:medio_organizacion][:medio_id]
+    medios.each_with_index do |medio,i|
 
-    respond_to do |format|
-      if @medio_organizacion.save
-        format.html { redirect_to @medio_organizacion, notice: 'Medio organizacion was successfully created.' }
-        format.json { render json: @medio_organizacion, status: :created, location: @medio_organizacion }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @medio_organizacion.errors, status: :unprocessable_entity }
+      params[:medio_organizacion][:medio_id] = medio
+      begin
+        obj = MedioOrganizacion.new(params[:medio_organizacion])
+        obj.save
+        total += 1
+      rescue Exception => e
+        errores = "error en el medio #{i+1}:< #{e} > |"
       end
+
     end
+    mensaje = "Total de medios: #{total-1}. "
+    @organizacion = Organizacion.find params[:medio_organizacion][:organizacion_id]
+    mensaje += "Errores: #{errores}" unless (errores.eql? '')
+    redirect_to organizacion_path(@organizacion), notice: mensaje
   end
 
   # PUT /medio_organizaciones/1
@@ -73,10 +81,11 @@ class MedioOrganizacionesController < ApplicationController
   # DELETE /medio_organizaciones/1.json
   def destroy
     @medio_organizacion = MedioOrganizacion.find(params[:id])
+    @organizacion = @medio_organizacion.organizacion
     @medio_organizacion.destroy
 
     respond_to do |format|
-      format.html { redirect_to medio_organizaciones_url }
+      format.html { redirect_to organizacion_path(@organizacion), notice: 'Medio desvinculado' }
       format.json { head :no_content }
     end
   end

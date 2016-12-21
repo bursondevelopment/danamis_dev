@@ -6,6 +6,10 @@ class Medio < ActiveRecord::Base
   validates_presence_of :nombre, :url, :vpe, :descripcion, :tipo_medio_id, :tipo_especializacion_id
   validates :url, :uniqueness => true
 
+  has_and_belongs_to_many :organizaciones, :join_table => "medio_organizaciones"
+  accepts_nested_attributes_for :organizaciones
+
+
 
   def impacto
     vpe#*otra_cosa*otra_cosa_mas
