@@ -27,15 +27,15 @@ ActiveRecord::Schema.define(:version => 20161219185159) do
   add_index "actores", ["tolda_id"], :name => "index_actores_on_tolda_id"
 
   create_table "adjuntos", :force => true do |t|
-    t.text     "titulo",     :limit => 16777215
-    t.text     "sumario",    :limit => 16777215
+    t.text     "titulo"
+    t.text     "sumario"
     t.string   "fecha"
     t.string   "autor"
     t.integer  "medio_id"
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.text     "url"
-    t.boolean  "valida",                         :default => false
+    t.boolean  "valida",     :default => false
   end
 
   add_index "adjuntos", ["medio_id"], :name => "index_adjuntos_on_medio_id"
