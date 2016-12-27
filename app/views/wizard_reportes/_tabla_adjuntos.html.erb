@@ -15,8 +15,8 @@
 					<td>
 						<div class="media">
 							<div class="media-body">
-								<h4><%= nota.titulo %></h4>
-								<%= link_to nota.medio.descripcion, nota.medio.url%>
+								<h4><%= link_to nota.titulo, nota.url, :target => '_blank' %></h4>
+								<%= link_to nota.medio.descripcion, nota.medio.url, :target => '_blank'%>
 								<%= raw nota.descripcion_completa %>
 							</div>
 						</div>

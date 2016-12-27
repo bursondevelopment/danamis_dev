@@ -71,7 +71,6 @@ class WizardReportesController < ApplicationController
 
     @total_notas_cliente = @notas_cliente_razon_social.count + @notas_cliente_representante.count + @notas_cliente_cargo.count + @notas_cliente_marcas.count + @notas_cliente_productos.count
 
-
     # Entorno
     @total_notas += Adjunto.creadas_hoy.buscar_clave_general(@cliente.entorno.nombre)
     @notas_entorno = Adjunto.creadas_hoy.buscar_clave_general(@cliente.entorno.nombre)
@@ -90,14 +89,25 @@ class WizardReportesController < ApplicationController
 
     # Claves de Entorno
     palabras_claves = @cliente.entorno.claves
+    palabras_claves_incluyentes = palabras_claves.incluyentes
 
     @notas_entorno_claves = Adjunto.where("1 = 0")
-    if palabras_claves.count > 0
-      palabras_claves.each do |clave|
+    if palabras_claves_incluyentes.count > 0
+      palabras_claves_incluyentes.each do |clave|
         @total_notas += Adjunto.creadas_hoy.buscar_clave_general(clave.valor)
         @notas_entorno_claves += Adjunto.creadas_hoy.buscar_clave_general(clave.valor)
       end
     end
+
+    palabras_claves_excluyentes = palabras_claves.excluyentes
+
+    if palabras_claves_excluyentes.count > 0
+      palabras_claves_excluyentes.each do |clave|
+        @total_notas -= Adjunto.creadas_hoy.buscar_clave_general(clave.valor)
+        @notas_entorno_claves -= Adjunto.creadas_hoy.buscar_clave_general(clave.valor)
+      end
+    end
+
     @total_notas_entorno = @notas_entorno.count + @notas_entorno_claves.count
 
     @total_notas = @total_notas.uniq

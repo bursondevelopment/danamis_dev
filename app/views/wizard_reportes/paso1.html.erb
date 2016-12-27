@@ -19,7 +19,7 @@
 			<%= link_to cliente.razon_social, {:action => 'paso1_liberar', :id => cliente.id}, :class => 'btn' %>
 		<% end -%>
 	<% end -%>
-	<h4>Selecionados Pendientes por asignar:</h4>
+	<h4>Pendientes por Seleccionar:</h4>
 	<%- if @clientes_libres.count <= 0 %>
 		<p class= 'label label-info'>Sin clientes pendientes</p>
 	<%else%>
