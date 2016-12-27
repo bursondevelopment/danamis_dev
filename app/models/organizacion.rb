@@ -17,11 +17,34 @@ class Organizacion < ActiveRecord::Base
   accepts_nested_attributes_for :medio_organizaciones
 =end
 
+  #scope :productos, joins(:producto_marca).where('productos_marcas.marca.organizacion_id = ?', id)
+
+  def descripcion
+    aux = razon_social
+    aux += ": #{actores.count} actores"
+    aux += ", #{marcas.count} marcas-productos"
+    aux += " y #{medios.count} medios"
+
+  end
+
+  def productos
+    productos = Producto.where('1=0')
+
+    marcas.each do |marca|
+    productos += marca.productos 
+    end
+
+    return productos
+    #joins(:productos)#.where('marcas.organizacion_id = ?', id)
+  end
+
+
   has_many :actores
   accepts_nested_attributes_for :actores
 
   has_many :marcas
   accepts_nested_attributes_for :marcas
+
 
   validates_presence_of :razon_social, :interna_id, :externa_id, :ambito_id, :clase_id
   validates :razon_social, :uniqueness => true

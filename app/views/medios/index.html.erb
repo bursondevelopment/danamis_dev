@@ -14,7 +14,11 @@
     </e>
   </div>
 <% end -%>
-<table class="table table-striped table-hover table-condensed">
+
+<%- @table_name = 'medios'%>
+<%= render partial: '/layouts/filtro_tabla' %>
+
+<table class="table table-striped table-hover table-condensed filtrable" id="medios">
   <thead>
     <tr>
 

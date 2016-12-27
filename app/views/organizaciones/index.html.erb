@@ -9,7 +9,11 @@
 </div>
 <% end -%>
 
-<table class="table table-striped table-hover table-condensed">
+<%- @table_name = 'organizaciones'%>
+<%= render partial: '/layouts/filtro_tabla' %>
+
+
+<table class="table table-striped table-hover table-condensed" id="organizaciones">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:razon_social) %></th>
@@ -26,7 +30,7 @@
   <tbody>
     <% @organizaciones.each do |organizacion| %>
       <tr>
-        <td><%= link_to organizacion.razon_social, organizacion_path(organizacion) %></td>
+        <td><%= link_to organizacion.descripcion, organizacion_path(organizacion) %></td>
         <%-unless controller_name.eql? 'entornos' %>
           <td><%= link_to organizacion.entorno.nombre.capitalize, entorno_path(organizacion.entorno) if organizacion.entorno.nombre %></td>
         <% end -%>

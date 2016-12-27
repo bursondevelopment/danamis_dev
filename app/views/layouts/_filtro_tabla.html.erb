@@ -1,0 +1,24 @@
+<%= text_field_tag "filtro_#{@table_name}", nil ,{:onkeyup => "return filtrar('#{@table_name}')", :placeholder=>"Filtrar...", :autofocus => true}%>
+<b id="text_<%=@table_name%>" class= 'label'></b>
+
+<script type="text/javascript" charset="utf-8">
+	function filtrar(table_name) {
+		var filtro = document.getElementById("filtro_"+table_name).value.toLowerCase();
+		var texto = "";
+		var texto2 = ""
+		var total_mach = 0
+		$("#"+table_name+" tr").each(function(){
+			var temp = $(this).text().toLowerCase();
+			if (temp.match(filtro) == null) {
+				$(this).hide();
+				texto = texto + temp;
+			}else {
+				$(this).show();
+				texto2 = texto2 + temp;
+				total_mach += 1;
+			}			
+		});
+		$("#text_"+table_name).text(filtro+" ("+total_mach+" coincidencias)");
+		return false;
+		}
+</script>

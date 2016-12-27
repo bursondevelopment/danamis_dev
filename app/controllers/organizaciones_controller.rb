@@ -25,6 +25,7 @@ class OrganizacionesController < ApplicationController
     @actor = Actor.new
     @actor.organizacion_id = @organizacion.id
     @marca = Marca.new
+    @producto = Producto.new
     @marca.organizacion_id = @organizacion.id
     @medio_organizacion = MedioOrganizacion.new
     @medio_organizacion.organizacion_id = @organizacion.id

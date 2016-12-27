@@ -20,27 +20,28 @@
 
   <div class="active tab-pane" id="resumen">
   	<%-@notas = @total_notas %>
+    <%- @table_name = 'resumen'%>    
   	<%= render partial: 'tabla_adjuntos' if @notas %>
   </div>
   <div class="tab-pane" id="cliente">
   	<%-@notas = @notas_cliente_razon_social %>
-  	<h3>Razón Social</h3>
+    <%- @table_name = 'clientes'%>
   	<%= render partial: 'tabla_adjuntos' if @notas %>
 
   	<%-@notas = @notas_cliente_representante%>
-  	<h3>Representantes</h3>
+    <%- @table_name = 'representantes'%>
   	<%= render partial: 'tabla_adjuntos' if @notas %>
 
   	<%-@notas = @notas_cliente_cargo%>
-  	<h3>Cargos</h3>
+    <%- @table_name = 'cargos'%>
   	<%= render partial: 'tabla_adjuntos' if @notas %>
 
   	<%-@notas = @notas_cliente_marcas %>
-  	<h3>Marcas</h3>
+    <%- @table_name = 'marcas'%>
   	<%= render partial: 'tabla_adjuntos' if @notas %>
 
   	<%-@notas = @notas_cliente_productos%>
-  	<h3>Productos</h3>
+    <%- @table_name = 'productos'%>
   	<%= render partial: 'tabla_adjuntos' if @notas %>
 
 
@@ -48,18 +49,18 @@
 
   <div class="tab-pane" id="competencia">
   	<%-@notas = @notas_competencias %>
-  	<h3>Competencia</h3>
+    <%- @table_name = 'competencias'%>
   	<%= render partial: 'tabla_adjuntos' if @notas %>
   </div>
 
 
   <div class="tab-pane" id="entorno">
   	<%-@notas = @notas_entorno%>
-  	<h3>Entorno</h3>
+    <%- @table_name = 'entornos'%>
   	<%= render partial: 'tabla_adjuntos' if @notas %>
 
   	<%-@notas = @notas_entorno_claves %>
-  	<h3>Palabras Claves</h3>
+    <%- @table_name = 'palabras_claves'%>
   	<%= render partial: 'tabla_adjuntos' if @notas %>
 
   </div>
