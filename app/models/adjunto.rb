@@ -47,7 +47,7 @@ class Adjunto < ActiveRecord::Base
   scope :del_cliente_sin_reporte, lambda {|cliente_id| where("id NOT IN (#{(Reporte.del_cliente cliente_id).collect{|x| x.reportes_adjuntos.collect{|y| y.adjunto_id}}.flatten.join(",")})")}
 
   def valida2 cliente_id
-    Adjunto.del_cliente_antes_hoy(cliente_id).collect{|x| x.id}.include? id
+    Adjunto.del_cliente_hoy(cliente_id).collect{|x| x.id}.include? id
   end
 
   def descripcion

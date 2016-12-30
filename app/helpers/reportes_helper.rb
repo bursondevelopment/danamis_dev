@@ -39,4 +39,21 @@ module ReportesHelper
     contenedor
   end
 
+
+  def contenedor_media_descripcion_sin_editar reporte
+    contenedor = "<div class='media'>"
+    contenedor += "<div class='media-body'>"
+    contenedor += "<h4>"
+    contenedor += "#{reporte.actor.nombres_cargo}: "
+    contenedor += reporte.titulo
+    contenedor += "</h4>"
+    contenedor += "<p>"
+    contenedor += "#{reporte.argumento} "
+    contenedor += list_to_adjuntos reporte
+    contenedor += "</p>"
+    contenedor += "</div>"
+    contenedor += "</div>"
+    contenedor
+  end
+
 end

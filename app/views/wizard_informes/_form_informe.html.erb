@@ -1,0 +1,28 @@
+<%= form_for @informe, url: {action: 'paso4_guardar'}, :html => { :class => 'form-horizontal' } do |f| %>
+
+  <div class ="well well-small">
+    <%= f.submit nil, :class => 'btn btn-success pull-right' %>
+    </br>
+    </br>
+    <div style = "text-align:center;">
+      <h4><%=@informe.organizacion.razon_social %></h4>
+      <%= f.hidden_field :organizacion_id %>
+      <p>
+        <%= f.text_field :autor, :class => 'text_field span5', :required => true, :style => 'text-align:center;' %>
+      </p>
+      <p>
+        <% fecha = @informe.fecha ? @informe.fecha : Date.today %>
+        <!-- <strong><h6><%# fecha.strftime('%A, %d de %B de %Y')%></h6></strong> -->
+        <%= f.datetime_select :fecha, {:style => "width:60px;"}, {:required => true, :class => 'date_select span2'} %>
+      </p>
+      <strong>
+        <h6 style = "background-color: black; color: white; height:40px; padding-top:10px;">
+          <%= f.text_field :titulo, :class => 'text_field span9', :required => true, :style => 'text-align:center;'%>
+        </h6>
+      </strong>
+      <%= f.text_area :encabezado, :class => 'input-block-level', :data => {"spy" => "scroll", "target" => ".navbar"}, :required => true, :placeholder => "Encabezado del informe…", :style => "height:100px;"%>
+
+    </div>
+
+
+<% end %>

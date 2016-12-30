@@ -1,0 +1,16 @@
+
+<div class="well well-small">
+	<h3><%= @titulo%></h3>
+	<table class="table table-striped table-hover table-condensed">
+
+	  <tbody>
+	    <% @reportes.each do |reporte| %>
+	      <tr>
+	        <td style="width: 80%;"><%= raw contenedor_media_descripcion reporte %></td>
+	      	<td><%= select_tag "reportes_ids[#{reporte.id}]", options_for_select(['cliente', 'competencia', 'actividad'], reporte.seccion), class: 'pull-rigth', prompt: "Seleccione...", required: true%></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+

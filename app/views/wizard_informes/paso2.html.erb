@@ -1,0 +1,34 @@
+<div id="wizard_bar">
+  <h3 class="titulo"><%= "Wizard Informe: #{action_name.humanize} #{@titulo}" %> </h3>
+  <div class="form-actions">
+
+	  <div class="control-group">
+
+	    <%= link_to 'Atrás', {action: "paso1"}, class: 'btn' %>
+	    <%= link_to 'Siguiente', {action: "paso3/#{@cliente.id}"}, class: 'btn btn-primary pull-right' %>
+
+	  </div>
+  </div>
+</div>
+
+<%= form_tag(:action => "agrupar") do %>
+	<div class="well well-small">
+		<%=submit_tag 'Guardar Agrupación', class: 'btn btn-success pull-right'%>
+		<%-@titulo = "Clientes"%>
+		<%-@reportes = @reportes_clientes %>
+		<%= render partial: 'index_reportes' %>
+
+		<%-@titulo = "Competencia"%>
+		<%-@reportes = @reportes_competencias %>
+		<%= render partial: 'index_reportes' %>
+
+		<%-@titulo = "Actividad Económica"%>
+		<%-@reportes = @reportes_actividades %>
+		<%= render partial: 'index_reportes' %>
+		<%- if @reportes_pendientes.count > 0 %>
+			<%-@titulo = "Pendientes"%>
+			<%-@reportes = @reportes_pendientes %>
+			<%= render partial: 'index_reportes' %>
+		<% end -%>
+	</div>
+<% end -%>

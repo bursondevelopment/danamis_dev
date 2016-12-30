@@ -1,5 +1,7 @@
 <%= form_for @reporte, url: {action: 'paso3_guardar'}, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.hidden_field :organizacion_id %>
+  <%= hidden_field_tag :informe_id, session[:informe_id] if session[:informe_id] %>
+
   <%= hidden_field_tag :id, @reporte.id unless @reporte.id.nil? %> 
   <div class="control-group">
 

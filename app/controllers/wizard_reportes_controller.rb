@@ -169,7 +169,11 @@ class WizardReportesController < ApplicationController
     end
     if @reporte.save
       flash[:success] = "Datos elementales del reporte guardados con éxito."
-      redirect_to action: "paso4/#{@reporte.id}" 
+      if params[:informe_id]
+        redirect_to "/wizard_informes/paso3/#{params[:informe_id]}" 
+      else
+        redirect_to action: "paso4/#{@reporte.id}" 
+      end
     else
       flash[:alert] = "Error al intentar guardar los datos del reporte: #{@reporte.errors.full_messages.join(' ')}"
       redirect_to :back

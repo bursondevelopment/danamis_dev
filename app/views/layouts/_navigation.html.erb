@@ -26,11 +26,26 @@
 								<li><%= link_to 'Clientes', '/organizaciones?clientes=1' %></li>
 								<li><%= link_to 'Actividades Enonómicas', entornos_path %></li>
 								<li><%= link_to 'Actores', actores_path %></li>
-								<li><%= link_to 'Productos', productos_path %></li>								
-								<li><%= link_to 'Wizard Reporte', '/wizard_reportes/paso1' %></li>
+								<li class="divider-horizontal"></li>
+
+								<li><%= link_to 'Productos', productos_path %></li>	
 					    </ul>
+
+
 					  </li>
-							
+					    <li class="dropdown">
+						    <a class="dropdown-toggle"
+						       data-toggle="dropdown"
+						       href="#">
+						        Wizards
+						        <b class="caret"></b>
+						    </a>
+						    <ul class="dropdown-menu">
+
+									<li><%= link_to 'Wizard Reporte', '/wizard_reportes/paso1' %></li>
+									<li><%= link_to 'Wizard Informe', '/wizard_informes/paso1' %></li>
+						    </ul>
+						</li>	
 
         	</ul>
 					<div class= "pull-right" style="padding-top:10px;">

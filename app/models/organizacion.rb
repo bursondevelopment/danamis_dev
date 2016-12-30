@@ -28,7 +28,10 @@ class Organizacion < ActiveRecord::Base
   accepts_nested_attributes_for :marcas
 
   has_many :reportes
-  accepts_nested_attributes_for :reportes  
+  accepts_nested_attributes_for :reportes
+
+  has_many :informes, :dependent => :destroy
+  accepts_nested_attributes_for :informes  
 
   validates_presence_of :razon_social, :interna_id, :externa_id, :ambito_id, :clase_id
   validates :razon_social, :uniqueness => true

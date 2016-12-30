@@ -1,0 +1,49 @@
+<div id="wizard_bar">
+  <h3 class="titulo"><%= "Wizard Informe: #{action_name.humanize} #{@titulo}" %> </h3>
+  <div class="form-actions">
+
+	  <div class="control-group">
+
+	    <%= link_to 'Atrás', {action: "paso3/#{@cliente.id}"}, class: 'btn' %>
+	    <%= link_to 'Descargar', {action: "descargar/#{@informe.id}"}, class: 'btn btn-primary pull-right' if session[:informe_id]%>
+	    <%= link_to 'Vista', {action: "vista/#{@informe.id}"}, class: 'btn btn-success pull-right' if session[:informe_id]%>
+
+	    <%= link_to 'Nuevo Informe', {action: "paso1"}, class: 'btn btn-primary pull-right' %>
+
+	  </div>
+  </div>
+</div>
+
+
+<div class="well well-small">
+	<%= render partial: 'form_informe' %>
+
+	<% if @reportes_clientes %>
+
+		<%-@titulo = "Clientes"%>
+		<%-@reportes = @reportes_clientes %>
+		<%- @tipo = 'cliente' %>
+		<%= render partial: 'lista_seccion' %>
+
+		<%-@titulo = "Competencia"%>
+		<%-@reportes = @reportes_competencias %>
+		<%- @tipo = 'competencia' %>
+		<%= render partial: 'lista_seccion' %>
+
+		<%-@titulo = "Actividad Económica"%>
+		<%-@reportes = @reportes_actividades %>
+		<%- @tipo = 'actividad' %>
+		<%= render partial: 'lista_seccion' %>
+
+		<%- if @reportes_pendientes.count > 0 %>
+			<%= form_tag(:action => "agrupar") do %>
+				<div class="well well-small">
+					<%=submit_tag 'Guardar Agrupación', class: 'btn btn-success pull-right'%>
+						<%-@titulo = "Pendientes"%>
+						<%-@reportes = @reportes_pendientes %>
+						<%= render partial: 'index_reportes' %>
+				</div>
+			<% end -%>
+		<% end -%>
+	<% end -%>
+</div>

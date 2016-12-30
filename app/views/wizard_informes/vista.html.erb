@@ -1,0 +1,34 @@
+<%= link_to 'Atrás', "/wizard_informes/paso4/#{@informe.organizacion_id}" , class: 'btn' %>
+<div style="font-family:Verdana;font-size:14pt">
+	<div style="margin-bottom:0cm;line-height:100%;text-align:center;">
+
+		<p><b><%= @informe.organizacion.razon_social %></b></p>
+		<p><b><%= @informe.autor %></b></p>
+		<p><b><%= @informe.fecha.strftime('%A, %d de %B de %Y').capitalize %></b></p>		
+		<p style="background-color:rgb(0,0,0);color:white;">
+			<b><%= @informe.titulo %></b>
+		</p>
+		<p style="text-align:justify;"><%= @informe.encabezado %></p>
+		<br>
+		<p><b>---------------------</b></p>
+	</div>
+
+	<div class="well well-small">
+		<%-@titulo = "Clientes"%>
+		<%-@reportes = @informe.reportes.clientes %>
+		<%- @tipo = 'cliente' %>
+		<%= render partial: 'lista_seccion_sin_editar' %>
+
+		<%-@titulo = "Competencia"%>
+		<%-@reportes = @informe.reportes.competencias %>
+		<%- @tipo = 'competencia' %>
+		<%= render partial: 'lista_seccion_sin_editar' %>
+
+		<%-@titulo = "Actividad Económica"%>
+
+		<%-@reportes = @informe.reportes.actividad %>
+		<%- @tipo = 'actividad' %>
+		<%= render partial: 'lista_seccion_sin_editar' %>
+	</div>
+
+</div>
