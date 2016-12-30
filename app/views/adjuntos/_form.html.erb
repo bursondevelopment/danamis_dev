@@ -1,5 +1,5 @@
 <%= form_for @adjunto, :html => { :class => 'form-horizontal' } do |f| %>
-
+  <%= hidden_field_tag 'url_return', @url if @url %>
   <div class="control-group">
     <%= f.label :url, :class => 'control-label' %>
     <div class="controls">
@@ -9,7 +9,7 @@
   <div class="control-group">
     <%= f.label :titulo, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :titulo, :class => 'text_field', :placeholder => "La Nota del Día", :required => true %>
+      <%= f.text_field :titulo, :class => 'text_field', :placeholder => "La Nota del Día", required: true %>
     </div>
   </div>
   <div class="control-group">
@@ -26,20 +26,15 @@
     <div class="control-group">
       <%= f.label :medio_id, :class => 'control-label' %>
       <div class="controls">
-        <%= f.collection_select :medio_id, Medio.order('nombre ASC'), :id, :nombre, {:prompt => "Medio"}, {:required => true} %>
+        <%# f.collection_select :medio_id, Medio.order('nombre ASC'), :id, :nombre, {:prompt => "Medio"}, {:required => true} %>
+        <%= f.collection_select :medio_id, Medio.order('nombre ASC'), :id, :nombre, {:prompt => "Medio"}, {  class: 'selects2 span3', required: true} %>
+
       </div>
     </div>
   <% end %>
 
   <div class="control-group">
-    <%= f.label :autor, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :autor, :class => 'text_field', :placeholder => "Fulano de Tal" %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <%= f.label :fecha, :class => 'control-label' %>
+    <%= f.label 'Fecha de Publicación', :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :fecha, :class => 'text_field', :placeholder => "Fecha sugún el medio..." %>
     </div>

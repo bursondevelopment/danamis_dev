@@ -2,6 +2,20 @@
 class AdjuntosController < ApplicationController
   # GET /adjuntos
   # GET /adjuntos.json
+
+  def descartar_adjunto
+    nota = Adjunto.find params[:id]
+    nota.valida = false
+    nota.save
+
+    if session[:cliente_id]
+      ao = AdjuntoOrganizacion.where(organizacion_id: session[:cliente_id], adjunto_id: params[:id]).first
+      ao.destroy
+    end
+
+    redirect_to :back    
+  end
+
   def eliminar_total_adjuntos
     if params[:id]
       total_inicial = Adjunto.all.count
@@ -17,7 +31,7 @@ class AdjuntosController < ApplicationController
   end
 
   def index
-    @adjuntos = Adjunto.all
+    @adjuntos = Adjunto.order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -63,13 +77,31 @@ class AdjuntosController < ApplicationController
       if @adjunto.save
         if params[:medio_id]
           format.html { redirect_to medio_path(params[:medio_id]), notice: 'Nota Adjunta cargada con éxito.' }
+        elsif params[:url_return]
+          if session[:cliente_id]
+            @cliente = Organizacion.find session[:cliente_id]
+            ao = AdjuntoOrganizacion.new
+            ao.organizacion_id = @cliente.id
+            ao.adjunto_id = @adjunto.id
+          end
+          if ao.save
+            format.html { redirect_to params[:url_return], notice: 'Nota adjunta cargada con éxito.' }
+          else
+            format.html { redirect_to params[:url_return], notice: 'Error al asociar el adjunto con el cliente. Sin embargo, el adjunto fue agregada. Vaya al paso 2 de este Wizard y seleccione el adjunto correspondente.' }
+            return
+          end
         else
           format.html { redirect_to @adjunto, notice: 'Nota Adjunta cargada con éxito.' }
           format.json { render json: @adjunto, status: :created, location: @adjunto }
         end
       else
-        format.html { render action: "new" }
-        format.json { render json: @adjunto.errors, status: :unprocessable_entity }
+        if params[:url_return]
+          redirect_to params[:url_return], notice: "Error al agregar el adjunto. revise los campos e inténtelo de nuevo. #{@adjunto.errors.full_messages.join('.')}"
+          return
+        else
+          format.html { render action: "new" }
+          format.json { render json: @adjunto.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

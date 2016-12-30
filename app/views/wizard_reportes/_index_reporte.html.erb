@@ -1,0 +1,19 @@
+<%- if @reportes.count > 0 %>
+	<div class="well well-small">
+		<h3>
+		Reportes:
+		<%- @table_name = 'reportes'%>
+		<%= render partial: '/layouts/filtro_tabla' %>
+		</h3>
+
+		<table class="table table-striped table-hover table-condensed" id='reportes'>
+		  <tbody>
+		    <% @reportes.each do |reporte| %>
+		      <tr>
+		        <td><%= raw contenedor_media_descripcion reporte %></td>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+	</div>
+<% end -%>

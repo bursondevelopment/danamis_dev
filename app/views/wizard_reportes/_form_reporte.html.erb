@@ -1,0 +1,36 @@
+<%= form_for @reporte, url: {action: 'paso3_guardar'}, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.hidden_field :organizacion_id %>
+  <%= hidden_field_tag :id, @reporte.id unless @reporte.id.nil? %> 
+  <div class="control-group">
+
+    <%= link_to 'Atrás', {action: "paso2/#{@cliente.id}"}, class: 'btn pull-left' %>
+
+    <div class="controls">
+      <%= f.submit "Guardar / Siguiente", class: 'btn btn-primary pull-right', disable_with: "Enviando..." %>
+
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :actor_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :actor_id, @actores, :id, :descripcion, {:prompt => "Actores"}, {:required => true, :class => 'selects2 span7', :autofocus => true} %>
+
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :titulo, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :titulo, :class => 'text_field span7', :placeholder => "Título", :required => true %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :argumento, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :argumento, :class => 'text_field span7', :size => '7x2', :placeholder => "Argumento...", :required => true %>
+
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,8 @@
+<div id="wizard_bar">
+  <h3 class="titulo"><%= "Wizard Reportes: #{action_name.humanize} #{@titulo}" %> </h3>
+  <div class="form-actions">
+	<%= render partial: 'form_reporte'%>
+  </div>
+</div>
+<%= render :partial => 'index_reporte' %>
+<%= render partial: 'agregables_vs_otro_cliente_link' %>

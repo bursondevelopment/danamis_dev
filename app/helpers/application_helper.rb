@@ -25,6 +25,22 @@ module ApplicationHelper
   #   
   # end
 
+  def btn_mini titulo_tooltip, url, tipo_btn, icon_btn
+    " <b class='tooltip-btn' data_toggle='tooltip' title='#{titulo_tooltip}'><a href='#{url}' class='btn #{tipo_btn} btn-mini'><i class='#{icon_btn} icon-white'></i></a></b>"
+  end
+
+
+  def btn_icon titulo_tooltip, btn_titulo, url, tipo_btn, icon_btn
+    " <b class='tooltip-btn' data_toggle='tooltip' title='#{titulo_tooltip}'><a href='#{url}' class='btn #{tipo_btn}'>#{btn_titulo}<i class='#{icon_btn} icon-white'></i></a></b>"
+  end
+
+
+  def btn_mini_del titulo_tooltip, url, tipo_btn, icon_btn, msg='¿Estas Seguro?'
+
+    " <b class='tooltip-btn' data_toggle='tooltip' title='#{titulo_tooltip}'><a href='#{url}' class='btn #{tipo_btn} btn-mini' data-confirm='#{msg}' data-method='delete' rel='nofollow'><i class='#{icon_btn} icon-white'></i></a></b>"
+  end
+
+
 
 
   def link_to_nota nota

@@ -10,13 +10,17 @@ module AdjuntosHelper
 
   def btn_to_adjunto_icon_mini adjunto
 
-	btn = "<b class='tooltip-btn' data_toggle='tooltip' title='Ver enlace foraneo'>"
+  	btn = "<b class='tooltip-btn' data_toggle='tooltip' title='Ver enlace foraneo'>"
     btn += "link_to #{adjunto.url}, { :role => 'button', :class => 'btn btn-success btn-mini'} do"
     btn += "content_tag(:i, "", class: 'icon-share icon-white')"
     btn += "end"
     btn += "</b>"
 
     raw btn
+  end
+
+  def btn_to_descartar_adjunto adjunto_id
+    " <b class='tooltip-btn' data_toggle='tooltip' title='Descartar adjunto'><a href='/adjuntos/descartar_adjunto/#{adjunto_id}' class='btn btn-danger btn-mini' data-method='delete' rel='nofollow'><i class='icon-remove icon-white'></i></a></b>"
   end
 
   def link_borrar_nota nota_id

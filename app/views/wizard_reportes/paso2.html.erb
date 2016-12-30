@@ -1,73 +1,13 @@
+<h3 class="titulo"><%= "Wizard Reportes: #{action_name.humanize} #{@titulo}" %> </h3>
+<%= form_tag(:action => 'paso2_guardar') do %>
 <div id="wizard_bar">
-	<div class="form-actions">
-	  <h3><%= "Wizard Reportes: #{action_name} #{@titulo}" %> </h3>
-	    <%= link_to 'Atrás', {action: 'paso1'}, class: 'btn' %>
-	    <%= link_to 'Siguiente', 'paso3', class: 'btn pull-right btn-primary', disabled: true %>
-	</div>
+  <div class="form-actions">
+      <%= link_to 'Atrás', {action: 'paso1'}, class: 'btn' %>
+      <%= submit_tag "Guardar Selección / Siguiente", :id => "submit", :name => "submit", :class => 'btn btn-primary pull-right', disabled: false, disable_with: "Enviando..." %>
 
+  </div>
 </div>
 
-<ul class="nav nav-tabs" id="TabMedios">
-  <li class="active"><a href="#resumen"><%="Resumen (#{@total_notas.count})"%></a></li>
-  <li><a href="#cliente"><%="Cliente (#{@total_notas_cliente})"%></a></li>
-  <li><a href="#competencia"><%="Competencia (#{@notas_competencias.count})"%></a></li>
-  <li><a href="#entorno"><%="Actividad Económica (#{@total_notas_entorno})"%></a></li>
-</ul>
+<%= render partial: '/adjuntos/lista_adjuntos' %>
 
-
-
-<div class="tab-content">
-
-  <div class="active tab-pane" id="resumen">
-  	<%-@notas = @total_notas %>
-    <%- @table_name = 'resumen'%>    
-  	<%= render partial: 'tabla_adjuntos' if @notas %>
-  </div>
-  <div class="tab-pane" id="cliente">
-  	<%-@notas = @notas_cliente_razon_social %>
-    <%- @table_name = 'clientes'%>
-  	<%= render partial: 'tabla_adjuntos' if @notas %>
-
-  	<%-@notas = @notas_cliente_representante%>
-    <%- @table_name = 'representantes'%>
-  	<%= render partial: 'tabla_adjuntos' if @notas %>
-
-  	<%-@notas = @notas_cliente_cargo%>
-    <%- @table_name = 'cargos'%>
-  	<%= render partial: 'tabla_adjuntos' if @notas %>
-
-  	<%-@notas = @notas_cliente_marcas %>
-    <%- @table_name = 'marcas'%>
-  	<%= render partial: 'tabla_adjuntos' if @notas %>
-
-  	<%-@notas = @notas_cliente_productos%>
-    <%- @table_name = 'productos'%>
-  	<%= render partial: 'tabla_adjuntos' if @notas %>
-
-
-  </div>
-
-  <div class="tab-pane" id="competencia">
-  	<%-@notas = @notas_competencias %>
-    <%- @table_name = 'competencias'%>
-  	<%= render partial: 'tabla_adjuntos' if @notas %>
-  </div>
-
-
-  <div class="tab-pane" id="entorno">
-  	<%-@notas = @notas_entorno%>
-    <%- @table_name = 'entornos'%>
-  	<%= render partial: 'tabla_adjuntos' if @notas %>
-
-  	<%-@notas = @notas_entorno_claves %>
-    <%- @table_name = 'palabras_claves'%>
-  	<%= render partial: 'tabla_adjuntos' if @notas %>
-
-  </div>
-
-
-</div>
-
-
-
-
+<% end %>

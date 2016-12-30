@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161219185159) do
+ActiveRecord::Schema.define(:version => 20161229175247) do
 
   create_table "actores", :force => true do |t|
     t.string   "nombres"
@@ -26,16 +26,27 @@ ActiveRecord::Schema.define(:version => 20161219185159) do
   add_index "actores", ["organizacion_id"], :name => "index_actores_on_organizacion_id"
   add_index "actores", ["tolda_id"], :name => "index_actores_on_tolda_id"
 
+  create_table "adjunto_organizaciones", :id => false, :force => true do |t|
+    t.integer  "organizacion_id"
+    t.integer  "adjunto_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "adjunto_organizaciones", ["adjunto_id", "organizacion_id"], :name => "index_adjunto_organizaciones_on_adjunto_id_and_organizacion_id", :unique => true
+  add_index "adjunto_organizaciones", ["adjunto_id"], :name => "index_adjunto_organizaciones_on_adjunto_id"
+  add_index "adjunto_organizaciones", ["organizacion_id"], :name => "index_adjunto_organizaciones_on_organizacion_id"
+
   create_table "adjuntos", :force => true do |t|
-    t.text     "titulo"
-    t.text     "sumario"
+    t.text     "titulo",     :limit => 16777215
+    t.text     "sumario",    :limit => 16777215
     t.string   "fecha"
     t.string   "autor"
     t.integer  "medio_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
     t.text     "url"
-    t.boolean  "valida",     :default => false
+    t.boolean  "valida",                         :default => false
   end
 
   add_index "adjuntos", ["medio_id"], :name => "index_adjuntos_on_medio_id"
@@ -183,17 +194,21 @@ ActiveRecord::Schema.define(:version => 20161219185159) do
   add_index "productos_marcas", ["producto_id"], :name => "index_productos_marcas_on_producto_id"
 
   create_table "reportes", :force => true do |t|
-    t.string   "argumento"
+    t.text     "argumento"
     t.string   "titulo"
     t.string   "fecha"
     t.integer  "autor_id"
     t.integer  "informe_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "actor_id"
+    t.integer  "organizacion_id"
   end
 
+  add_index "reportes", ["actor_id"], :name => "index_reportes_on_actor_id"
   add_index "reportes", ["autor_id"], :name => "index_reportes_on_autor_id"
   add_index "reportes", ["informe_id"], :name => "index_reportes_on_informe_id"
+  add_index "reportes", ["organizacion_id"], :name => "index_reportes_on_organizacion_id"
 
   create_table "reportes_adjuntos", :id => false, :force => true do |t|
     t.integer  "reporte_id", :null => false

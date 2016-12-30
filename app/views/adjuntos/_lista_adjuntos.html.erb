@@ -1,0 +1,59 @@
+
+
+  <ul class="nav nav-tabs" id="TabMedios">
+    <li class="active"><a href="#resumen"><%="Resumen (#{@total_notas.count})"%></a></li>
+    <li><a href="#cliente"><%="Cliente (#{@total_notas_cliente})"%></a></li>
+    <li><a href="#competencia"><%="Competencia (#{@notas_competencias.count})"%></a></li>
+    <li><a href="#entorno"><%="Actividad Económica (#{@total_notas_entorno})"%></a></li>
+  </ul>
+
+  <div class="tab-content">
+
+    <div class="active tab-pane" id="resumen">
+      <%-@notas = @total_notas %>
+      <%- @table_name = 'resumen'%>    
+      <%= render partial: '/adjuntos/tabla_adjuntos' if @notas %>
+    </div>
+    <div class="tab-pane" id="cliente">
+      <%-@notas = @notas_cliente_razon_social %>
+      <%- @table_name = 'clientes'%>
+      <%= render partial: '/adjuntos/tabla_adjuntos' if @notas %>
+
+      <%-@notas = @notas_cliente_representante%>
+      <%- @table_name = 'representantes'%>
+      <%= render partial: '/adjuntos/tabla_adjuntos' if @notas %>
+
+      <%-@notas = @notas_cliente_cargo%>
+      <%- @table_name = 'cargos'%>
+      <%= render partial: '/adjuntos/tabla_adjuntos' if @notas %>
+
+      <%-@notas = @notas_cliente_marcas %>
+      <%- @table_name = 'marcas'%>
+      <%= render partial: '/adjuntos/tabla_adjuntos' if @notas %>
+
+      <%-@notas = @notas_cliente_productos%>
+      <%- @table_name = 'productos'%>
+      <%= render partial: '/adjuntos/tabla_adjuntos' if @notas %>
+
+
+    </div>
+
+    <div class="tab-pane" id="competencia">
+      <%-@notas = @notas_competencias %>
+      <%- @table_name = 'competencias'%>
+      <%= render partial: '/adjuntos/tabla_adjuntos' if @notas %>
+    </div>
+
+
+    <div class="tab-pane" id="entorno">
+      <%-@notas = @notas_entorno%>
+      <%- @table_name = 'actividad_economica'%>
+      <%= render partial: '/adjuntos/tabla_adjuntos' if @notas %>
+
+      <%-@notas = @notas_entorno_claves %>
+      <%- @table_name = 'palabras_claves'%>
+      <%= render partial: '/adjuntos/tabla_adjuntos' if @notas %>
+
+    </div>
+
+  </div>

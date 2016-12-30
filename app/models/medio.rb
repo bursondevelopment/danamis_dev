@@ -9,10 +9,12 @@ class Medio < ActiveRecord::Base
   has_and_belongs_to_many :organizaciones, :join_table => "medio_organizaciones"
   accepts_nested_attributes_for :organizaciones
 
+  has_many :medio_organizaciones, :dependent => :destroy
+  accepts_nested_attributes_for :medio_organizaciones
 
 
   def impacto
-    vpe#*otra_cosa*otra_cosa_mas
+    vpe*246
   end
   has_many :adjuntos
   accepts_nested_attributes_for :adjuntos

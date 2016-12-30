@@ -11,18 +11,23 @@
       <%= f.text_field :titulo, :class => 'text_field' %>
     </div>
   </div>
+
   <div class="control-group">
-    <%= f.label :fecha, :class => 'control-label' %>
+    <%= f.label :actor_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :fecha, :class => 'text_field' %>
+      <%= f.collection_select :actor_id, Actor.all, :id, :descripcion, {:prompt => "Actores"}, {:required => true, :class => 'selects2 span7', :autofocus => true} %>
+
     </div>
   </div>
+
   <div class="control-group">
-    <%= f.label :autor_id, :class => 'control-label' %>
+    <%= f.label :actor_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :autor_id, :class => 'number_field' %>
+      <%= f.collection_select :organizacion_id, Organizacion.all, :id, :descripcion, {:prompt => "Actores"}, {:required => true, :class => 'selects2 span7', :autofocus => true} %>
+
     </div>
   </div>
+
   <div class="control-group">
     <%= f.label :informe_id, :class => 'control-label' %>
     <div class="controls">

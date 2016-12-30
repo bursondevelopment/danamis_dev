@@ -1,0 +1,16 @@
+<div id="wizard_bar">
+   <h3 class="titulo"><%= "Wizard Reportes: #{action_name} #{@titulo}" %> </h3>
+  <div class="form-actions">
+
+  <div class="control-group">
+
+    <%= link_to 'Atrás', {action: "paso3/#{@reporte.id}"}, class: 'btn' %>
+    <%= link_to 'Siguiente Reporte', {action: "paso3"}, class: 'btn btn-primary pull-right' %>
+
+  </div>
+
+	<%= render partial: 'show_reporte' %>
+  </div>
+</div>
+
+<%= render partial: 'agregables_vs_otro_cliente_link' %>

@@ -1,0 +1,66 @@
+<%- @seleccionable = (controller_name.eql? 'wizard_reportes' and action_name.eql? 'paso2') %>
+<%- @descartable = (controller_name.eql? 'wizard_reportes' and (action_name.eql? 'paso3' or action_name.eql? 'paso4')) %>
+<%- @agregable = (controller_name.eql? 'wizard_reportes' and action_name.eql? 'paso4') %>
+
+<div class="continer well well-small">
+
+	<h3>
+		<%=@table_name.humanize.capitalize%>
+		<%= (label_tag "No se encontraron coincidencias de notas adjuntos", nil, {class: 'label'}) if @notas.count <= 0 %>
+	</h3>
+
+	<%- unless @notas.count <= 0 %>
+		<%= render partial: '/layouts/filtro_tabla' %>
+
+		<table class="table table-striped table-hover table-condensed" id="<%=@table_name%>">
+			<thead>
+				<tr>
+					<th>Descripcion</th>
+					<th>Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%- @notas.each do |nota| %>
+					<%- success = nota.valida2(@cliente.id) ? "success" : "" %>
+					<tr class="sel <%= success%>">
+						<td>
+							<div class="media">
+								<div class="media-body">
+									<h4><%= link_to nota.titulo, nota.url, :target => '_blank' %></h4>
+									<%= raw nota.descripcion_completa %>
+									<%= link_to nota.medio.descripcion, nota.url, :target => '_blank'%>
+								</div>
+							</div>
+						</td>
+						<td>
+							<%= check_box_tag "notas[#{nota.id}]", true, (success.eql? 'success'), {:class => 'btn btn-primary', :style => 'display:none;'} if @seleccionable %>
+							<%= raw btn_to_descartar_adjunto nota.id if @descartable %>
+							<%= raw btn_agregar_adjunto @reporte.id, nota.id if @agregable %>
+						</td> 
+					</tr>
+				<% end -%>
+			</tbody>
+		</table>
+
+
+	<% end -%>
+</div>
+
+<%- if action_name.eql? 'paso2' %>
+
+	<script type="text/javascript" charset="utf-8">
+
+		$(document).ready(function(){
+		  $("tr.sel").click(function(){
+				var checkbox = $(this).find(':checkbox');
+				checkbox.click();
+				if(checkbox.is(':checked')) {  
+					$(this).addClass('success');
+				}else{
+					$(this).removeClass('success');
+				}
+		   });
+		});
+	</script>
+
+<% end -%>

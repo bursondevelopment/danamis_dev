@@ -1,0 +1,14 @@
+ <%- @adjunto = Adjunto.new %>
+ <%- @url = '/wizard_reportes/paso3' %>
+  <%= link_to 'Agregar Nueva Nota' , "javascript:void(0)", onclick: "$('#nuevo_adjunto').show(300); $(this).hide();", class: 'btn btn-primary' %>
+
+  <div id="nuevo_adjunto" style="display: none;">
+    <h4>Agregar Clave:</h4>
+    <%= render partial: '/adjuntos/form' %>
+  </div>
+
+<%- if @total_notas.count > 0 %>
+	<%= render partial: '/adjuntos/lista_adjuntos' %>
+<% else %>
+	<%= link_to 'Realizar Reportes de Otro Cliente', {action: 'paso1'}, class: 'btn bnt-large btn-primary' %>	
+<% end -%>

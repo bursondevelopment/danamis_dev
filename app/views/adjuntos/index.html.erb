@@ -4,7 +4,11 @@
     <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
   </div>
 <% end -%>
-<table class="table table-striped">
+
+<%- @table_name = 'adjuntos'%>
+<%= render partial: '/layouts/filtro_tabla' %>
+
+<table class="table table-striped table-hover table-condensed" id='adjuntos'>
   <thead>
     <tr>
       <% unless @medio %>      
@@ -42,12 +46,6 @@
               <%= content_tag(:i, "", class: "icon-share icon-white") %>
             <% end %>
           </b>
-
-          <b class='tooltip-btn' data_toggle='tooltip' title='Editar Nota Adjunta'>
-            <%= link_to path, { :role => 'button', :class => 'btn btn-info btn-mini'} do %>
-              <%= content_tag(:i, "", class: "icon-edit icon-white") %>
-            <% end %>
-          </b>  
 
           <b class='tooltip-btn' data_toggle='tooltip' title='Eliminar Nota Adjunta' >
             <%= link_to del_path, { :role => 'button', :class => 'btn btn-danger btn-mini', :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estas seguro de esta acción?')) }} do %>
