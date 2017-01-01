@@ -12,7 +12,7 @@ class WizardReportesController < ApplicationController
     @titulo = "(Selección de Clientes)"    
     @clientes_libres = Organizacion.clientes.where(:usuario_id => nil).order('razon_social ASC')
     @mis_clientes = Organizacion.clientes.where(:usuario_id => session[:usuario].id).order('razon_social ASC')
-    
+    @medios_digitales = Medio.digitales    
   end
 
   def paso1_liberar

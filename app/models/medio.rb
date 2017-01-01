@@ -12,16 +12,18 @@ class Medio < ActiveRecord::Base
   has_many :medio_organizaciones, :dependent => :destroy
   accepts_nested_attributes_for :medio_organizaciones
 
+  scope :digitales, joins(:tipo_medio).where("tipos_medios.description = 'digital'")
 
+  # El impacto (roi) es un valor asociado al cliente 
   def impacto
-    vpe*246
+    vpe*245
   end
+
   has_many :adjuntos
   accepts_nested_attributes_for :adjuntos
 
   has_many :estructura_medios
   accepts_nested_attributes_for :estructura_medios
-
 
   def importar_notas_medios_web
     total = 0
@@ -31,7 +33,7 @@ class Medio < ActiveRecord::Base
       end
       return total
     rescue Exception => ex
-      return ex
+      return total
     end
   end
 

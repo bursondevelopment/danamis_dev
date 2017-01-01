@@ -17,16 +17,32 @@ class MediosController < ApplicationController
       end
       
     else
-      @medios = Medio.all
+      @medios = Medio.digitales
       total = ""
       @medios.each do |medio|
-        total += "#{medio.descripcion}: #{medio.importar_notas_medios_web}"
+        total += "#{medio.descripcion}: #{medio.importar_notas_medios_web} |"
       end
-      flash[:success] = "Resultado: #{total}."
+      flash[:success] = "#{total.split('|')}"
     end
             
     redirect_to :back
   end
+
+  def barrer_ordinal
+      ordinal = params[:id].to_i
+      @medio = Medio.digitales[ordinal]
+      @medio.importar_notas_medios_web
+      #sleep 1.5
+      redirect_to :back, status: :created
+
+=begin
+      respond_to do |format|
+        format.html {redirect_to :back}
+        format.js
+      end
+=end
+  end
+
 
   def index
     @medios = Medio.all

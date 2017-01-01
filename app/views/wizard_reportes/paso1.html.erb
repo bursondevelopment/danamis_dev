@@ -1,6 +1,23 @@
 <h3 class="titulo"><%= "Wizard Reportes: #{action_name} #{@titulo}" %> </h3>
 <div id="wizard_bar">
+
 	<div class="form-actions">
+
+		<%# form_tag({controller: 'medios', action: 'barrer'}, {remote: true}) do |f| %>
+			<%# submit_tag 'Barrer Todos los Medios Digitales', class: 'btn btn-primary' %> 
+		<%# end -%>
+
+		<%= submit_tag 'Barrer Todos los Medios Digitales', id: 'btn_barrer', class: 'btn btn-primary', onclick: "$('#progreso').show(300); $(this).hide();barrer(#{@medios_digitales.count});", disable_with: "Cargando..." %>
+		<div id="progreso"  style="display: none;">
+			<div class="alert alert-danger">
+				<a class="close" data-dismiss="alert">×</a>
+				<%= "Éste será un proceso lento, se procederá a barrer #{@medios_digitales.count} medios, por favor espere..." %>
+				 
+			</div>
+			<div class="progress progress-success progress-striped active">
+	    		<div id="progressBar" class="bar" style="width: 1%;"></div>
+			</div>
+		</div>
 	    <%# link_to 'Atrás', {action: 'paso1'}, class: 'btn' %>
 	    <%# link_to 'Siguiente', 'paso3', :class => 'btn pull-right btn-primary' %>
 	</div>
@@ -28,3 +45,38 @@
 		<% end -%>
 	<% end -%>
 </div>
+<script type="text/javascript" charset="utf-8">
+	function updateProgress(percentage, data){
+	    if(percentage > 100) percentage = 100;
+
+	    $('#progressBar').css('width', percentage+'%');
+	    $('#progressBar').html(percentage+'% '+data).delay(600);
+	    if(percentage == 100) {
+	    	alert('¡Barrido Completado con éxito!');
+	    	$('#progressBar').css('width', 1+'%');
+	    	$('#progressBar').html('');
+	    	$('#progreso').hide();
+	    	$('#btn_barrer').show(300); 
+	    } 
+	}
+
+	function barrer(total_medios) {
+
+		var medios = total_medios;
+		var mediosDone = 0;
+		for(medio = 0; medio <= medios; medio++){
+
+		    $.post('/medios/barrer_ordinal/'+medio,
+			{
+			    id: medio
+			},
+			function(data, status){
+		        mediosDone++;
+		        var porcentaje = Math.round((mediosDone/(medios+1))*100).toFixed(0);
+		        updateProgress(porcentaje, "");
+			});
+		}
+	}
+</script>
+
+
