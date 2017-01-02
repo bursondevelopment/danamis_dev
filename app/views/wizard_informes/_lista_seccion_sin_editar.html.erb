@@ -1,26 +1,30 @@
 
 <div class="well well-small">
-	<h4><%= "#{@titulo}:"%></h4>
-	<table class="table table-striped table-hover table-condensed">
-	  <tbody>
-	    <% @reportes.each do |reporte| %>
-	      <tr>
-	        <td>
-				<div class='media'>
-					<div class='media-body'>
-						<h4><%= "#{reporte.actor.nombres_cargo}: #{reporte.titulo}" %></h4>
-						<p>
-							<%= "#{reporte.argumento} " %>
-							<%- reporte.adjuntos.each_with_index do |ad, i| %>
-							<%= link_to ad.medio.descripcion, ad.url, {:target => '_blank'} %>
-							<%= " - " if i < (reporte.adjuntos.count - 1) %>
-							<% end -%>
-						</p>
+	<h4><%= "#{@titulo}:" %></h4>
+	<%- if @reportes.count > 0 %>
+		<table class="table table-striped table-hover table-condensed">
+		  <tbody>
+		    <% @reportes.each do |reporte| %>
+		      <tr>
+		        <td>
+					<div class='media'>
+						<div class='media-body'>
+							<h4><%= "#{reporte.actor.nombres_cargo}: #{reporte.titulo}" %></h4>
+							<p>
+								<%= "#{reporte.argumento} " %>
+								<%- reporte.adjuntos.each_with_index do |ad, i| %>
+								<%= link_to ad.medio.descripcion, ad.url, {:target => '_blank'} %>
+								<%= " - " if i < (reporte.adjuntos.count - 1) %>
+								<% end -%>
+							</p>
+						</div>
 					</div>
-				</div>
-	        </td>
-	      </tr>
-	    <% end %>
-	  </tbody>
-	</table>
+		        </td>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+	<% else %>
+		<h3>No se registraron unidades informativas</h3>
+	<% end -%>
 </div>

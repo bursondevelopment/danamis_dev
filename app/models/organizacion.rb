@@ -11,7 +11,6 @@ class Organizacion < ActiveRecord::Base
   has_and_belongs_to_many :medios, :join_table => "medio_organizaciones"
   accepts_nested_attributes_for :medios
 
-
   has_many :medio_organizaciones, :dependent => :destroy
   accepts_nested_attributes_for :medio_organizaciones
 
@@ -33,7 +32,7 @@ class Organizacion < ActiveRecord::Base
   has_many :informes, :dependent => :destroy
   accepts_nested_attributes_for :informes  
 
-  validates_presence_of :razon_social, :interna_id, :externa_id, :ambito_id, :clase_id
+  validates_presence_of :razon_social, :interna_id, :externa_id, :ambito_id, :clase_id, :entorno_id
   validates :razon_social, :uniqueness => true
 
   scope :clientes, joins(:interna).where("description = 'Cliente'")

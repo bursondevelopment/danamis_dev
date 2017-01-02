@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class InformesController < ApplicationController
   # GET /informes
   # GET /informes.json

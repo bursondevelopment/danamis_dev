@@ -23,6 +23,7 @@
     </tr>
   </thead>
   <tbody>
+    <%- @adjuntos = @adjuntos.order('created_at DESC') %>
     <% @adjuntos.each do |adjunto| %>
       <tr>
         <%- unless @medio %>

@@ -1,4 +1,4 @@
-<%= link_to 'Atrás', "/wizard_informes/paso4/#{@informe.organizacion_id}" , class: 'btn' %>
+<%= link_to 'Atrás', "/wizard_informes/paso4/#{@informe.organizacion_id}" , class: 'btn' if action_name.eql? 'vista'%>
 <div style="font-family:Verdana;font-size:14pt">
 	<div style="margin-bottom:0cm;line-height:100%;text-align:center;">
 
@@ -14,19 +14,19 @@
 	</div>
 
 	<div class="well well-small">
-		<%-@titulo = "Clientes"%>
-		<%-@reportes = @informe.reportes.clientes %>
+		<%-@titulo = "Cliente"%>
+		<%-@reportes = @informe.reportes.clientes.order('orden ASC') %>
 		<%- @tipo = 'cliente' %>
 		<%= render partial: '/wizard_informes/lista_seccion_sin_editar' %>
 
 		<%-@titulo = "Competencia"%>
-		<%-@reportes = @informe.reportes.competencias %>
+		<%-@reportes = @informe.reportes.competencias.order('orden ASC') %>
 		<%- @tipo = 'competencia' %>
 		<%= render partial: '/wizard_informes/lista_seccion_sin_editar' %>
 
 		<%-@titulo = "Actividad Económica"%>
 
-		<%-@reportes = @informe.reportes.actividad %>
+		<%-@reportes = @informe.reportes.actividad.order('orden ASC') %>
 		<%- @tipo = 'actividad' %>
 		<%= render partial: '/wizard_informes/lista_seccion_sin_editar' %>
 

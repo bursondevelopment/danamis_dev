@@ -73,22 +73,21 @@ class WizardInformesController < ApplicationController
 
   def paso4
     @titulo = "(Datos del Informe)"
-  	@cliente = Organizacion.find params[:id]
-
+  	@cliente = Organizacion.find params[:id] if params[:id] 
+    session[:informe_id] = params[:informe_id] if params[:informe_id]
   	if session[:informe_id]
   		@informe = Informe.find session[:informe_id]
-
-		@reportes_clientes = @informe.reportes.clientes.order('orden ASC')
-		@reportes_competencias = @informe.reportes.competencias.order('orden ASC')
-		@reportes_actividades = @informe.reportes.actividad.order('orden ASC')
-		@reportes_pendientes = @informe.reportes.pendientes  	
-
+  		@reportes_clientes = @informe.reportes.clientes.order('orden ASC')
+  		@reportes_competencias = @informe.reportes.competencias.order('orden ASC')
+  		@reportes_actividades = @informe.reportes.actividad.order('orden ASC')
+  		@reportes_pendientes = @informe.reportes.pendientes
+      @cliente = @informe.organizacion
   	else
   		session[:cliente_id] = @cliente.id
   		@informe = Informe.new
   		@informe.organizacion_id =  @cliente.id
   	end
-  	@informe.autor = "Burson Masteller"
+  	@informe.autor = "Burson Marsteller"
 
   end
 
@@ -135,7 +134,6 @@ class WizardInformesController < ApplicationController
 
   def enviar_por_correo
     @informe = Informe.find (params[:id])
-
     begin
       InformeMailer.enviar_informe(params[:id], params[:correos]).deliver
       flash[:success] = 'Correo Enviado Satisfactoriamente'
@@ -143,7 +141,12 @@ class WizardInformesController < ApplicationController
       puts "Error al intenter enviar: #{ex}"
       flash[:success] = "Error al intenter enviar: #{ex}"
     end
-    redirect_to action: "paso4/#{@informe.organizacion_id}"
+
+    if params[:url]
+      redirect_to informes_path
+    else
+      redirect_to action: "paso4/#{@informe.organizacion_id}"
+    end
   end
 
 end

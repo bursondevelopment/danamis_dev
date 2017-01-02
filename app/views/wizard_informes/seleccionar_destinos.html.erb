@@ -1,19 +1,25 @@
-<%= form_tag(:action => "enviar_por_correo") do %>
+</br>
+<h2>Enviar informe:</h2>
+<div class="well well-small">
+	<%= form_tag(:action => "enviar_por_correo") do %>
 
-  <div class="control-group">
-    <%= label_tag :correos, "Correos: (Recuerde separarlos pro ',')", :class => 'control-label' %>
-    <div class="controls">
-		<%= hidden_field_tag :id, @informe.id %>
-		<%= text_area_tag :correos, nil, {placeholder: "pedro@mail.com, maria@mail.ve,carla@mail.es", required: true, autofocus: true, class: 'span7', :size => '2' } %>
-    </div>
-  </div>
+	  <div class="control-group">
+	    <%= label_tag :correos, "Correos: (Recuerde separarlos pro ',')", :class => 'control-label' %>
+	    <div class="controls">
+			<%= hidden_field_tag :id, @informe.id %>
+			<%= hidden_field_tag :url, params[:url] %>
+
+			<%= text_area_tag :correos, nil, {placeholder: "pedro@mail.com, maria@mail.ve,carla@mail.es", required: true, autofocus: true, class: 'span7', :size => '2' } %>
+	    </div>
+	  </div>
 
 
 
 
-  <div class="modal-footer">
-		<%= link_to "Cancelar", :back, {:class=> "btn"} %>	
+	  <div class="modal-footer">
+			<%= link_to "Cancelar", :back, {:class=> "btn"} %>	
 
-    <%= submit_tag "Enviar", :id => "submit", :name => "submit", :class => "btn btn-primary", :disable_with => "Cargando..." %>
-  </div>
-<% end -%>
+	    <%= submit_tag "Enviar", :id => "submit", :name => "submit", :class => "btn btn-primary", :disable_with => "Cargando..." %>
+	  </div>
+	<% end -%>
+</div>

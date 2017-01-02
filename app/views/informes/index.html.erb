@@ -9,36 +9,32 @@
       <th><%= model_class.human_attribute_name(:fecha) %></th>
       <th><%= model_class.human_attribute_name(:encabezado) %></th>
       <th><%= model_class.human_attribute_name(:titulo) %></th>
+      <th>Total Reportes</th>
       <th><%= model_class.human_attribute_name(:autor) %></th>
-      <th><%= model_class.human_attribute_name(:tema) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th><%= model_class.human_attribute_name(:organizacion_id) %></th>
+      <th>Creación</th>
+      <th style="width: 15%"><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @informes.each do |informe| %>
       <tr>
-        <td><%= link_to informe.id, informe_path(informe) %></td>
+        <td><%= informe.id %></td>
         <td><%= informe.fecha %></td>
         <td><%= informe.encabezado %></td>
         <td><%= informe.titulo %></td>
+        <td><%= informe.reportes.count %></td>
         <td><%= informe.autor %></td>
-        <td><%= informe.tema %></td>
+        <td><%= informe.organizacion.razon_social if informe.organizacion %></td>
         <td><%=l informe.created_at %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_informe_path(informe), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      informe_path(informe),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
+          <%# raw btn_mini 'Enviar informe', "/wizard_informes/paso4?informe_id=#{informe.organizacion_id}", 'btn-info', 'icon-edit' %>
+
+          <%= raw btn_mini 'Enviar informe', "/wizard_informes/seleccionar_destinos/#{informe.id}?url=1", 'btn-success', 'icon-share' %>
+          <%= raw btn_mini_del 'Eliminar informe', informe_path(informe) , 'btn-danger', 'icon-trash'%>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_informe_path,
-            :class => 'btn btn-primary' %>
