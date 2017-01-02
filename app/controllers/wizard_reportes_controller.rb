@@ -150,7 +150,7 @@ class WizardReportesController < ApplicationController
     @actores = Actor.order('nombres ASC')
     @reporte = params[:id] ? Reporte.find(params[:id]) : Reporte.new  
     @reporte.organizacion_id = @cliente.id
-    @reportes = Reporte.del_cliente @cliente.id
+    @reportes = @cliente.reportes.creados_hoy
 
     #@table_name = 'validas'
     cargar_lista_notas

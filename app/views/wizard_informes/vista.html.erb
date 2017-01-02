@@ -10,25 +10,26 @@
 		</p>
 		<p style="text-align:justify;"><%= @informe.encabezado %></p>
 		<br>
-		<p><b>---------------------</b></p>
+		<p>______________________</p>
 	</div>
 
 	<div class="well well-small">
 		<%-@titulo = "Clientes"%>
 		<%-@reportes = @informe.reportes.clientes %>
 		<%- @tipo = 'cliente' %>
-		<%= render partial: 'lista_seccion_sin_editar' %>
+		<%= render partial: '/wizard_informes/lista_seccion_sin_editar' %>
 
 		<%-@titulo = "Competencia"%>
 		<%-@reportes = @informe.reportes.competencias %>
 		<%- @tipo = 'competencia' %>
-		<%= render partial: 'lista_seccion_sin_editar' %>
+		<%= render partial: '/wizard_informes/lista_seccion_sin_editar' %>
 
 		<%-@titulo = "Actividad Económica"%>
 
 		<%-@reportes = @informe.reportes.actividad %>
 		<%- @tipo = 'actividad' %>
-		<%= render partial: 'lista_seccion_sin_editar' %>
+		<%= render partial: '/wizard_informes/lista_seccion_sin_editar' %>
+
 	</div>
 
 </div>

@@ -5,15 +5,16 @@
 	  <div class="control-group">
 
 	    <%= link_to 'Atrás', {action: "paso3/#{@cliente.id}"}, class: 'btn' %>
-	    <%= link_to 'Descargar', {action: "descargar/#{@informe.id}"}, class: 'btn btn-primary pull-right' if session[:informe_id]%>
+	    <%# link_to 'Descargar', {action: "descargar/#{@informe.id}"}, class: 'btn btn-primary pull-right' if session[:informe_id]%>
 	    <%= link_to 'Vista', {action: "vista/#{@informe.id}"}, class: 'btn btn-success pull-right' if session[:informe_id]%>
+	    <%= link_to 'Enviar', {action: "seleccionar_destinos/#{@informe.id}"}, class: 'btn btn-success pull-right' if session[:informe_id]%>
+
 
 	    <%= link_to 'Nuevo Informe', {action: "paso1"}, class: 'btn btn-primary pull-right' %>
 
 	  </div>
   </div>
 </div>
-
 
 <div class="well well-small">
 	<%= render partial: 'form_informe' %>

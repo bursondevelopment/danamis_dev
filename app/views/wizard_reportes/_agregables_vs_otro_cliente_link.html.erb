@@ -9,6 +9,4 @@
 
 <%- if @total_notas.count > 0 %>
 	<%= render partial: '/adjuntos/lista_adjuntos' %>
-<% else %>
-	<%= link_to 'Realizar Reportes de Otro Cliente', {action: 'paso1'}, class: 'btn bnt-large btn-primary' %>	
 <% end -%>

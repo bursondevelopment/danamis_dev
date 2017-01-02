@@ -5,7 +5,20 @@
 	  <tbody>
 	    <% @reportes.each do |reporte| %>
 	      <tr>
-	        <td><%= raw contenedor_media_descripcion_sin_editar reporte %></td>
+	        <td>
+				<div class='media'>
+					<div class='media-body'>
+						<h4><%= "#{reporte.actor.nombres_cargo}: #{reporte.titulo}" %></h4>
+						<p>
+							<%= "#{reporte.argumento} " %>
+							<%- reporte.adjuntos.each_with_index do |ad, i| %>
+							<%= link_to ad.medio.descripcion, ad.url, {:target => '_blank'} %>
+							<%= " - " if i < (reporte.adjuntos.count - 1) %>
+							<% end -%>
+						</p>
+					</div>
+				</div>
+	        </td>
 	      </tr>
 	    <% end %>
 	  </tbody>

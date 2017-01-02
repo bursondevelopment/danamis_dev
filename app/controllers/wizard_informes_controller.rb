@@ -129,4 +129,21 @@ class WizardInformesController < ApplicationController
   	
   end
 
+  def seleccionar_destinos
+    @informe = Informe.find (params[:id])  
+  end
+
+  def enviar_por_correo
+    @informe = Informe.find (params[:id])
+
+    begin
+      InformeMailer.enviar_informe(params[:id], params[:correos]).deliver
+      flash[:success] = 'Correo Enviado Satisfactoriamente'
+    rescue Exception => ex
+      puts "Error al intenter enviar: #{ex}"
+      flash[:success] = "Error al intenter enviar: #{ex}"
+    end
+    redirect_to action: "paso4/#{@informe.organizacion_id}"
+  end
+
 end
