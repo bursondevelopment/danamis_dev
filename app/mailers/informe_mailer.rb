@@ -14,7 +14,7 @@ class InformeMailer < ActionMailer::Base
     #@informes_temas = InformeTema.where(:informe_id => @informe.id).order(:orden)
     #@informes_asuntos = InformeAsunto.where(:informe_id => @informe.id).order(:orden)    
     #@correos = Usuario.all.collect{|u| u.correo}
-
+    attachments.inline["logo_#{@informe.organizacion.razon_social}.png"] = File.read("#{Rails.root}/app/assets/images/logos/logo_#{@informe.organizacion.razon_social}.png")
     titulo = "#{@informe.created_at.strftime("%d-%m-%Y")} #{@informe.titulo}"
     mail(to: correos, subject: @informe.titulo)
     

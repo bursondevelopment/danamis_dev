@@ -1,19 +1,22 @@
 <%= link_to 'Atrás', "/wizard_informes/paso4/#{@informe.organizacion_id}" , class: 'btn' if action_name.eql? 'vista'%>
-<div style="font-family:Verdana;font-size:14pt">
-	<div style="margin-bottom:0cm;line-height:100%;text-align:center;">
+</br>
+</br>
 
-		<p><b><%= @informe.organizacion.razon_social %></b></p>
-		<p><b><%= @informe.autor %></b></p>
-		<p><b><%= @informe.fecha.strftime('%A, %d de %B de %Y').capitalize %></b></p>		
-		<p style="background-color:rgb(0,0,0);color:white;">
-			<b><%= @informe.titulo %></b>
-		</p>
+<div style="font-family:Candara;font-size:14pt">
+	<div style="margin-bottom:0cm;line-height:100%;text-align:center;">
+		<p style="background-color:#42495e;color:white;height:50px;padding-top: 25px;font-size:18pt"><b><%= @informe.autor %></b></p>
+		<%- if action_name.eql? 'vista'%>
+			<%= image_tag "../assets/logos/logo_#{@informe.organizacion.razon_social}.png", :title => "logo", :class => "img-rounded", :style => 'height:100px'%>
+		<% else %>
+			<%= image_tag attachments["logo_#{@informe.organizacion.razon_social}.png"].url, :title => "logo", :style => 'height:100px' if attachments["logo_#{@informe.organizacion.razon_social}.png"] -%>
+		<% end -%>
+		<p><b><%= "#{@informe.titulo} - #{@informe.fecha.strftime('%A, %d de %B de %Y').capitalize}" %></b></p>		
 		<p style="text-align:justify;"><%= @informe.encabezado %></p>
 		<br>
 		<p>______________________</p>
 	</div>
 
-	<div class="well well-small">
+	<div>
 		<%-@titulo = "Cliente"%>
 		<%-@reportes = @informe.reportes.clientes.order('orden ASC') %>
 		<%- @tipo = 'cliente' %>
@@ -24,7 +27,7 @@
 		<%- @tipo = 'competencia' %>
 		<%= render partial: '/wizard_informes/lista_seccion_sin_editar' %>
 
-		<%-@titulo = "Actividad Económica"%>
+		<%-@titulo = "Entorno"%>
 
 		<%-@reportes = @informe.reportes.actividad.order('orden ASC') %>
 		<%- @tipo = 'actividad' %>

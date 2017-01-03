@@ -1,16 +1,16 @@
 
-<div class="well well-small">
-	<h4><%= "#{@titulo}:" %></h4>
+<div>
+	<p><em style="color: #42495e;font-size:18pt"><%= @titulo %></em></p>
 	<%- if @reportes.count > 0 %>
-		<table class="table table-striped table-hover table-condensed">
+		<table>
 		  <tbody>
 		    <% @reportes.each do |reporte| %>
 		      <tr>
 		        <td>
-					<div class='media'>
-						<div class='media-body'>
-							<h4><%= "#{reporte.actor.nombres_cargo}: #{reporte.titulo}" %></h4>
-							<p>
+					<div>
+						<div>
+							<b style="font-size:16pt"><%= "#{reporte.actor.nombres_cargo}: #{reporte.titulo}" %></b>
+							<p style="text-align:justify;font-size:16pt">
 								<%= "#{reporte.argumento} " %>
 								<%- reporte.adjuntos.each_with_index do |ad, i| %>
 								<%= link_to ad.medio.descripcion, ad.url, {:target => '_blank'} %>
@@ -25,6 +25,7 @@
 		  </tbody>
 		</table>
 	<% else %>
-		<h3>No se registraron unidades informativas</h3>
+		<b style="font-size:16pt">No se registraron unidades informativas</b>
 	<% end -%>
+	</br>
 </div>
