@@ -2,6 +2,8 @@
 class InformesController < ApplicationController
   # GET /informes
   # GET /informes.json
+
+  before_filter :filtro_logueado
   def index
     @informes = Informe.all
 
