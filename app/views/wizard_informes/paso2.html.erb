@@ -18,7 +18,7 @@
 
 <%= form_tag(:action => "agrupar") do %>
 	<div class="well well-small">
-		<%=submit_tag 'Guardar Agrupación', class: 'btn btn-success pull-right'%>
+		<%=submit_tag 'Guardar Agrupación', class: 'btn btn-success pull-right', style: 'margin: 20px 20px 0 0;'%>
 		<%-@titulo = "Clientes"%>
 		<%-@reportes = @reportes_clientes %>
 		<%= render partial: 'index_reportes' %>

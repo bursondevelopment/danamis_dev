@@ -15,7 +15,8 @@
         <td><%= cliente.razon_social %></td>
         <td><%= cliente.informes.creados_hoy.count %></td>
         <td><%= cliente.reportes.sin_informe.count %></td>
-        <td><%= link_to 'Nuevo Informe', {action: 'paso2', cliente_id: cliente.id}, class: 'btn btn-primary' %></td>
+        <td><%= link_to 'Nuevo', {action: 'paso2', cliente_id: cliente.id}, class: 'btn btn-primary' %></td>
+        <td><%= raw btn_mini 'Editar el informe más reciente', "/wizard_informes/paso2/#{cliente.informes.last.id}", 'btn-info', 'icon-edit' if cliente.informes.count > 0 %></td>
 
       </tr>
     <% end -%>

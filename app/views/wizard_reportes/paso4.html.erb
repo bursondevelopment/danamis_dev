@@ -4,13 +4,13 @@
 
   <div class="control-group">
 
-    <%= link_to 'Atrás', {action: "paso3/#{@reporte.id}"}, class: 'btn' %>
-    <%= link_to 'Siguiente Reporte', {action: "paso3"}, class: 'btn btn-primary pull-right' %>
+	<%= link_to 'Otro Cliente', {action: 'paso1'}, class: 'btn bnt-large btn-primary' %>  
+    <%= link_to 'Atrás', {action: 'paso3', id: @reporte.id}, class: 'btn' %>
+    <%= link_to 'Siguiente Reporte', {action: 'paso2', id: @cliente.id}, class: 'btn btn-primary pull-right' %>
 
   </div>
 
 	<%= render partial: 'show_reporte' %>
-	<%= link_to 'Realizar Reportes de Otro Cliente', {action: 'paso1'}, class: 'btn bnt-large btn-primary pull-right' %>  
   </div>
 </div>
 

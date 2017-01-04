@@ -4,13 +4,12 @@
 
   <%= hidden_field_tag :id, @reporte.id unless @reporte.id.nil? %> 
   <div class="control-group">
+    <%= link_to 'Otro Cliente', {action: 'paso1'}, class: 'btn bnt-large btn-primary' %>  
 
-    <%= link_to 'Atrás', {action: "paso2/#{@cliente.id}"}, class: 'btn pull-left' %>
+    <%= link_to 'Atrás', {action: "paso2/#{@cliente.id}"}, class: 'btn' %>
 
-    <div class="controls">
-      <%= f.submit "Guardar / Siguiente", class: 'btn btn-primary pull-right', disable_with: "Enviando..." %>
+    <%= f.submit "Guardar / Siguiente", class: 'btn btn-primary pull-right', disable_with: "Enviando..." %>
 
-    </div>
   </div>
 
   <div class="control-group">

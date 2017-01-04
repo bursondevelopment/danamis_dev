@@ -1,6 +1,6 @@
 <%= form_tag(:action => 'ordenar') do %>
 	<div class="well well-small">
-		<%=submit_tag "Guardar Orden de #{@tipo.humanize}", class: 'btn btn-success pull-right' if @reportes.count > 1 %>
+		<%=submit_tag "Guardar Orden de #{@tipo.humanize}", class: 'btn btn-success pull-right', style: 'margin: 10px 8px 0 0;' if @reportes.count > 1 %>
 		<h3><%= @titulo  if @reportes.count > 1 %></h3>
 		<table class="table table-striped table-hover table-condensed">
 		  <tbody>

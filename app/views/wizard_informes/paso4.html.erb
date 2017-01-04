@@ -10,12 +10,12 @@
 	    	<%= link_to 'Atrás', {action: 'paso3', id: @informe.id}, class: 'btn' %>
 	    <% end -%>
 	    <%# link_to 'Descargar', {action: "descargar/#{@informe.id}"}, class: 'btn btn-primary pull-right' if session[:informe_id]%>
-	    <%= link_to 'Vista', {action: "vista/#{@informe.id}"}, class: 'btn btn-success pull-right' if session[:informe_id]%>
-	    <%= link_to 'Enviar', {action: "seleccionar_destinos/#{@informe.id}"}, class: 'btn btn-success pull-right' if session[:informe_id]%>
+	    <%= link_to 'Preliminar', {action: "vista/#{@informe.id}"}, class: 'btn btn-success pull-right', style: 'margin: 0 0 0 10px;' if session[:informe_id]%>
+	    <%= link_to 'Enviar', {action: "seleccionar_destinos/#{@informe.id}"}, class: 'btn btn-info pull-right', style: 'margin: 0 0 0 10px;' if session[:informe_id]%>
 
 
-	    <%= link_to 'Nuevo Informe', {action: "paso1"}, class: 'btn btn-primary pull-right' %>
-	    <%= link_to 'Ver Informes', {controller: "informes"}, class: 'btn btn-primary pull-right' %>
+	    <%= link_to 'Nuevo', {action: "paso1"}, class: 'btn btn-primary pull-right', style: 'margin: 0 0 0 10px;' %>
+	    <%= link_to 'Informes', {controller: "informes"}, class: 'btn btn-primary pull-right', style: 'margin: 0 0 0 10px;' %>
 
 	  </div>
   </div>
