@@ -99,7 +99,7 @@ class WizardInformesController < ApplicationController
 	@informe = Informe.new(params[:informe])
 	@cliente = Organizacion.find params[:cliente_id]
   	if @informe.save
-  		flash[:success] = "Datos del informe guardados con éxito"
+  		flash[:success] = "Datos del informe guardados con éxito. "
   		@reportes = @cliente.reportes.sin_informe
   		total_cargados = 0
   		total_errores = 0

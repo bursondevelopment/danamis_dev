@@ -41,7 +41,10 @@
           |
           <%= raw btn_mini 'Enviar informe', "/wizard_informes/seleccionar_destinos/#{informe.id}?url=1", 'btn-success', 'icon-share' %>
           |
-          <%= raw btn_mini_del 'Eliminar informe', informe_path(informe) , 'btn-danger', 'icon-trash'%>
+          <%- msg =  "¿Está Seguro?" %>
+          <%- msg = "ATENCIÓN: Los reportes asociados a este Informe quedaŕan liberados #{msg}" if informe.reportes.count > 0 %>
+
+          <%= raw btn_mini_del 'Eliminar informe', informe_path(informe) , 'btn-danger', 'icon-trash', msg %>
         </td>
       </tr>
     <% end %>
