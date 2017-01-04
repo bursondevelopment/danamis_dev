@@ -6,6 +6,7 @@
 	  <tbody>
 	    <% @reportes.each do |reporte| %>
 	      <tr>
+	      	<td><%= reporte.id %></td>
 	        <td style="width: 80%;"><%= raw contenedor_media_descripcion reporte %></td>
 	      	<td><%= select_tag "reportes_ids[#{reporte.id}]", options_for_select(['cliente', 'competencia', 'actividad'], reporte.seccion), class: 'pull-rigth', prompt: "Seleccione...", required: true%></td>
 	      </tr>

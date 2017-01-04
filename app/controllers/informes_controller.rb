@@ -5,7 +5,7 @@ class InformesController < ApplicationController
 
   before_filter :filtro_logueado
   def index
-    @informes = Informe.all
+    @informes = Informe.order('created_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb

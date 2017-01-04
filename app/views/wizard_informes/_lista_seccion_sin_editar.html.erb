@@ -1,6 +1,6 @@
 
 <div>
-	<p><em style="color: #42495e;font-size:18pt"><%= @titulo %></em></p>
+	<p><em style="color: #4fc8ec;font-size:18pt"><%= @titulo %></em></p>
 	<%- if @reportes.count > 0 %>
 		<table>
 		  <tbody>
@@ -8,9 +8,9 @@
 		      <tr>
 		        <td>
 					<div>
-						<div>
-							<b style="font-size:16pt"><%= "#{reporte.actor.nombres_cargo}: #{reporte.titulo}" %></b>
-							<p style="text-align:justify;font-size:16pt">
+						<div style="font-family:Candara;font-size:16pt;text-align:justify;">
+							<b><%= "#{reporte.actor.nombres_cargo}: #{reporte.titulo}" %></b>
+							<p>
 								<%= "#{reporte.argumento} " %>
 								<%- reporte.adjuntos.each_with_index do |ad, i| %>
 								<%= link_to ad.medio.descripcion, ad.url, {:target => '_blank'} %>

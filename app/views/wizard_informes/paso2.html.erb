@@ -1,11 +1,16 @@
 <div id="wizard_bar">
-  <h3 class="titulo"><%= "Wizard Informe: #{action_name.humanize} #{@titulo}" %> </h3>
+  <h3 class="titulo"><%= "Wizard Informe para #{@cliente.razon_social}: #{action_name.humanize} #{@titulo}" %> </h3>
   <div class="form-actions">
 
 	  <div class="control-group">
 
-	    <%= link_to 'Atrás', {action: "paso1"}, class: 'btn' %>
-	    <%= link_to 'Siguiente', {action: "paso3/#{@cliente.id}"}, class: 'btn btn-primary pull-right' %>
+	    <%- unless @informe.blank? %>
+	    	<%= link_to 'Atrás', {controller: 'informes'}, class: 'btn' %>
+	    	<%= link_to 'Siguiente', {action: "paso3", id: @informe.id}, class: 'btn btn-primary pull-right' if @reportes_pendientes.count < 1 %>
+	    <% else %>
+	    	<%= link_to 'Atrás', {action: "paso1"}, class: 'btn' %>
+	    	<%= link_to 'Siguiente', {action: 'paso3', cliente_id: @cliente.id}, class: 'btn btn-primary pull-right' if @reportes_pendientes.count < 1 %>	    
+	    <% end -%>
 
 	  </div>
   </div>

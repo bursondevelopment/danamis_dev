@@ -8,6 +8,6 @@ class Informe < ActiveRecord::Base
 
   scope :creados_hoy, -> {where("created_at >= ?", Date.today)}
 
-  validates_presence_of :encabezado, :fecha, :titulo, :organizacion_id
+  validates_presence_of :fecha, :titulo, :organizacion_id
 
 end

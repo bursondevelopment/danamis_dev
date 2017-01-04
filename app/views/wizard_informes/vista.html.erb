@@ -6,9 +6,9 @@
 	<div style="margin-bottom:0cm;line-height:100%;text-align:center;">
 		<p style="background-color:#42495e;color:white;height:60px;padding-top: 30px;font-size:18pt"><b><%= @informe.autor %></b></p>
 		<%- if action_name.eql? 'vista'%>
-			<%= image_tag "../assets/logos/logo_#{@informe.organizacion.razon_social}.png", :title => "logo", :class => "img-rounded", :style => 'height:100px' if @no_logo %>
+			<%= image_tag "../assets/logos/logo_#{@informe.organizacion.razon_social}.png", :title => "logo", :class => "img-rounded", :style => 'height:100px', alt: "#{@informe.organizacion.razon_social}" %>
 		<% else %>
-			<%= image_tag attachments["logo_#{@informe.organizacion.razon_social}.png"].url, :title => "logo", :style => 'height:100px' if attachments["logo_#{@informe.organizacion.razon_social}.png"] -%>
+			<%= image_tag attachments["logo_#{@informe.organizacion.razon_social}.png"].url, :title => "logo", :style => 'height:100px', alt: "#{@informe.organizacion.razon_social}" if attachments["logo_#{@informe.organizacion.razon_social}.png"] -%>
 		<% end -%>
 		<p><b><%= "#{@informe.titulo} - #{@informe.fecha.strftime('%A, %d de %B de %Y').capitalize}" %></b></p>		
 		<p style="text-align:justify;"><%= @informe.encabezado %></p>

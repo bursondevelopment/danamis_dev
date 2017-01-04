@@ -4,8 +4,8 @@
   <thead>
     <tr>
       <th> Cliente </th>
-      <th> Informes </th>
-      <th> Reportes</th>
+      <th> Informes de Hoy</th>
+      <th> Reportes Sin Informe</th>
       <th> Opciones </th>
     </tr>
   </thead>
@@ -14,8 +14,8 @@
       <tr>
         <td><%= cliente.razon_social %></td>
         <td><%= cliente.informes.creados_hoy.count %></td>
-        <td><%= cliente.reportes.creados_hoy.count %></td>
-        <td><%= link_to 'Nuevo Informe', {action: 'paso2', id: cliente.id}, class: 'btn btn-primary' %></td>
+        <td><%= cliente.reportes.sin_informe.count %></td>
+        <td><%= link_to 'Nuevo Informe', {action: 'paso2', cliente_id: cliente.id}, class: 'btn btn-primary' %></td>
 
       </tr>
     <% end -%>

@@ -1,13 +1,13 @@
 <%= form_tag(:action => 'ordenar') do %>
 	<div class="well well-small">
-		<%=submit_tag "Guardar Orden de #{@tipo.humanize}", class: 'btn btn-success pull-right'%>
-		<h3><%= @titulo%></h3>
+		<%=submit_tag "Guardar Orden de #{@tipo.humanize}", class: 'btn btn-success pull-right' if @reportes.count > 1 %>
+		<h3><%= @titulo  if @reportes.count > 1 %></h3>
 		<table class="table table-striped table-hover table-condensed">
 		  <tbody>
 		    <% @reportes.each do |reporte| %>
 		      <tr>
 		        <td style="width: 85%;"><%= raw contenedor_media_descripcion reporte %></td>
-		      	<td><%= number_field_tag "reportes_ids[#{reporte.id}]", reporte.orden, class: 'pull-rigth span2', min: 1, max: @reportes.count, step: 1, required: true %></td>
+		      	<td><%= number_field_tag "reportes_ids[#{reporte.id}]", reporte.orden, class: 'pull-rigth span2', min: 1, max: @reportes.count, step: 1, required: true  if @reportes.count > 1 %></td>
 		      </tr>
 		    <% end %>
 		  </tbody>

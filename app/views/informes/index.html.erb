@@ -1,18 +1,28 @@
+
 <%- model_class = Informe -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<table class="table table-striped">
+<%= link_to 'Nuevo Informe',
+            {controller: 'wizard_informes', action: 'paso1'},
+            :class => 'btn btn-primary' %>
+</br>
+</br>
+<%- @table_name = 'informes'%>
+<%= render partial: '/layouts/filtro_tabla' %>
+
+
+<table class="table table-striped table-hover table-condensed" id="informes">
+
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:fecha) %></th>
-      <th><%= model_class.human_attribute_name(:encabezado) %></th>
+      <th>Fecha. Creación</th>
+      <th>Fecha Informe</th>
       <th><%= model_class.human_attribute_name(:titulo) %></th>
-      <th>Total Reportes</th>
+      <th># Reportes</th>
       <th><%= model_class.human_attribute_name(:autor) %></th>
       <th><%= model_class.human_attribute_name(:organizacion_id) %></th>
-      <th>Creación</th>
       <th style="width: 15%"><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -20,17 +30,17 @@
     <% @informes.each do |informe| %>
       <tr>
         <td><%= informe.id %></td>
+        <td><%= informe.created_at %></td>
         <td><%= informe.fecha %></td>
-        <td><%= informe.encabezado %></td>
         <td><%= informe.titulo %></td>
         <td><%= informe.reportes.count %></td>
         <td><%= informe.autor %></td>
         <td><%= informe.organizacion.razon_social if informe.organizacion %></td>
-        <td><%=l informe.created_at %></td>
         <td>
-          <%# raw btn_mini 'Enviar informe', "/wizard_informes/paso4?informe_id=#{informe.organizacion_id}", 'btn-info', 'icon-edit' %>
-
+          <%= raw btn_mini 'Editar informe', "/wizard_informes/paso2/#{informe.id}", 'btn-info', 'icon-edit' %>
+          |
           <%= raw btn_mini 'Enviar informe', "/wizard_informes/seleccionar_destinos/#{informe.id}?url=1", 'btn-success', 'icon-share' %>
+          |
           <%= raw btn_mini_del 'Eliminar informe', informe_path(informe) , 'btn-danger', 'icon-trash'%>
         </td>
       </tr>
