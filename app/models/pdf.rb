@@ -17,12 +17,13 @@ class Pdf
     reportes = Reporte.order('created_at DESC')
 
     data = []
-    
+    indice = 0
     reportes.each_with_index do |reporte,i|
 
       reporte.adjuntos.each_with_index do |adjunto,j|
         aux = {"ID" => reporte.id, "TITULO" => reporte.titulo, "ARGUMENTO" => reporte.argumento, "PALABRAS_CLAVES" => reporte.palabras_claves, "MEDIO" => adjunto.medio.descripcion, "AUTOR" => adjunto.autor, "URL_NOTA" => adjunto.url, "ACTOR" => reporte.actor.nombres_cargo, "FECHA" => adjunto.created_at.to_date, "SUBTIPO_MEDIO" => adjunto.medio.tipo_especializacion.descripcion, "CPM" => 245, "VPE" => adjunto.medio.impacto}
-        @sheet.row(i+j+1).concat aux.values
+          indice += 1
+        @sheet.row(indice).concat aux.values
       end
     end
     file_name = "Reporte Unidades Informativas #{DateTime.now.strftime('%d_%m_%Y_%H_%M')}.xls"
