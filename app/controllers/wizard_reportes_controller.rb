@@ -171,7 +171,7 @@ class WizardReportesController < ApplicationController
     end
     if @reporte.save
       flash[:success] = "Datos elementales del reporte guardados con éxito."
-      if params[:informe_id]
+      if params[:informe_id] and not params[:reporte]
         redirect_to "/wizard_informes/paso3/#{params[:informe_id]}" 
       else
         redirect_to action: "paso4/#{@reporte.id}" 

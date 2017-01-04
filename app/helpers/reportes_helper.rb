@@ -25,7 +25,7 @@ module ReportesHelper
     contenedor = "<div class='media'>"
     contenedor += "<div class='media-body'>"
     contenedor += "<h4>"
-    contenedor += "#{reporte.actor.nombres_cargo}: "
+    contenedor += "#{reporte.actor.nombres_cargo}: " if reporte.actor 
     contenedor += reporte.titulo
     contenedor += btn_mini 'Editar este reporte', "/wizard_reportes/paso3/#{reporte.id}", 'btn-info', 'icon-edit'
     contenedor += btn_mini_del 'Eliminar este reporte', "/wizard_reportes/destroy_reporte/#{reporte.id}", 'btn-danger', 'icon-trash', 'Este acción eliminará el reporte del sistema. ¿Está totalmente seguro?'
@@ -44,7 +44,7 @@ module ReportesHelper
     contenedor = "<div class='media'>"
     contenedor += "<div class='media-body'>"
     contenedor += "<h4>"
-    contenedor += "#{reporte.actor.nombres_cargo}: "
+    contenedor += "#{reporte.actor.nombres_cargo}: " if reporte.actor
     contenedor += reporte.titulo
     contenedor += "</h4>"
     contenedor += "<p>"

@@ -21,7 +21,8 @@ class Pdf
     reportes.each_with_index do |reporte,i|
 
       reporte.adjuntos.each_with_index do |adjunto,j|
-        aux = {"ID" => reporte.id, "TITULO" => reporte.titulo, "ARGUMENTO" => reporte.argumento, "PALABRAS_CLAVES" => reporte.palabras_claves, "MEDIO" => adjunto.medio.descripcion, "AUTOR" => adjunto.autor, "URL_NOTA" => adjunto.url, "ACTOR" => reporte.actor.nombres_cargo, "FECHA" => adjunto.created_at.to_date, "SUBTIPO_MEDIO" => adjunto.medio.tipo_especializacion.descripcion, "CPM" => 245, "VPE" => adjunto.medio.impacto}
+        actor_aux = reporte.actor.nombres_cargo if reporte.actor  
+        aux = {"ID" => reporte.id, "TITULO" => reporte.titulo, "ARGUMENTO" => reporte.argumento, "PALABRAS_CLAVES" => reporte.palabras_claves, "MEDIO" => adjunto.medio.descripcion, "AUTOR" => adjunto.autor, "URL_NOTA" => adjunto.url, "ACTOR" => actor_aux, "FECHA" => adjunto.created_at.to_date, "SUBTIPO_MEDIO" => adjunto.medio.tipo_especializacion.descripcion, "CPM" => 245, "VPE" => adjunto.medio.impacto}
           indice += 1
         @sheet.row(indice).concat aux.values
       end
