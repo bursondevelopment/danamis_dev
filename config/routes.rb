@@ -26,8 +26,9 @@ Dunamis::Application.routes.draw do
     
     collection do
       get :eliminar_total_adjuntos
+      get :full_index
+      get :descargar
     end
-
   end
 
   resources :organizaciones

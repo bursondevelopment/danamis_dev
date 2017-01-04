@@ -1,7 +1,22 @@
 # encoding: UTF-8
 class AdjuntosController < ApplicationController
+  before_filter :filtro_logueado
+
   # GET /adjuntos
   # GET /adjuntos.json
+
+  def descargar
+    #ids = params[:id]
+    #reportes = Reportes.where(:id => ids.split(","))
+    file_name = Pdf.descargar_reportes_excel
+    send_file file_name, :type => "application/vnd.ms-excel", :filename => "reportes.xls", :stream => false
+
+    File.delete(file_name)
+  end
+
+  def full_index
+    @reportes = Reporte.order('created_at DESC')
+  end
 
   def descartar_adjunto
     nota = Adjunto.find params[:id]

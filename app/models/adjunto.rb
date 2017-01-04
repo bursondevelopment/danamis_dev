@@ -16,6 +16,9 @@ class Adjunto < ActiveRecord::Base
   has_many :adjunto_organizaciones, :dependent => :destroy
   accepts_nested_attributes_for :adjunto_organizaciones
 
+  has_and_belongs_to_many :reportes, :join_table => "reportes_adjuntos"
+  accepts_nested_attributes_for :reportes
+
   has_many :reportes_adjuntos, :dependent => :destroy
   accepts_nested_attributes_for :reportes_adjuntos
 

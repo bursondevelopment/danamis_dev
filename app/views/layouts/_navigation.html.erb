@@ -58,9 +58,26 @@
 						    <ul class="dropdown-menu">
 
 									<li><%= link_to 'Wizard Reporte', '/wizard_reportes/paso1' %></li>
+									<li><%= link_to 'Reportes', reportes_path %></li>
+						    </ul>
+						</li>
+
+
+					  </li>
+					    <li class="dropdown">
+						    <a class="dropdown-toggle"
+						       data-toggle="dropdown"
+						       href="#">
+						        Especiales
+						        <b class="caret"></b>
+						    </a>
+						    <ul class="dropdown-menu">
+
+									<li><%= link_to 'Adjuntos-Reportes', {controller: 'adjuntos', action: 'full_index'} %></li>
 									<li><%# link_to 'Reportes', reportes_path %></li>
 						    </ul>
 						</li>
+
 
         	</ul>
 					<div class= "pull-right" style="padding-top:10px;">

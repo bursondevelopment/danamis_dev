@@ -1,0 +1,52 @@
+<h2>Generación de Reportes</h2> 
+</br>
+<div class="well well-small">
+  
+  <%= raw btn_icon 'Descargar Reportes en Excel', 'Descargar', '/adjuntos/descargar', 'btn-success', 'icon-download' %>  
+
+  </br>
+  </br>
+  <%- @table_name = 'adjuntos'%>
+  <%= render partial: '/layouts/filtro_tabla' %>
+
+  <table class="table table-striped table-hover table-condensed" id='adjuntos'>
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Titulo</th>
+        <th>Argumento</th>
+        <th>Palabras Claves</th>
+        <th>Medio</th>
+        <th>Autor</th>
+        <th>Url Nota</th>
+        <th>Actor</th>
+        <th>Fecha</th>
+        <th>SubTipo Medio</th>
+        <th>CPM</th>
+        <th>VPE</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%- @reportes.each do |reporte| %>
+        <%- @adjuntos = reporte.adjuntos %>
+        <% @adjuntos.each do |adjunto| %>
+          <tr>
+            <td><%= adjunto.id %></td>
+            <td><%= reporte.titulo %></td>
+            <td><%= reporte.argumento %></td>
+            <td><%= reporte.palabras_claves %></td>
+            <td><%= link_to adjunto.medio.nombre, adjunto.medio.url if adjunto.medio %></td>
+            <td><%= adjunto.autor %></td>
+            <td><%= link_to adjunto.medio.descripcion, adjunto.url %></td>
+            <td><%= reporte.actor.nombres_cargo if reporte.actor%></td>
+            <td><%= adjunto.created_at.to_date %></td>
+            <td><%= adjunto.medio.tipo_especializacion.descripcion %></td>
+            <td>245</td>
+            <td><%= adjunto.medio.impacto %></td>
+          </tr>
+        <% end %>
+      <% end -%>
+    </tbody>
+  </table>
+
+</div>

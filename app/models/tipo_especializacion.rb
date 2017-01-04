@@ -4,4 +4,8 @@ class TipoEspecializacion < ActiveRecord::Base
   has_many :medios
   accepts_nested_attributes_for :medios
 
+  def descripcion
+  	description
+  end
+
 end

@@ -33,6 +33,10 @@ class Reporte < ActiveRecord::Base
   scope :pendientes, -> {where("seccion NOT LIKE 'cliente' AND seccion NOT LIKE 'competencia' AND seccion NOT LIKE 'actividad' OR seccion IS NULL")}
 
 
-
+  def palabras_claves
+    aux = ""
+    aux += actor.organizacion.entorno.claves.collect{|clave| clave.valor}.join(",") if (actor and actor.organizacion and actor.organizacion.entorno and actor.organizacion.entorno.claves )
+    return aux 
+  end
 
 end
