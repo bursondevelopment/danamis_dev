@@ -34,7 +34,7 @@ class WizardReportesController < ApplicationController
     @cliente.save
 
     # Razon social
-    notas = Adjunto.creadas_hoy
+    notas = Adjunto.order(['created_at DESC', 'titulo ASC']).creadas_hoy
     # notas = Adjunto.creadas_antes_de_hoy#creadas_hoy
     @total_notas = notas.buscar_clave_general @cliente.razon_social
 
@@ -221,12 +221,12 @@ class WizardReportesController < ApplicationController
 
       if reportes.count > 0 and hay_adjuntos
         # notas = Adjunto.del_cliente_sin_reporte(session[:cliente_id]).del_cliente_antes_hoy(session[:cliente_id])
-        notas = Adjunto.del_cliente_hoy(session[:cliente_id]).del_cliente_sin_reporte(session[:cliente_id])
-        notas = Adjunto.del_cliente_antes_hoy(session[:cliente_id]).del_cliente_sin_reporte(session[:cliente_id])
+        notas = Adjunto.order('created_at DESC').del_cliente_hoy(session[:cliente_id]).del_cliente_sin_reporte(session[:cliente_id])
+        notas = Adjunto.order('created_at DESC').del_cliente_antes_hoy(session[:cliente_id]).del_cliente_sin_reporte(session[:cliente_id])
 
       else
-        notas = Adjunto.del_cliente_hoy(session[:cliente_id])
-        notas = Adjunto.del_cliente_antes_hoy(session[:cliente_id])        
+        notas = Adjunto.order('created_at DESC').del_cliente_hoy(session[:cliente_id])
+        notas = Adjunto.order('created_at DESC').del_cliente_antes_hoy(session[:cliente_id])        
       end
 
       #notas = @cliente.adjuntos.sin_reportes
