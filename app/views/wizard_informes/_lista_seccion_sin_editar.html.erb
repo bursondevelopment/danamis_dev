@@ -1,6 +1,8 @@
 
 <div>
-	<p><em style="color: #4fc8ec;font-size:18pt"><%= @titulo %></em></p>
+	<p style="background-color: darkgray; padding: 2px;color: #fff;font-size:16pt">
+		<b><%= @titulo %></b> 
+	</p>
 	<%- if @reportes.count > 0 %>
 		<table>
 		  <tbody>
@@ -8,9 +10,9 @@
 		      <tr>
 		        <td>
 					<div>
-						<div style="font-family:Candara;font-size:16pt;text-align:justify;">
-							<b><%= "#{reporte.actor.nombres_cargo}: #{reporte.titulo}" %></b>
-							<p>
+						<div style="margin: 10px 0 10px 0;">
+							<b style="font-family:Arial;font-size:14pt;text-align:justify;color: #4472c4;"><%= "#{reporte.actor.nombres_cargo}: #{reporte.titulo}" %></b>
+							<p style="font-family:Arial;font-size:12pt;text-align:justify;">
 								<%= "#{reporte.argumento} " %>
 								<%- reporte.adjuntos.each_with_index do |ad, i| %>
 								<%= link_to ad.medio.descripcion, ad.url, {:target => '_blank'} %>
@@ -25,7 +27,9 @@
 		  </tbody>
 		</table>
 	<% else %>
-		<b style="font-size:16pt">No se registraron unidades informativas</b>
+		<div style="margin: 10px 0 10px 0;">
+			<b style="font-size:14pt;">No se registraron unidades informativas</b>
+		</div>
 	<% end -%>
-	</br>
 </div>
+<br>

@@ -19,7 +19,8 @@ class WizardInformesController < ApplicationController
       @reportes_clientes = @informe.reportes.clientes.order('orden ASC')
       @reportes_competencias = @informe.reportes.competencias.order('orden ASC')
       @reportes_actividades = @informe.reportes.actividad.order('orden ASC')
-      @reportes_pendientes = @informe.reportes.pendientes   
+      @reportes_pendientes = @informe.reportes.pendientes #
+      # @reportes_pendientes = @cliente.reportes.sin_informe.pendientes
 
     else
       @cliente = Organizacion.find params[:cliente_id]
@@ -27,8 +28,8 @@ class WizardInformesController < ApplicationController
   		@reportes_clientes = @cliente.reportes.sin_informe.clientes.order('orden ASC')
   		@reportes_competencias = @cliente.reportes.sin_informe.competencias.order('orden ASC')
   		@reportes_actividades = @cliente.reportes.sin_informe.actividad.order('orden ASC')
-  		@reportes_pendientes = @cliente.reportes.sin_informe.pendientes
-	end
+  end
+  @reportes_pendientes = @cliente.reportes.pendientes#_or_sin_informe
 
   end
 
@@ -37,6 +38,7 @@ class WizardInformesController < ApplicationController
   	reportes_ids.each_pair do |key, valor|
   		reporte = Reporte.find key
   		reporte.seccion = valor
+      reporte.informe_id = session[:informe_id] if session[:informe_id]
   		reporte.save
   	end
   	redirect_to :back
@@ -68,6 +70,7 @@ class WizardInformesController < ApplicationController
   	reportes_ids.each_pair do |key, valor|
   		reporte = Reporte.find key
   		reporte.orden = valor
+      reporte.informe_id = session[:informe_id] if session[:informe_id]      
   		reporte.save
   	end
   	redirect_to :back
@@ -95,9 +98,9 @@ class WizardInformesController < ApplicationController
   	@informe.autor = "Burson-Marsteller"
   end
 
-  def paso4_guardar
-	@informe = Informe.new(params[:informe])
-	@cliente = Organizacion.find params[:cliente_id]
+  def paso4_crear
+    @informe = Informe.new(params[:informe])
+    @cliente = Organizacion.find params[:cliente_id]
   	if @informe.save
   		flash[:success] = "Datos del informe guardados con éxito. "
   		@reportes = @cliente.reportes.sin_informe
@@ -122,6 +125,19 @@ class WizardInformesController < ApplicationController
     end
 
   end
+
+  def paso4_actualizar
+    @informe = Informe.find(session[:informe_id])
+    if @informe.update_attributes(params[:informe])
+      flash[:success] = "Datos del informe guardados con éxito."
+      redirect_to :back
+    else
+      flash[:danger] = "Error al intentar guardar los datos del informe. Por favor, revise los datos e inténtelo nuevamente: #{@informe.errors.full_messages.join(',')}"
+      redirect_to action: 'paso4', id: @informe.id    
+    end
+
+  end
+
 
   def descargar
 	@informe = Informe.find (params[:id])

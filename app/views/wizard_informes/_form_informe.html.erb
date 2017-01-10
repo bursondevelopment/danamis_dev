@@ -1,4 +1,5 @@
-<%= form_for @informe, url: {action: 'paso4_guardar', cliente_id: @cliente.id}, :html => { :class => 'form-horizontal' } do |f| %>
+<%- @accion = session[:informe_id] ? 'paso4_actualizar' : 'paso4_crear' %>
+<%= form_for @informe, url: {action: @accion, cliente_id: @cliente.id}, :html => { :class => 'form-horizontal' } do |f| %>
 
   <div class ="well well-small">
     <div style = "text-align:center;">

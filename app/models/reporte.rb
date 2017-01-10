@@ -30,6 +30,7 @@ class Reporte < ActiveRecord::Base
   scope :competencias, -> {where("seccion = 'competencia'")}
   scope :actividad, -> {where("seccion = 'actividad'")}
 
+  scope :pendientes_or_sin_informe, -> {where('informe_id IS NULL OR seccion IS NULL')}
   scope :pendientes, -> {where("seccion NOT LIKE 'cliente' AND seccion NOT LIKE 'competencia' AND seccion NOT LIKE 'actividad' OR seccion IS NULL")}
 
 

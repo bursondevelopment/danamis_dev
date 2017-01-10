@@ -20,9 +20,9 @@ class Actor < ActiveRecord::Base
   end
 
   def nombres_cargo
-  	aux = string_humanize nombres
-  	aux += " (#{cargo.humanize})" if cargo
-  	return aux
+  	aux = nombres
+  	aux += " (#{cargo})" if cargo
+  	return aux.upcase
   end 
 
 end

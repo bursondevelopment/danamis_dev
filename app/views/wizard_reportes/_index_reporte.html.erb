@@ -10,6 +10,11 @@
 		  <tbody>
 		    <% @reportes.each do |reporte| %>
 		      <tr>
+		      	<%- if @reporte.informe_id %>
+			      	<td>
+			      		<%= @reporte.informe_id %>
+			      	</td>
+		      	<% end -%>
 		        <td><%= raw contenedor_media_descripcion reporte %></td>
 		      </tr>
 		    <% end %>

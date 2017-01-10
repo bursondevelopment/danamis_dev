@@ -1,18 +1,21 @@
-<%= link_to 'Atrás', "/wizard_informes/paso4/#{@informe.organizacion_id}" , class: 'btn' if action_name.eql? 'vista'%>
+<%= link_to 'Atrás', :back , class: 'btn' if action_name.eql? 'vista'%>
 </br>
 </br>
 
-<div style="font-family:Candara;font-size:14pt">
+<div style="font-family:Arial;font-size:14pt">
 	<div style="margin-bottom:0cm;line-height:100%;text-align:center;">
-		<p style="background-color:#42495e;color:white;height:60px;padding-top: 30px;font-size:18pt"><b><%= @informe.autor %></b></p>
+		<p style="background-color:#42495e;color:white;height:40px;padding-top: 20px;font-size:18pt"><b><%= @informe.autor %></b></p>
 		<%- if action_name.eql? 'vista'%>
-			<%= image_tag "../assets/logos/logo_#{@informe.organizacion.razon_social}.png", :title => "logo", :class => "img-rounded", :style => 'height:100px', alt: "#{@informe.organizacion.razon_social}" %>
+			<%= image_tag "../assets/logos/logo_#{@informe.organizacion.razon_social}.png", :title => "logo", :class => "img-rounded", :style => 'height:70px', alt: "#{@informe.organizacion.razon_social}" %>
 		<% else %>
-			<%= image_tag attachments["logo_#{@informe.organizacion.razon_social}.png"].url, :title => "logo", :style => 'height:100px', alt: "#{@informe.organizacion.razon_social}" if attachments["logo_#{@informe.organizacion.razon_social}.png"] -%>
+			<%= image_tag attachments["logo_#{@informe.organizacion.razon_social}.png"].url, :title => "logo", :style => 'height:70px', alt: "#{@informe.organizacion.razon_social}" if attachments["logo_#{@informe.organizacion.razon_social}.png"] -%>
 		<% end -%>
-		<p><b><%= "#{@informe.titulo} - #{@informe.fecha.strftime('%A, %d de %B de %Y').capitalize}" %></b></p>		
-		<p style="text-align:justify;"><%= @informe.encabezado %></p>
+		<p style="padding: 20px;"><b><%= "#{@informe.titulo} - #{@informe.fecha.strftime('%A, %d de %B de %Y').capitalize}" %></b></p>
+		<%- unless @informe.encabezado.blank? %>
+			<p style="text-align:justify; padding: 20px 0 20px 0;"><%= @informe.encabezado %></p>
+		<% end -%>
 		<br>
+
 	</div>
 
 	<div>

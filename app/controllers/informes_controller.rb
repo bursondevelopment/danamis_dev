@@ -76,7 +76,6 @@ class InformesController < ApplicationController
   # DELETE /informes/1.json
   def destroy
     @informe = Informe.find(params[:id])
-    @cliente = @informe.cliente
     @reportes = @informe.reportes
     total_reportes_liberados = 0
     @reportes.each do |reporte|
@@ -85,7 +84,7 @@ class InformesController < ApplicationController
     end
 
     @informe.destroy
-    msg = total_reportes_liberados > 0 ? "Total reportes liverados: #{total_reportes_liberados}. Puede asignarlo a otro informe de #{@cliente.razon_social} " : "" 
+    msg = total_reportes_liberados > 0 ? "Total reportes liverados: #{total_reportes_liberados}. Puede asignarlo a otro informe del mismo cliente" : "" 
     respond_to do |format|
       format.html { redirect_to informes_url, notice: "Informe Eliminado. #{msg}" }
       format.json { head :no_content }
