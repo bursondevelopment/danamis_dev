@@ -10,18 +10,33 @@ private
     end
   end
 
-  def filtro_logueado_ssj
+  def filtro_logueado_dunamis
     unless session[:usuario]
       flash[:alert] = "Debe iniciar sesión"  
       redirect_to :root
       return false
     else
     	usuario = session[:usuario]
-    	unless usuario.ssj?
-    		flash[:alert] = "Ud. no es usuario ssj"  
-      		redirect_to :root
+    	unless usuario.super_usuario?
+    		flash[:alert] = "Ud. no es un Super Administrador"  
+      		redirect_to :back
       		return false
       	end
+    end
+  end
+
+  def filtro_logueado_admin
+    unless session[:usuario]
+      flash[:alert] = "Debe iniciar sesión"  
+      redirect_to :root
+      return false
+    else
+      usuario = session[:usuario]
+      unless usuario.super_usuario?
+        flash[:alert] = "Ud. no es un Super Administrador"  
+          redirect_to :back
+          return false
+        end
     end
   end
 

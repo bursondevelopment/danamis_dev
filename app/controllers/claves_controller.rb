@@ -2,6 +2,10 @@
 class ClavesController < ApplicationController
   # GET /claves
   # GET /claves.json
+
+  before_filter :filtro_logueado
+  before_filter :filtro_logueado_dunamis
+
   def index
     @claves = Clave.order('created_at ASC')
 

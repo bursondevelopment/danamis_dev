@@ -1,6 +1,11 @@
 class InternasController < ApplicationController
   # GET /internas
   # GET /internas.json
+
+  before_filter :filtro_logueado
+  before_filter :filtro_logueado_dunamis
+
+
   def index
     @internas = Interna.all
 

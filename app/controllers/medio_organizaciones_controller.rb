@@ -1,6 +1,11 @@
 class MedioOrganizacionesController < ApplicationController
   # GET /medio_organizaciones
   # GET /medio_organizaciones.json
+
+  before_filter :filtro_logueado
+  before_filter :filtro_logueado_dunamis
+
+
   def index
     @medio_organizaciones = MedioOrganizacion.all
 

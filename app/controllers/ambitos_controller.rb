@@ -1,6 +1,10 @@
 class AmbitosController < ApplicationController
   # GET /ambitos
   # GET /ambitos.json
+
+  before_filter :filtro_logueado
+  before_filter :filtro_logueado_dunamis
+
   def index
     @ambitos = Ambito.all
 

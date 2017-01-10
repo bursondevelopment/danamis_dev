@@ -3,6 +3,7 @@ class MediosController < ApplicationController
   # GET /medios
   # GET /medios.json
   before_filter :filtro_logueado
+  before_filter :filtro_logueado_admin
 
 
   def barrer

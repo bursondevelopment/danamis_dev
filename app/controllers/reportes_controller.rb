@@ -1,6 +1,9 @@
 class ReportesController < ApplicationController
   # GET /reportes
   # GET /reportes.json
+  before_filter :filtro_logueado
+  before_filter :filtro_logueado_dunamis
+  
   def index
     @reportes = Reporte.joins(:organizacion).order(['organizaciones.razon_social ASC', 'created_at DESC'])
 

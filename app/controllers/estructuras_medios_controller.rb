@@ -1,6 +1,8 @@
 # encoding: UTF-8
 class EstructurasMediosController < ApplicationController
 
+  before_filter :filtro_logueado
+  before_filter :filtro_logueado_dunamis
 
   # GET /estructuras_medios
   # GET /estructuras_medios.json

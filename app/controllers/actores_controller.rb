@@ -3,6 +3,9 @@ class ActoresController < ApplicationController
   # GET /actores
   # GET /actores.json
   before_filter :filtro_logueado
+  before_filter :filtro_logueado_admin
+
+
   def index
     @actores = Actor.order('nombres ASC')
     respond_to do |format|

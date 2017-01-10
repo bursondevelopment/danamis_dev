@@ -1,6 +1,10 @@
 class ToldasController < ApplicationController
   # GET /toldas
   # GET /toldas.json
+  before_filter :filtro_logueado
+  before_filter :filtro_logueado_dunamis
+
+
   def index
     @toldas = Tolda.all
 

@@ -1,6 +1,10 @@
 class ClasesController < ApplicationController
   # GET /clases
   # GET /clases.json
+
+  before_filter :filtro_logueado
+  before_filter :filtro_logueado_dunamis
+
   def index
     @clases = Clase.all
 

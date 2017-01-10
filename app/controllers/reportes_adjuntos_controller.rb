@@ -2,6 +2,9 @@
 class ReportesAdjuntosController < ApplicationController
   # GET /reportes_adjuntos
   # GET /reportes_adjuntos.json
+
+  before_filter :filtro_logueado
+
   def index
     @reportes_adjuntos = ReporteAdjunto.all
 

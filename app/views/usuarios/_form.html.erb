@@ -24,12 +24,20 @@
     </div>
   </div>
 
+
   <div class="control-group">
-    <%= f.label "correo Electrónico:", :class => 'control-label' %>
+    <%= f.label :tipo, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :correo, :class => 'text_field', :placeholder => "Correo Electrónico…", :required => true %>
+      <p>
+        
+        <%= f.number_field :tipo, prompt: "Cl. Interna", :class => 'number_field', min: 1, max: 3, step: 1, required: true %>
+        (1 = Super Administrador, 2 = Administrador y 3 = Usuario)        
+      </p>
+
+      <%# f.collection_select :tipo, Usuario.all_tipo, [1..3], [1..3], {:prompt => "Cl. Interna"}, {:required => true} %>
     </div>
   </div>
+
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>

@@ -9,45 +9,50 @@
 			
       <div class="nav-collapse">
 		<% if session[:usuario] %>
+      	<%- @usuario = session[:usuario] %>
         	<ul class="nav">
 			      <li><%= link_to 'Inicio', root_path, :class => 'brand' %></li>
 						<li class="divider-vertical"></li>
 
-						<li class="dropdown">
-						    <a class="dropdown-toggle"
-						       data-toggle="dropdown"
-						       href="#">
-						        Componentes
-						        <b class="caret"></b>
-						    </a>
-					    <ul class="dropdown-menu">
-								<li><%= link_to 'Medios', medios_path %></li>
-								<li><%= link_to 'Organizaciones', organizaciones_path %></li>
-								<li><%= link_to 'Clientes', '/organizaciones?clientes=1' %></li>
-								<li><%= link_to 'Actividades Enonómicas', entornos_path %></li>
-								<li><%= link_to 'Actores', actores_path %></li>
-								<li class="divider-horizontal"></li>
+						<%- if @usuario.usuario_admin? %>	
+							<li class="dropdown">
+							    <a class="dropdown-toggle"
+							       data-toggle="dropdown"
+							       href="#">
+							        Componentes
+							        <b class="caret"></b>
+							    </a>
+							    <ul class="dropdown-menu">
+										<li><%= link_to 'Medios', medios_path %></li>
+										<li><%= link_to 'Organizaciones', organizaciones_path %></li>
+										<li><%= link_to 'Clientes', '/organizaciones?clientes=1' %></li>
+										<%- if @usuario.super_usuario? %>
+											<li><%= link_to 'Actividades Enonómicas', entornos_path %></li>
+										<% end -%>
+										<li><%= link_to 'Actores', actores_path %></li>
+										<li class="divider-horizontal"></li>
 
-								<li><%= link_to 'Productos', productos_path %></li>	
-					    </ul>
+										<li><%= link_to 'Productos', productos_path %></li>	
+							    </ul>
+					  		</li>
+					   <% end -%>
 
+						<%- if @usuario.usuario_admin? %>	
+						    <li class="dropdown">
+							    <a class="dropdown-toggle"
+							       data-toggle="dropdown"
+							       href="#">
+							        Informes
+							        <b class="caret"></b>
+							    </a>
+							    <ul class="dropdown-menu">
 
-					  </li>
-					    <li class="dropdown">
-						    <a class="dropdown-toggle"
-						       data-toggle="dropdown"
-						       href="#">
-						        Informes
-						        <b class="caret"></b>
-						    </a>
-						    <ul class="dropdown-menu">
+										<li><%= link_to 'Wizard Informe', '/wizard_informes/paso1' %></li>
+										<li><%= link_to 'Lista de Informes', informes_path %></li>
+							    </ul>
+							</li>
+					  <% end -%>
 
-									<li><%= link_to 'Wizard Informe', '/wizard_informes/paso1' %></li>
-									<li><%= link_to 'Lista de Informes', informes_path %></li>
-						    </ul>
-						</li>	
-
-					  </li>
 					    <li class="dropdown">
 						    <a class="dropdown-toggle"
 						       data-toggle="dropdown"
@@ -58,26 +63,31 @@
 						    <ul class="dropdown-menu">
 
 									<li><%= link_to 'Wizard Reporte', '/wizard_reportes/paso1' %></li>
-									<li><%= link_to 'Reportes', reportes_path %></li>
+									<%- if @usuario.super_usuario? %>
+										<li><%= link_to 'Reportes', reportes_path %></li>
+									<% end -%>
 						    </ul>
 						</li>
 
 
-					  </li>
-					    <li class="dropdown">
-						    <a class="dropdown-toggle"
-						       data-toggle="dropdown"
-						       href="#">
-						        Especiales
-						        <b class="caret"></b>
-						    </a>
-						    <ul class="dropdown-menu">
+						<%- if @usuario.super_usuario? %>
 
-									<li><%= link_to 'Adjuntos-Reportes', {controller: 'adjuntos', action: 'full_index'} %></li>
-									<li><%# link_to 'Reportes', reportes_path %></li>
-						    </ul>
-						</li>
+						    <li class="dropdown">
+							    <a class="dropdown-toggle"
+							       data-toggle="dropdown"
+							       href="#">
+							        Especiales
+							        <b class="caret"></b>
+							    </a>
+							    <ul class="dropdown-menu">
 
+										<li><%= link_to 'Adjuntos-Reportes', {controller: 'adjuntos', action: 'full_index'} %></li>
+										<li><%# link_to 'Reportes', reportes_path %></li>
+										<li><%= link_to 'Gestión de Usuarios', usuarios_path %></li>
+
+							    </ul>
+							</li>
+						<% end -%>
 
         	</ul>
 					<div class= "pull-right" style="padding-top:10px;">

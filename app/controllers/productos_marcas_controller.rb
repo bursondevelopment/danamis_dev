@@ -2,6 +2,10 @@
 class ProductosMarcasController < ApplicationController
   # GET /productos_marcas
   # GET /productos_marcas.json
+  before_filter :filtro_logueado
+  before_filter :filtro_logueado_admin
+
+
   def index
     @productos_marcas = ProductoMarca.all
 

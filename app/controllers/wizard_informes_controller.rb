@@ -1,6 +1,7 @@
 # encoding: UTF-8
 class WizardInformesController < ApplicationController
   before_filter :filtro_logueado
+  before_filter :filtro_logueado_admin
 
   def paso1
     @titulo = "(Selección de Cliente)"    

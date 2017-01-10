@@ -2,6 +2,11 @@
 class EntornosController < ApplicationController
   # GET /entornos
   # GET /entornos.json
+
+  before_filter :filtro_logueado
+  before_filter :filtro_logueado_dunamis
+
+
   def index
     @entornos = Entorno.all
 

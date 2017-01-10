@@ -9,8 +9,8 @@
       <th><%= model_class.human_attribute_name(:nombre) %></th>
       <th><%= model_class.human_attribute_name(:nombre_sesion) %></th>
       <th><%= model_class.human_attribute_name(:contrasena) %></th>
-      <th><%= model_class.human_attribute_name(:correo) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>Tipo</th>
+
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -21,8 +21,7 @@
         <td><%= usuario.nombre %></td>
         <td><%= usuario.nombre_sesion %></td>
         <td><%= usuario.contrasena %></td>
-        <td><%= usuario.correo %></td>
-        <td><%=l usuario.created_at %></td>
+        <td><%= usuario.tipo_usuario %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_usuario_path(usuario), :class => 'btn btn-mini' %>

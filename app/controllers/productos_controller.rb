@@ -2,6 +2,10 @@
 class ProductosController < ApplicationController
   # GET /productos
   # GET /productos.json
+  before_filter :filtro_logueado
+  before_filter :filtro_logueado_admin
+
+
   def index
     @productos = Producto.order('created_at DESC')
 

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class AdjuntosController < ApplicationController
   before_filter :filtro_logueado
-
+  before_filter :filtro_logueado_dunamis
   # GET /adjuntos
   # GET /adjuntos.json
 

@@ -1,6 +1,10 @@
 class UsuariosController < ApplicationController
   # GET /usuarios
   # GET /usuarios.json
+
+  before_filter :filtro_logueado
+  before_filter :filtro_logueado_dunamis
+
   def index
     @usuarios = Usuario.all
 

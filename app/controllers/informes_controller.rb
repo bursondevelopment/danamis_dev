@@ -4,6 +4,10 @@ class InformesController < ApplicationController
   # GET /informes.json
 
   before_filter :filtro_logueado
+  before_filter :filtro_logueado_dunamis
+
+
+  before_filter :filtro_logueado
   def index
     @informes = Informe.order('created_at DESC')
 

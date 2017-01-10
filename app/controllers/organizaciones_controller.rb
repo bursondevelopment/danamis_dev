@@ -4,6 +4,8 @@ class OrganizacionesController < ApplicationController
   # GET /organizaciones.json
 
   before_filter :filtro_logueado
+  before_filter :filtro_logueado_admin
+  
   def index
     if params[:clientes]
       @organizaciones = Organizacion.clientes.order(['interna_id DESC'])

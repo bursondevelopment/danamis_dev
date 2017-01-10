@@ -2,6 +2,9 @@
 class MarcasController < ApplicationController
   # GET /marcas
   # GET /marcas.json
+  before_filter :filtro_logueado
+  before_filter :filtro_logueado_admin
+
   def index
     @marcas = Marca.order('nombre ASC')
     respond_to do |format|
