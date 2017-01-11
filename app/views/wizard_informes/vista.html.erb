@@ -19,6 +19,12 @@
 	</div>
 
 	<div>
+		<%- if @informe_especial %>
+			<%-@titulo = "Titulares (ENTORNO)"%>
+			<%-@reportes = @informe_especial.reportes.order('orden ASC') %>
+			<%- @tipo = 'especial' %>
+			<%= render partial: '/wizard_informes/lista_seccion_sin_editar' %>
+		<% end -%>
 		<%-@titulo = "Cliente"%>
 		<%-@reportes = @informe.reportes.clientes.order('orden ASC') %>
 		<%- @tipo = 'cliente' %>

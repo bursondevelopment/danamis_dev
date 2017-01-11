@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170110060208) do
+ActiveRecord::Schema.define(:version => 20170111155755) do
 
   create_table "actores", :force => true do |t|
     t.string   "nombres"
@@ -110,11 +110,13 @@ ActiveRecord::Schema.define(:version => 20170110060208) do
     t.string   "titulo"
     t.string   "autor"
     t.string   "tema"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.integer  "organizacion_id"
+    t.integer  "informe_especial_id"
   end
 
+  add_index "informes", ["informe_especial_id"], :name => "index_informes_on_informe_especial_id"
   add_index "informes", ["organizacion_id"], :name => "index_informes_on_organizacion_id"
 
   create_table "internas", :force => true do |t|

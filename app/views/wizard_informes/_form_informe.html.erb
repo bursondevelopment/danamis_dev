@@ -21,8 +21,25 @@
       <%= f.text_area :encabezado, :class => 'input-block-level', :data => {"spy" => "scroll", "target" => ".navbar"}, :placeholder => "Encabezado del informe…", :style => "height:100px;"%>
 
     </div>
+
+    <%- unless @informe_titulares %>
+      <p class="label label-warning">Seccion de titulares no disponible. Cargue un informe especial de Contexto País.</p>
+    <% else %>
+      </br>
+      <%- if @accion.eql? 'paso4_crear' %>
+        <%- @checked = true %> 
+      <% else %> 
+        <%- @checked = @informe.tiene_informe_especial? %>
+      <% end -%>
+      <p class="label label-info">
+        <%= f.check_box :informe_especial_id, {class: 'btn', checked: @checked}, @informe_titulares.id, 'no' %>
+        Incluir Titulares del <i>Contexto País</i> 
+      </p>
+    <% end %>
+
+
     </br>
-    <%= f.submit nil, :class => 'btn btn-success pull-right' %>
+      <%= f.submit nil, :class => 'btn btn-success pull-right' %>
     </br>
     </br>
 

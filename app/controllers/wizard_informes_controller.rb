@@ -114,6 +114,8 @@ class WizardInformesController < ApplicationController
   end
 
   def paso4
+    @contexto_pais = Organizacion.find Organizacion::CONTEXTO_PAIS_ID
+    @informe_titulares = @contexto_pais.informes.creados_hoy.last
     @titulo = "(Datos del Informe)"
     session[:informe_id] = params[:informe_id] if params[:iid]
     if session[:informe_id]
@@ -136,6 +138,7 @@ class WizardInformesController < ApplicationController
   end
 
   def paso4_crear
+    params[:informe][:informe_especial_id] = nil if params[:informe][:informe_especial_id].eql? 'no'
     @informe = Informe.new(params[:informe])
     @cliente = Organizacion.find params[:cliente_id]
   	if @informe.save
@@ -164,6 +167,7 @@ class WizardInformesController < ApplicationController
   end
 
   def paso4_actualizar
+    params[:informe][:informe_especial_id] = nil if params[:informe][:informe_especial_id].eql? 'no'
     @informe = Informe.find(session[:informe_id])
     if @informe.update_attributes(params[:informe])
       flash[:success] = "Datos del informe guardados con éxito."
@@ -186,7 +190,7 @@ class WizardInformesController < ApplicationController
 
   def vista
 	@informe = Informe.find (params[:id])
-  	
+  @informe_especial = @informe.informe_especial
   end
 
   def seleccionar_destinos

@@ -4,6 +4,7 @@ class InformeMailer < ActionMailer::Base
   def enviar_informe(informe_id, correos)
 
     @informe = Informe.find (informe_id)
+    @informe_especial = @informe.informe_especial
 
     begin
         attachments.inline["logo_#{@informe.organizacion.razon_social}.png"] = File.read("#{Rails.root}/app/assets/images/logos/logo_#{@informe.organizacion.razon_social}.png")    
