@@ -1,0 +1,15 @@
+<div id="wizard_bar">
+  <h3 class="titulo"><%= "Wizard Informe Especial para #{@contexto_pais.razon_social}: #{action_name.humanize} #{@titulo}" %> </h3>
+  <div class="form-actions">
+
+	  <div class="control-group">
+	    <%= link_to 'Atrás', {action: "paso1"}, class: 'btn' %>
+	  </div>
+  </div>
+</div>
+
+<div class="well well-small">
+	<%-@titulo = "Clientes"%>
+	<%- @tipo = 'cliente' %>
+	<%= render partial: 'lista_seccion' %>
+</div>

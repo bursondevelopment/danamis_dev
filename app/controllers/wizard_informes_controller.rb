@@ -5,8 +5,18 @@ class WizardInformesController < ApplicationController
 
   def paso1
     @titulo = "(Selección de Cliente)"    
-    @clientes = Organizacion.clientes
+    @clientes = Organizacion.clientes.delete_if{|c| c.id.eql? Organizacion::CONTEXTO_PAIS_ID}
     session[:informe_id] = nil    
+    @contexto_pais = Organizacion.find Organizacion::CONTEXTO_PAIS_ID # Ojo Buscar cuál es el id del contexto Pais. Sino existe crear 
+  end
+
+  def paso2_especial
+    @contexto_pais = Organizacion.find Organizacion::CONTEXTO_PAIS_ID # Ojo Buscar cuál es el id del contexto Pais. Sino existe crear 
+    @informe = Informe.find params[:id] if params[:id]
+
+    @reportes = @contexto_pais.reportes.order('orden ASC').sin_informe
+    @reportes = @informe.reportes.order('orden ASC') + @reportes if @informe
+    
   end
 
   def paso2
@@ -64,6 +74,32 @@ class WizardInformesController < ApplicationController
   		@reportes_actividades = @cliente.reportes.sin_informe.actividad.order('orden ASC')
   		@reportes_pendientes = @cliente.reportes.sin_informe.pendientes
     end
+  end
+
+  def ordenar_especial
+    if params[:informe_id]
+      @informe = Informe.find params[:informe_id]
+    else
+      @informe = Informe.new()
+      # @contexto_pais = Organizacion.find Organizacion::CONTEXTO_PAIS_ID 
+      @informe.organizacion_id = Organizacion::CONTEXTO_PAIS_ID # Ojo Buscar cuál es el id del contexto Pais. Sino existe crear 
+      @informe.fecha = DateTime.now
+      @informe.autor = "Burson-Marsteller"
+      @informe.titulo = "Titulares"
+      
+    flash[:success] = "Informme Guardado" if @informe.save 
+    end
+    total_reportes = 0
+    reportes_ids = params[:reportes_ids]
+    reportes_ids.each_pair do |key, valor|
+      reporte = Reporte.find key
+      reporte.orden = valor
+      reporte.informe_id = @informe.id
+      total_reportes += 1 if reporte.save
+    end
+    flash['alert-info'] = "Total de reportes organizados: #{total_reportes}."
+    redirect_to action: 'paso2_especial', id: @informe.id
+    
   end
 
   def ordenar

@@ -37,9 +37,17 @@
         <td><%= informe.autor %></td>
         <td><%= informe.organizacion.razon_social if informe.organizacion %></td>
         <td>
-          <%= raw btn_mini 'Editar informe', "/wizard_informes/paso2/#{informe.id}", 'btn-info', 'icon-edit' %>
+          <%- if informe.organizacion_id.eql? Organizacion::CONTEXTO_PAIS_ID %>
+            <%= raw btn_mini 'Editar el informe más reciente', "/wizard_informes/paso2_especial/#{informe.id}", 'btn-success', 'icon-edit'%>
+          <% else %>
+            <%= raw btn_mini 'Editar informe', "/wizard_informes/paso2/#{informe.id}", 'btn-info', 'icon-edit' %>
+          <% end -%>
           |
-          <%= raw btn_mini 'Enviar informe', "/wizard_informes/seleccionar_destinos/#{informe.id}?url=1", 'btn-success', 'icon-share' %>
+          <%- if informe.organizacion_id.eql? Organizacion::CONTEXTO_PAIS_ID %>
+            <%= raw btn_mini 'Enviar informe', "", 'btn-success', 'icon-share' %>
+          <% else %>
+            <%= raw btn_mini 'Enviar informe', "/wizard_informes/seleccionar_destinos/#{informe.id}?url=1", 'btn-success', 'icon-share' %>
+          <% end -%>
           |
           <%- msg =  "¿Está Seguro?" %>
           <%- msg = "ATENCIÓN: Los reportes asociados a este Informe quedaŕan liberados #{msg}" if informe.reportes.count > 0 %>

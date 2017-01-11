@@ -10,6 +10,14 @@
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td><%= @contexto_pais.razon_social %></td>
+      <td><%= @contexto_pais.informes.creados_hoy.count %></td>
+      <td><%= @contexto_pais.reportes.sin_informe.count %></td>
+      <td><%= link_to 'Nuevo', {action: 'paso2_especial'}, class: 'btn btn-success' %></td>
+        <td><%= raw btn_mini 'Editar el informe más reciente', "/wizard_informes/paso2_especial/#{@contexto_pais.informes.last.id}", 'btn-success', 'icon-edit' if @contexto_pais.informes.creados_hoy.count > 0 %></td>
+
+    </tr>
     <% @clientes.each do |cliente| %>
       <tr>
         <td><%= cliente.razon_social %></td>

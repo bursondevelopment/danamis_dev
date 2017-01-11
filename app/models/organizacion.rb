@@ -6,6 +6,8 @@ class Organizacion < ActiveRecord::Base
   belongs_to :clase
   belongs_to :usuario
 
+  CONTEXTO_PAIS_ID = 82
+
   attr_accessible :razon_social, :entorno_id, :interna_id, :externa_id, :ambito_id, :clase_id, :usuario_id
 
   has_and_belongs_to_many :medios, :join_table => "medio_organizaciones"

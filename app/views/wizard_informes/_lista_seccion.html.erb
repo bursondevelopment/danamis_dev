@@ -1,4 +1,6 @@
-<%= form_tag(:action => 'ordenar') do %>
+<%- @ordenar = (action_name.eql? 'paso2_especial') ? 'ordenar_especial' : 'ordenar' %>
+<%= form_tag(:action => @ordenar) do %>
+	<%= hidden_field_tag :informe_id, @informe.id if action_name.eql? 'paso2_especial' and @informe %> 
 	<div class="well well-small">
 		<%=submit_tag "Guardar Orden de #{@tipo.humanize}", class: 'btn btn-success pull-right', style: 'margin: 10px 8px 0 0;' if @reportes.count > 1 %>
 		<h3><%= @titulo %></h3>
