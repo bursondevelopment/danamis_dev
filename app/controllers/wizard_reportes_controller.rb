@@ -11,8 +11,8 @@ class WizardReportesController < ApplicationController
   def paso1
     @titulo = "(Selección de Clientes)"    
     session[:cliente_id] = nil
-    @clientes_libres = Organizacion.clientes.where(:usuario_id => nil).order('razon_social ASC')
-    @mis_clientes = Organizacion.clientes.where(:usuario_id => session[:usuario].id).order('razon_social ASC')
+    @clientes_libres = Organizacion.clientes.delete_if{|o| o.reportes.creados_hoy.count > 0} #where(:usuario_id => nil).order('razon_social ASC')
+    @mis_clientes = Organizacion.clientes.delete_if{|o| o.reportes.creados_hoy.count <= 0} #where(:usuario_id => session[:usuario].id).order('razon_social ASC')
     @medios_digitales = Medio.digitales    
 
   end

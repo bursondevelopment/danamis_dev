@@ -28,12 +28,12 @@
 <br>
 <div class="well well-small">
 
-	<h4>Barridos por el Usuario:</h4>
+	<h4>Barridos:</h4>
 	<%- if @mis_clientes.count <= 0 %>
 		<p class= 'label label-info'>Sin Clientes Seleccionados</p>
 	<%else%>
 		<%- @mis_clientes.each do |cliente| %>
-			<%= raw btn_icon 'Volver a Barrer', cliente.razon_social, "/wizard_reportes/paso1_liberar/#{cliente.id}", 'btn-success', 'icon-arrow-down'%>
+			<%= raw btn_icon 'Volver a Barrer', cliente.razon_social, "/wizard_reportes/paso2/#{cliente.id}", 'btn-success', 'icon-refresh'%>
 		<% end -%>
 	<% end -%>
 	<h4>Pendientes por Barrer:</h4>
