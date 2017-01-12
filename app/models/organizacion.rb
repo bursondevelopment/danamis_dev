@@ -6,7 +6,7 @@ class Organizacion < ActiveRecord::Base
   belongs_to :clase
   belongs_to :usuario
 
-  CONTEXTO_PAIS_ID = 82
+  CONTEXTO_PAIS_ID = 571
 
   attr_accessible :razon_social, :entorno_id, :interna_id, :externa_id, :ambito_id, :clase_id, :usuario_id
 
