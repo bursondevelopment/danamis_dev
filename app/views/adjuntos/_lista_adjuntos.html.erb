@@ -1,12 +1,13 @@
-
-
   <ul class="nav nav-tabs" id="TabMedios">
     <li class="active"><a href="#resumen"><%="Resumen (#{@total_notas.count})"%></a></li>
     <li><a href="#cliente"><%="Cliente (#{@total_notas_cliente})"%></a></li>
     <li><a href="#competencia"><%="Competencia (#{@notas_competencias.count})"%></a></li>
     <li><a href="#entorno"><%="Actividad Económica (#{@total_notas_entorno})"%></a></li>
-  </ul>
 
+    <%- if @adjuntos_impresos and @adjuntos_impresos.count > 0 %> 
+      <li><a href="#impresos"> <i class="label label-warning"><%="Impresos (#{@adjuntos_impresos.count})"%></i></a></li>
+    <% end -%>
+  </ul>
   <div class="tab-content">
 
     <div class="active tab-pane" id="resumen">
@@ -35,7 +36,6 @@
       <%- @table_name = 'productos'%>
       <%= render partial: '/adjuntos/tabla_adjuntos' if @notas %>
 
-
     </div>
 
     <div class="tab-pane" id="competencia">
@@ -53,7 +53,15 @@
       <%-@notas = @notas_entorno_claves %>
       <%- @table_name = 'palabras_claves'%>
       <%= render partial: '/adjuntos/tabla_adjuntos' if @notas %>
-
     </div>
+
+    <%- if @adjuntos_impresos and @adjuntos_impresos.count > 0 %> 
+
+      <div class="tab-pane" id="impresos">
+        <%-@notas = @adjuntos_impresos %>
+        <%- @table_name = 'impresos' %>
+        <%= render partial: '/adjuntos/tabla_adjuntos' if @notas %>
+      </div>
+    <% end -%>
 
   </div>

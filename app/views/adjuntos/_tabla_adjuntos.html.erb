@@ -28,13 +28,23 @@
 								<div class="media-body">
 									<h4><%= link_to nota.titulo, nota.url, :target => '_blank' %></h4>
 									<%= raw nota.descripcion_completa %>
-									<%= link_to nota.medio.descripcion, nota.url, :target => '_blank'%>
+									<%- if nota.impreso? %>
+										<%= image_tag(nota.imagen_url, style: 'max-height: 40px;') %>
+									<% else %>
+										<%= link_to nota.medio.descripcion, nota.url, :target => '_blank'%>
+									<% end -%>
 								</div>
 							</div>
 						</td>
 						<td>
 							<%= check_box_tag "notas[#{nota.id}]", true, (success.eql? 'success'), {:class => 'btn btn-primary', :style => 'display:none;'} if @seleccionable %>
-							<%= raw btn_to_descartar_adjunto nota.id if @descartable %>
+							<%- if nota.impreso? %>
+								<%# raw btn_to_descartar_adjunto nota.id if @descartable %>
+
+								<%=  raw btn_mini_del 'Eliminar Adjunto impreso', adjunto_path(nota), 'btn-danger', 'icon-trash' %>
+							<% else %>
+								<%= raw btn_to_descartar_adjunto nota.id if @descartable %>
+							<% end -%>
 							<%= raw btn_agregar_adjunto @reporte.id, nota.id if @agregable %>
 						</td> 
 					</tr>

@@ -1,0 +1,87 @@
+<%- model_class = Medio -%>
+<div class="page-header">
+  <h2><%= "#{@medio.nombre} - #{@medio.tipo_especializacion.description}"%></h2>
+  <div class="form-action">
+    <%= link_to t('.back', :default => t("helpers.links.back")), medios_path, :class => 'btn' %>
+    |
+    <b class='tooltip-btn' data_toggle='tooltip' title= "Barrer <%= @medio.descripcion %> " >
+      <%= link_to "", {:href => "/medios/barrer/#{@medio.id}", :class => 'btn btn-success'}, { :role => 'button'} do %>
+        <%= "Barrer #{@medio.nombre}" %>
+        <%= content_tag(:i, "", class: "icon-arrow-down icon-white") %>
+        <%= content_tag(:i, "", class: "icon-globe icon-white") %>
+      <% end %>
+    </b>
+
+    <e class='tooltip-btn' data_toggle='tooltip' title= "Sólo para uso temporal de pruebas" >
+      <%= link_to "", {:href => "/adjuntos/eliminar_total_adjuntos/#{@medio.id}", :class => 'btn btn-danger pull-right'} do %>
+        <%= "Eliminar notas adjuntas" %>
+        <%= content_tag(:i, "", class: "icon-exclamation-sign icon-white") %>
+      <% end -%>
+    </e>
+
+
+  </div>
+</div>
+
+
+<ul class="nav nav-tabs" id="TabMedios">
+  <li class="active"><a href="#general">General</a></li>
+  <li><a href="#estructuras"><%= "Estructuras de sus páginas (#{@medio.estructura_medios.count})" %></a></li>
+  <li><a href="#adjuntos"><%= "Notas Adjuntas (#{@medio.adjuntos.count})" %></a></li>
+</ul>
+ 
+<div class="tab-content">
+  <div class="active tab-pane" id="general">
+    <dl class="dl-horizontal">
+      <dt><strong><%= model_class.human_attribute_name(:nombre) %>:</strong></dt>
+      <dd><%= @medio.nombre %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
+      <dd><%= @medio.url %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:descripcion) %>:</strong></dt>
+      <dd><%= link_to @medio.descripcion, @medio.url, :target => '_blank' %></dd>
+
+      <dt><strong><%= model_class.human_attribute_name(:impacto) %>:</strong></dt>
+      <dd><%= @medio.impacto %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:vpe) %>:</strong></dt>
+      <dd><%= @medio.vpe %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:tipo_medio_id) %>:</strong></dt>
+      <dd><%= @medio.tipo_medio.description.capitalize %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:tipo_especializacion_id) %>:</strong></dt>
+      <dd><%= @medio.tipo_especializacion.description %></dd>
+      <dt></dt>
+      <dd>
+        <e class='tooltip-btn' data_toggle='tooltip' title= "Editar" >
+          <%= link_to "", {:href => edit_medio_path(@medio), :class => 'btn btn-info'}, { :role => 'button'} do %>
+            <%# "Editar" %>
+            <%= content_tag(:i, "", class: "icon-edit icon-white") %>
+          <% end %>
+        </e>
+        |
+        <b class='tooltip-btn' data_toggle='tooltip' title="ir a <%=@medio.descripcion %>" >
+            <%= link_to @medio.url, { :role => 'button', :class => 'btn', :target => '_blank'} do %>
+              <%= content_tag(:i, "", class: "icon-share") %>
+            <% end %>
+          </b>
+      </dd>
+    
+    
+    </dl>
+  </div>
+  <div class="tab-pane" id="estructuras">
+    
+    <%- @estructuras_medios = @medio.estructura_medios %>
+    <%= render :file =>'/estructuras_medios/index', :layouts => false %>
+
+  </div>
+  <div class="tab-pane" id="adjuntos">
+    
+    <%- @adjuntos = @medio.adjuntos %>
+    <%= render :file =>'/adjuntos/index', :layouts => false %>
+
+  </div>
+</div>
+ 
+
+
+
+

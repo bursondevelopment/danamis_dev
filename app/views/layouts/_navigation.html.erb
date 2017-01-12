@@ -23,7 +23,8 @@
 							        <b class="caret"></b>
 							    </a>
 							    <ul class="dropdown-menu">
-										<li><%= link_to 'Medios', medios_path %></li>
+										<li><%= link_to 'Medios Digitales', medios_path %></li>
+										<li><%= link_to 'Medios Impresos', {controller: 'medios', action: 'index_impresos'} %></li>
 										<li><%= link_to 'Organizaciones', organizaciones_path %></li>
 										<li><%= link_to 'Clientes', '/organizaciones?clientes=1' %></li>
 										<%- if @usuario.super_usuario? %>

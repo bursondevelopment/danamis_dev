@@ -1,0 +1,37 @@
+<%= form_for @medio, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :nombre, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :nombre, :class => 'text_field', :autofocus => true, :placeholder => "El Medio Impreso", :required => true  %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :medicion, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :medicion, required: true, :class => 'number_field' %>
+      <i class="muted">(cm/col)</i>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label 'Valor', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :vpe, required: true, class: 'number_field' %>
+    </div>
+  </div>
+  <%= f.hidden_field :tipo_medio_id %>
+  <div class="control-group">
+    <%= f.label :tipo_especializacion_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :tipo_especializacion_id, TipoEspecializacion.order('description ASC'), :id, :description, {:prompt => "Especialidad"}, {:required => true} %>
+
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                {action: 'index_impresos'}, :class => 'btn' %>
+  </div>
+<% end %>

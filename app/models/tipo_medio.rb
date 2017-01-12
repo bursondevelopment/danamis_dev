@@ -8,4 +8,8 @@ class TipoMedio < ActiveRecord::Base
   	description.capitalize
   end
 
+  def impreso?
+  	description.eql? 'impreso'
+  end
+
 end

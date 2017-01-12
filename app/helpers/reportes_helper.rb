@@ -13,8 +13,12 @@ module ReportesHelper
   def list_to_adjuntos_desagregables reporte
 	links = ""
 	reporte.adjuntos.each_with_index do |ad, i|
-    	links += link_to_adjunto ad
-    	links += btn_desagregar_adjunto reporte.id, ad.id
+        if ad.impreso?
+           links += image_tag(ad.imagen_url, style: 'max-height: 20px;')
+        else
+    	   links += link_to_adjunto ad
+    	end
+        links += btn_desagregar_adjunto reporte.id, ad.id
     	links += " - " if i < (reporte.adjuntos.count - 1)
     end
     links

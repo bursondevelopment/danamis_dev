@@ -23,7 +23,6 @@ Dunamis::Application.routes.draw do
   resources :actores
 
   resources :adjuntos do
-    
     collection do
       get :eliminar_total_adjuntos
       get :full_index
@@ -35,7 +34,11 @@ Dunamis::Application.routes.draw do
 
   resources :estructuras_medios
 
-  resources :medios
+  resources :medios do
+    collection do
+      get :index_impresos
+    end
+  end
 
   resources :claves
 

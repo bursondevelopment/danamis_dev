@@ -154,6 +154,7 @@ class WizardReportesController < ApplicationController
     @reporte.organizacion_id = @cliente.id
     @reportes = @cliente.reportes.creados_hoy
 
+    
     #@table_name = 'validas'
     cargar_lista_notas
 
@@ -188,7 +189,7 @@ class WizardReportesController < ApplicationController
 
     @cliente = Organizacion.find session[:cliente_id]
     @titulo = "(Agregar notas adjuntas) - #{@cliente.razon_social}"
-
+    
     cargar_lista_notas
 
   end
@@ -229,9 +230,9 @@ class WizardReportesController < ApplicationController
         notas = Adjunto.order('created_at DESC').del_cliente_antes_hoy(session[:cliente_id])        
       end
 
-      #notas = @cliente.adjuntos.sin_reportes
+      notas = @cliente.adjuntos.creadas_hoy
 
-      @total_notas = @cliente.adjuntos
+      @total_notas = @cliente.adjuntos.order('created_at DESC').creadas_hoy
 
       # Razon social
       #@total_notas = notas.buscar_clave_general @cliente.razon_social
@@ -312,6 +313,8 @@ class WizardReportesController < ApplicationController
       end
 
       @total_notas_entorno = @notas_entorno.count + @notas_entorno_claves.count
+
+      @adjuntos_impresos = @cliente.adjuntos.sin_reportes.order('created_at DESC').delete_if{|a| not a.impreso?}
 
       @total_notas = @total_notas.uniq
     

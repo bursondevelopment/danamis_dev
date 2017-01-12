@@ -1,10 +1,16 @@
 class Medio < ActiveRecord::Base
   belongs_to :tipo_medio
   belongs_to :tipo_especializacion
-  attr_accessible :descripcion, :vpe, :logo, :nombre, :url, :tipo_medio_id, :tipo_especializacion_id
+  attr_accessible :descripcion, :vpe, :logo, :nombre, :url, :tipo_medio_id, :tipo_especializacion_id, :medicion
 
-  validates_presence_of :nombre, :url, :vpe, :descripcion, :tipo_medio_id, :tipo_especializacion_id
-  validates :url, :uniqueness => true
+  validates_presence_of :nombre, :vpe, :descripcion, :tipo_medio_id, :tipo_especializacion_id
+
+  validates_presence_of :url, if: :digital?
+
+  validates_presence_of :medicion, if: :digital?
+
+
+  validates :url, :uniqueness => true, if: :digital?
 
   has_and_belongs_to_many :organizaciones, :join_table => "medio_organizaciones"
   accepts_nested_attributes_for :organizaciones
@@ -14,9 +20,15 @@ class Medio < ActiveRecord::Base
 
   scope :digitales, joins(:tipo_medio).where("tipos_medios.description = 'digital'")
 
+  scope :impresos, joins(:tipo_medio).where("tipos_medios.description = 'impreso'")
+
   # El impacto (roi) es un valor asociado al cliente 
   def impacto
     vpe*245
+  end
+
+  def digital?
+    tipo_medio.description.eql? 'digital'
   end
 
   has_many :adjuntos

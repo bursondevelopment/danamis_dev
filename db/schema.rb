@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170111155755) do
+ActiveRecord::Schema.define(:version => 20170111214148) do
 
   create_table "actores", :force => true do |t|
     t.string   "nombres"
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(:version => 20170111155755) do
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
     t.string   "url"
+    t.integer  "medicion"
   end
 
   add_index "medios", ["tipo_especializacion_id"], :name => "index_medios_on_tipo_especializacion_id"

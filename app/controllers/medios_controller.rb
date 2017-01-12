@@ -46,13 +46,23 @@ class MediosController < ApplicationController
 
 
   def index
-    @medios = Medio.all
+    @medios = Medio.digitales
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @medios }
     end
   end
+
+  def index_impresos
+    @medios = Medio.impresos
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @medios }
+    end
+  end
+
 
   # GET /medios/1
   # GET /medios/1.json
@@ -69,6 +79,10 @@ class MediosController < ApplicationController
   # GET /medios/new.json
   def new
     @medio = Medio.new
+    if params[:impreso]
+      @tipo_medio = TipoMedio.find_by_description ('impreso')
+      @medio.tipo_medio_id = @tipo_medio.id 
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -85,14 +99,24 @@ class MediosController < ApplicationController
   # POST /medios.json
   def create
     @medio = Medio.new(params[:medio])
+    @medio.descripcion = @medio.nombre if @medio.tipo_medio.impreso?
 
     respond_to do |format|
       if @medio.save
-        format.html { redirect_to @medio, notice: 'Medio registrado con éxito.' }
-        format.json { render json: @medio, status: :created, location: @medio }
+        flash[:success] = "Medio agregado con éxito"
+        if @medio.tipo_medio.impreso?
+          format.html { redirect_to action: 'index_impresos', notice: 'Medio registrado con éxito.' }
+        else
+          format.html { redirect_to @medio, notice: 'Medio registrado con éxito.' }
+          format.json { render json: @medio, status: :created, location: @medio }
+        end
       else
-        format.html { render action: "new" }
-        format.json { render json: @medio.errors, status: :unprocessable_entity }
+        flash[:alert] = "Error al intentar guardar el medio: #{@medio.errors.full_messages.join(". ")}"
+        if @medio.tipo_medio.impreso?
+          @tipo_medio = TipoMedio.find_by_description ('impreso')
+          @medio.tipo_medio_id = @tipo_medio.id
+        end
+          format.html { render action: "new" }
       end
     end
   end

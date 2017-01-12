@@ -35,6 +35,15 @@
 	<%- @tipo = 'actividad' %>
 	<%= render partial: 'lista_seccion' %>
 
+	<%- if @reportes_impresos.count > 0 %>
+
+		<%-@titulo = "Impresos"%>
+		<%-@reportes = @reportes_impresos %>
+		<%- @tipo = 'impresos' %>
+		<%= render partial: 'lista_seccion' %>
+
+	<% end -%>
+
 	<%- if @reportes_pendientes.count > 0 %>
 		<%= form_tag(:action => "agrupar") do %>
 			<div class="well well-small">

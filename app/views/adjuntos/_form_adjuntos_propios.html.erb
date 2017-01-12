@@ -1,0 +1,45 @@
+
+<%= form_for @adjunto, url: {controller: 'adjuntos', action: 'crear_propio', cliente_id: @cliente.id}, :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
+  <%# hidden_field_tag 'url_return', @url if @url %>
+  <div class="control-group">
+    <%= f.label 'Seleccione Archivo', :class => 'control-label' %>
+    <div class="controls">
+      <%# f.text_field :url, :class => 'text_field', :autofocus => true, :placeholder => "medio.com/nota_del_dia.html", :required => true %>
+      <%= f.file_field :url, {:autofocus => true, :required => true, :class => 'btn', :accept => "image/*"} %>
+      <i class="muted">Sólo archivos de imágenes</i>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :titulo, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :titulo, :class => 'text_field', :placeholder => "La Nota del Día", required: true %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :autor, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :autor, :class => 'text_field', :size => '5x5', :placeholder => "En la nota del día..." %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :medio_id, :class => 'control-label' %>
+    <div class="controls">
+      <%# f.collection_select :medio_id, Medio.order('nombre ASC'), :id, :nombre, {:prompt => "Medio"}, {:required => true} %>
+      <%= f.collection_select :medio_id, Medio.impresos.order('nombre ASC'), :id, :nombre, {:prompt => "Medio"}, {  class: 'selects2 span3', required: true} %>
+
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label 'Fecha de Publicación', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :fecha, :class => 'text_field', :placeholder => "Fecha sugún el medio..." %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+  </div>
+
+<% end %>

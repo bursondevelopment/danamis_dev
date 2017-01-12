@@ -25,21 +25,29 @@
 			<%- @tipo = 'especial' %>
 			<%= render partial: '/wizard_informes/lista_seccion_sin_editar' %>
 		<% end -%>
+
 		<%-@titulo = "Cliente"%>
-		<%-@reportes = @informe.reportes.clientes.order('orden ASC') %>
+		<%-@reportes = @reportes_cliente %>
 		<%- @tipo = 'cliente' %>
 		<%= render partial: '/wizard_informes/lista_seccion_sin_editar' %>
 
 		<%-@titulo = "Competencia"%>
-		<%-@reportes = @informe.reportes.competencias.order('orden ASC') %>
+		<%-@reportes = @reportes_competencias %>
 		<%- @tipo = 'competencia' %>
 		<%= render partial: '/wizard_informes/lista_seccion_sin_editar' %>
 
 		<%-@titulo = "Entorno"%>
-
-		<%-@reportes = @informe.reportes.actividad.order('orden ASC') %>
+		<%-@reportes = @reportes_actividad %>
 		<%- @tipo = 'actividad' %>
 		<%= render partial: '/wizard_informes/lista_seccion_sin_editar' %>
+
+		<%- if @reportes_impresos.count > 0 %>
+			<%-@titulo = "Impresos"%>
+			<%-@reportes = @reportes_impresos %>
+			<%- @tipo = 'impresos' %>
+			<%= render partial: '/wizard_informes/lista_seccion_sin_editar' %>
+		<% end -%>
+
 
 	</div>
 

@@ -85,6 +85,51 @@ class AdjuntosController < ApplicationController
 
   # POST /adjuntos
   # POST /adjuntos.json
+
+
+  def crear_propio
+      data = params[:adjunto][:url]
+      @adjunto = Adjunto.new(params[:adjunto])
+      @adjunto.url = data.original_filename
+      if @adjunto.save
+        flash[:success] = "Agregado Adjunto"
+        begin
+          ext = data.original_filename.split('.').last
+        
+          nombre = "adjunto_#{@adjunto.id}_medio_#{@adjunto.medio_id}.#{ext}"
+          archivo = "#{Rails.root}/app/assets/images/adjuntos/#{nombre}"
+
+          data = data.tempfile
+          File.open("#{archivo}", "wb") {|file| file.write data.read}
+
+          @adjunto.url = archivo
+          if @adjunto.save
+            flash[:success] = "Agregado Adjunto. Archivo guardado"
+
+            if params[:cliente_id]
+              @cliente = Organizacion.find params[:cliente_id]
+              ao = AdjuntoOrganizacion.new
+              ao.organizacion_id = @cliente.id
+              ao.adjunto_id = @adjunto.id
+              if ao.save
+                flash[:success] = "Agregado Adjunto. Archivo guardado. Asociado al cliente "
+              else
+                flash[:alert] = "Error al intentar asociar adjunto con el cliente: #{ao.errors.full_messages.join(". ")}"
+              end
+            end
+          else
+            flash[:alert] = "Error al intentar guardar los adjuntos: #{@adjunto.errors.full_messages.join(". ")}"
+          end
+        rescue Exception => e
+          flash[:alert] = "Error al intentar adjuntar el archivo: #{e.message}"
+        end
+      else
+        flash[:alert] = "Error al intentar guardar el Adjunto: #{@adjunto.errors.full_messages.join(". ")}"
+      end
+      redirect_to :back
+  end
+    
+
   def create
     @adjunto = Adjunto.new(params[:adjunto])
 
@@ -146,12 +191,28 @@ class AdjuntosController < ApplicationController
   # DELETE /adjuntos/1.json
   def destroy
     @adjunto = Adjunto.find(params[:id])
-    @adjunto.destroy
+    
+    if @adjunto.impreso?
+      @impreso = true
+      archivo = @adjunto.url
+      begin
+        File.delete(archivo)
+        @adjunto.destroy
+      rescue Exception => e
+        flash[:alert] = "Error al intentar eliminar. #{e.message}"
+      end
+
+    end
 
     respond_to do |format|
-        redirect_path = params[:medio_id] ? medio_path(params[:medio_id]) : adjuntos_url 
+      if @impreso
+        format.html { redirect_to :back, notice: 'Nota Adjunta Eliminada.' }
+      else
+        redirect_path = params[:medio_id] ? medio_path(params[:medio_id]) : adjuntos_path 
         format.html { redirect_to redirect_path, notice: 'Nota Adjunta Eliminada.' }
-      format.json { head :no_content }
+        format.json { head :no_content }
+      end
     end
   end
+
 end

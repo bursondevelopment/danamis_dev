@@ -1,0 +1,49 @@
+<%- model_class = Medio -%>
+<%- if controller_name.eql? 'medios' %>
+  <div class="page-header">
+    <h1>Medios Impresos
+      <%= link_to 'Nuevo Impreso', {action: 'new', impreso: true}, :class => 'btn btn-primary' %>
+    </h1>
+  </div>
+<% end -%>
+
+<%- @table_name = 'medios'%>
+<%= render partial: '/layouts/filtro_tabla' %>
+
+<table class="table table-striped table-hover table-condensed filtrable" id="medios">
+  <thead>
+    <tr>
+
+      <th><%= model_class.human_attribute_name(:nombre) %></th>
+      <th><%= model_class.human_attribute_name(:descripcion) %></th>
+      <th>Medición (cm/col)</th>
+      <th>Valor </th>
+      <th>Tipo de Impreso</th>
+      <th>Adjuntos</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @medios.each do |medio| %>
+      <tr>
+        <td><%= medio.nombre %></td>
+        <td><%= medio.descripcion %></td>
+        <td><%= medio.medicion %></td>
+        <td><%= medio.vpe %></td>
+        <td><%= medio.tipo_especializacion.description.capitalize %></td>
+        <td><%= medio.adjuntos.count %></td>
+        <td>
+          <b class='tooltip-btn' data_toggle='tooltip' title='Editar <%=medio.nombre %>' >
+            <%= link_to edit_medio_path(medio), { :role => 'button', :class => 'btn btn-info btn-mini'} do %>
+              <%= content_tag(:i, "", class: "icon-edit icon-white") %>
+            <% end %>
+          </b>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%- if controller_name.eql? 'medios' %>
+  <%= link_to t('.new', :default => t("helpers.links.new")), new_medio_path, :class => 'btn btn-primary' %>
+<% end -%>

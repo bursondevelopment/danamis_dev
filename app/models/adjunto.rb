@@ -5,7 +5,7 @@ class Adjunto < ActiveRecord::Base
   accepts_nested_attributes_for :medio
 
   validates_presence_of :medio_id, :titulo, :url
-  validates :url, :uniqueness => true
+  validates :url, :uniqueness => true, if: :digital?
 
   has_and_belongs_to_many :reportes, :join_table => "reportes_adjuntos"
   accepts_nested_attributes_for :reportes
@@ -30,7 +30,7 @@ class Adjunto < ActiveRecord::Base
 
   scope :buscar_clave_general, lambda {|clave| where('sumario LIKE ? OR titulo LIKE ? OR autor LIKE ? OR url LIKE ?',"%#{clave}%","%#{clave}%","%#{clave}%","%#{clave}%")}
     
-  scope :creadas_hoy, -> {where("created_at >= ?", Date.today)}
+  scope :creadas_hoy, -> {where("adjuntos.created_at >= ?", Date.today)}
   
   scope :creadas_antes_de_hoy, -> {where("created_at < ?", Date.today)}
   
@@ -49,8 +49,20 @@ class Adjunto < ActiveRecord::Base
 
   scope :del_cliente_sin_reporte, lambda {|cliente_id| where("id NOT IN (#{(Reporte.del_cliente cliente_id).collect{|x| x.reportes_adjuntos.collect{|y| y.adjunto_id}}.flatten.join(",")})")}
 
+  def impreso?
+    medio.tipo_medio.impreso?
+  end
+
+  def digital?
+    medio.digital?
+  end
+
   def valida2 cliente_id
     Adjunto.del_cliente_hoy(cliente_id).collect{|x| x.id}.include? id
+  end
+
+  def imagen_url
+    "/assets/adjuntos/"+url.split('/').last.downcase
   end
 
   def descripcion
@@ -63,6 +75,14 @@ class Adjunto < ActiveRecord::Base
 
   def descripcion_completa
     "#{descripcion}. #{sumario}"
+  end
+
+  def extension
+    url.split(".").last
+  end
+
+  def nombre_mail
+    "adjunto_#{id}.#{extension}"
   end
 
 end

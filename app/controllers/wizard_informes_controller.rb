@@ -30,17 +30,19 @@ class WizardInformesController < ApplicationController
       @reportes_clientes = @informe.reportes.clientes.order('orden ASC')
       @reportes_competencias = @informe.reportes.competencias.order('orden ASC')
       @reportes_actividades = @informe.reportes.actividad.order('orden ASC')
-      @reportes_pendientes = @informe.reportes.pendientes #
+      @reportes_impresos = @informe.reportes.impresos.order('orden ASC')
+      # @reportes_pendientes = @informe.reportes.pendientes #
       # @reportes_pendientes = @cliente.reportes.sin_informe.pendientes
 
     else
       @cliente = Organizacion.find params[:cliente_id]
-
   		@reportes_clientes = @cliente.reportes.sin_informe.clientes.order('orden ASC')
   		@reportes_competencias = @cliente.reportes.sin_informe.competencias.order('orden ASC')
   		@reportes_actividades = @cliente.reportes.sin_informe.actividad.order('orden ASC')
-  end
-  @reportes_pendientes = @cliente.reportes.pendientes#_or_sin_informe
+      @reportes_impresos = @cliente.reportes.sin_informe.impresos.order('orden ASC')
+
+    end
+    @reportes_pendientes = @cliente.reportes.pendientes#_or_sin_informe
 
   end
 
@@ -66,12 +68,14 @@ class WizardInformesController < ApplicationController
       @reportes_clientes = @informe.reportes.clientes.order('orden ASC')
       @reportes_competencias = @informe.reportes.competencias.order('orden ASC')
       @reportes_actividades = @informe.reportes.actividad.order('orden ASC')
+      @reportes_impresos = @informe.reportes.impresos.order('orden ASC')
       @reportes_pendientes = @informe.reportes.pendientes   
     else
       @cliente = Organizacion.find params[:cliente_id]      
   		@reportes_clientes = @cliente.reportes.sin_informe.clientes.order('orden ASC')
   		@reportes_competencias = @cliente.reportes.sin_informe.competencias.order('orden ASC')
-  		@reportes_actividades = @cliente.reportes.sin_informe.actividad.order('orden ASC')
+      @reportes_actividades = @cliente.reportes.sin_informe.actividad.order('orden ASC')
+  		@reportes_impresos = @cliente.reportes.sin_informe.impresos.order('orden ASC')
   		@reportes_pendientes = @cliente.reportes.sin_informe.pendientes
     end
   end
@@ -123,6 +127,7 @@ class WizardInformesController < ApplicationController
       @reportes_clientes = @informe.reportes.clientes.order('orden ASC')
       @reportes_competencias = @informe.reportes.competencias.order('orden ASC')
       @reportes_actividades = @informe.reportes.actividad.order('orden ASC')
+      @reportes_impresos = @informe.reportes.impresos.order('orden ASC')
       @reportes_pendientes = @informe.reportes.pendientes
       @cliente = @informe.organizacion
     else
@@ -132,6 +137,7 @@ class WizardInformesController < ApplicationController
       @reportes_clientes = @cliente.reportes.sin_informe.clientes.order('orden ASC')
       @reportes_competencias = @cliente.reportes.sin_informe.competencias.order('orden ASC')
       @reportes_actividades = @cliente.reportes.sin_informe.actividad.order('orden ASC')
+      @reportes_impresos = @cliente.reportes.sin_informe.impresos.order('orden ASC')
       @reportes_pendientes = @cliente.reportes.sin_informe.pendientes      
   	end
   	@informe.autor = "Burson-Marsteller"
@@ -190,6 +196,13 @@ class WizardInformesController < ApplicationController
 
   def vista
 	@informe = Informe.find (params[:id])
+
+  @reportes_cliente = @informe.reportes.clientes.order('orden ASC')
+  @reportes_competencias = @informe.reportes.competencias.order('orden ASC')
+  @reportes_actividad = @informe.reportes.actividad.order('orden ASC')
+  @reportes_impresos = @informe.reportes.impresos.order('orden ASC')
+
+
   @informe_especial = @informe.informe_especial
   end
 
