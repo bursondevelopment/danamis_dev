@@ -104,17 +104,22 @@ class OrganizacionesController < ApplicationController
   # DELETE /organizaciones/1
   # DELETE /organizaciones/1.json
   def destroy
-    @organizacion = Organizacion.find(params[:id])
-    @entorno = @organizacion.entorno if params[:entorno]
-    @organizacion.destroy
+    if params[:id].eql? Organizacion::CONTEXTO_PAIS_ID.to_s
+      flash[:alert] = "Esta Organizacion No puede ser Eliminada."
+      redirect_to :back
+    else
+      @organizacion = Organizacion.find(params[:id])
+      @entorno = @organizacion.entorno if params[:entorno]
+      @organizacion.destroy
 
-    respond_to do |format|
-      if params[:entorno]
-        format.html { redirect_to entorno_path(@entorno), notice: 'Organización Eliminada' }
-      else
-        format.html { redirect_to organizaciones_url, notice: 'Organización Eliminada' }
+      respond_to do |format|
+        if params[:entorno]
+          format.html { redirect_to entorno_path(@entorno), notice: 'Organización Eliminada' }
+        else
+          format.html { redirect_to organizaciones_url, notice: 'Organización Eliminada' }
+        end
+        format.json { head :no_content }
       end
-      format.json { head :no_content }
     end
   end
 end
