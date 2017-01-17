@@ -11,7 +11,7 @@ class Pdf
     @book = Spreadsheet::Workbook.new
     @sheet = @book.create_worksheet :name => "Reporte"
     # @sheet = @book.create_worksheet :name => "reporte de alertas#{DateTime.now.strftime('%d %m %Y %h')}"
-    data = %w{ID TITULO ARGUMENTO PALABRAS_CLAVES MEDIO AUTOR URL_NOTA ACTOR FECHA SUBTIPO_MEDIO CPM VPE}
+    data = %w{ID CLIENTE TITULO ARGUMENTO PALABRAS_CLAVES MEDIO AUTOR URL_NOTA ACTOR FECHA SUBTIPO_MEDIO CPM VPE}
 
     @sheet.row(0).concat data
     reportes = Reporte.order('created_at DESC')
@@ -19,10 +19,10 @@ class Pdf
     data = []
     indice = 0
     reportes.each_with_index do |reporte,i|
-
+      cliente = reporte.organizacion.razon_social if reporte.organizacion
       reporte.adjuntos.each_with_index do |adjunto,j|
         actor_aux = reporte.actor.nombres_cargo if reporte.actor  
-        aux = {"ID" => reporte.id, "TITULO" => reporte.titulo, "ARGUMENTO" => reporte.argumento, "PALABRAS_CLAVES" => reporte.palabras_claves, "MEDIO" => adjunto.medio.descripcion, "AUTOR" => adjunto.autor, "URL_NOTA" => adjunto.url, "ACTOR" => actor_aux, "FECHA" => adjunto.created_at.to_date, "SUBTIPO_MEDIO" => adjunto.medio.tipo_especializacion.descripcion, "CPM" => 245, "VPE" => adjunto.medio.impacto}
+        aux = {"ID" => reporte.id, "CLIENTE" => cliente, "TITULO" => reporte.titulo, "ARGUMENTO" => reporte.argumento, "PALABRAS_CLAVES" => reporte.palabras_claves, "MEDIO" => adjunto.medio.descripcion, "AUTOR" => adjunto.autor, "URL_NOTA" => adjunto.url, "ACTOR" => actor_aux, "FECHA" => adjunto.created_at.to_date, "SUBTIPO_MEDIO" => adjunto.medio.tipo_especializacion.descripcion, "CPM" => 245, "VPE" => adjunto.medio.impacto}
           indice += 1
         @sheet.row(indice).concat aux.values
       end
