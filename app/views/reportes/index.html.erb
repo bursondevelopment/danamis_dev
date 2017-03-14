@@ -23,7 +23,7 @@
     <% @reportes.each do |reporte| %>
       <tr>
         <td><%=l reporte.created_at %></td>
-        <td><%= reporte.organizacion.razon_social if reporte.organizacion%></td>
+        <td><%= reporte.organizacion.razon_social if reporte.organizacion_id %></td>
         <td><%= link_to reporte.informe_id, informe_path(reporte.informe) if reporte.informe %></td>s
         <td><%= raw contenedor_media_descripcion_sin_editar reporte %></td>
         <td>

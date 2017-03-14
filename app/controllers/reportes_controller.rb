@@ -5,7 +5,10 @@ class ReportesController < ApplicationController
   before_filter :filtro_logueado_dunamis
   
   def index
-    @reportes = Reporte.joins(:organizacion).order(['organizaciones.razon_social ASC', 'created_at DESC'])
+
+
+    @reportes = Reporte.count > 1 ? Reporte.joins(:organizacion).order(['organizaciones.razon_social ASC', 'created_at DESC']) : Reporte.all
+
 
     respond_to do |format|
       format.html # index.html.erb

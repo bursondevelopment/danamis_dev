@@ -41,7 +41,7 @@ class InformeMailer < ActionMailer::Base
 
 
     titulo = "#{@informe.created_at.strftime("%d-%m-%Y")} #{@informe.titulo}"
-    mail(to: correos, subject: @informe.titulo)
+    mail(to: correos, subject: @informe.titulo, from: 'BMMonitoringRoom1@BM.com')
     
   end
 end

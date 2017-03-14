@@ -16,7 +16,6 @@
 
       <th><%= model_class.human_attribute_name(:nombre) %></th>
       <th><%= model_class.human_attribute_name(:descripcion) %></th>
-      <th>Medición (cm/col)</th>
       <th>Valor </th>
       <th>Tipo de Impreso</th>
       <th>Adjuntos</th>
@@ -28,7 +27,6 @@
       <tr>
         <td><%= medio.nombre %></td>
         <td><%= medio.descripcion %></td>
-        <td><%= medio.medicion %></td>
         <td><%= medio.vpe %></td>
         <td><%= medio.tipo_especializacion.description.capitalize %></td>
         <td><%= medio.adjuntos.count %></td>

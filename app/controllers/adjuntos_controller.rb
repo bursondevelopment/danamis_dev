@@ -31,6 +31,20 @@ class AdjuntosController < ApplicationController
     redirect_to :back    
   end
 
+  def desechar_inutilizados
+    total = 0
+
+    begin
+      adjuntos = Adjunto.sin_reportes
+      total = adjuntos.count
+      adjuntos.delete_all
+      flash[:success] = "Total Adjuntos eliminados: #{total}." 
+    rescue Exception => e
+      flash[:error] = "Error: #{e.to_s}"      
+    end
+    redirect_to :back
+  end
+
   def eliminar_total_adjuntos
     if params[:id]
       total_inicial = Adjunto.all.count

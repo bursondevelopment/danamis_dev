@@ -7,7 +7,7 @@ class Medio < ActiveRecord::Base
 
   validates_presence_of :url, if: :digital?
 
-  validates_presence_of :medicion, if: :digital?
+  #validates_presence_of :medicion, if: :digital?
 
 
   validates :url, :uniqueness => true, if: :digital?

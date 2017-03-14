@@ -27,6 +27,7 @@ Dunamis::Application.routes.draw do
       get :eliminar_total_adjuntos
       get :full_index
       get :descargar
+      get :desechar_inutilizados
     end
   end
 

@@ -58,7 +58,8 @@ class Adjunto < ActiveRecord::Base
   end
 
   def valida2 cliente_id
-    Adjunto.del_cliente_hoy(cliente_id).collect{|x| x.id}.include? id
+      #Adjunto.del_cliente_hoy(cliente_id).collect{|x| x.id}.include? id
+      return []
   end
 
   def imagen_url
