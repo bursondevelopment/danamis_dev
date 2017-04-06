@@ -24,8 +24,13 @@ class InformeMailer < ActionMailer::Base
           end
         end
       end
-    rescue
-        @errores_adjuntos += 1
+      puts "Total de adjuntos".center(100, "=")
+      puts "<#{@total_adjuntos}>"
+      puts "Final".center(100, "=")
+    rescue Exception => e
+        puts "Error".center(100, "=")
+        puts "#{e}".center(100, "=")
+        puts @errores_adjuntos += 1
     end
 #imagen_url
 
