@@ -20,3 +20,6 @@ config/database.yml
 
 Gemfile
 Gemfile.lock
+
+#Adjuntos
+app/assets/image/adjuntos/*
