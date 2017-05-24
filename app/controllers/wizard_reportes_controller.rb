@@ -162,7 +162,8 @@ class WizardReportesController < ApplicationController
 
     
     #@table_name = 'validas'
-    cargar_lista_notas
+    #cargar_lista_notas
+    @total_notas = @cliente.adjuntos.order('created_at DESC').creadas_hoy
 
   end
 
@@ -196,7 +197,15 @@ class WizardReportesController < ApplicationController
     @cliente = Organizacion.find session[:cliente_id]
     @titulo = "(Agregar notas adjuntas) - #{@cliente.razon_social}"
     
-    cargar_lista_notas
+    #cargar_lista_notas
+    total_notas = @cliente.adjuntos.creadas_hoy.order('created_at DESC')
+
+    @total_notas = []
+
+    total_notas.each do |nota|
+      @total_notas << nota unless nota.reportes.include? @reporte
+    end
+
 
   end
 

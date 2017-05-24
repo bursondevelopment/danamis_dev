@@ -15,4 +15,28 @@
 </div>
 
 
-<%= render partial: 'agregables_vs_otro_cliente_link' %>
+ <%- @adjunto = Adjunto.new %>
+ <%- @url = '/wizard_reportes/paso3' %>
+  <%= link_to 'Agregar Adjunto' , "javascript:void(0)", onclick: "$('#nuevo_adjunto').show(300); $(this).hide();", class: 'btn btn-primary' %>
+  |
+  <%= link_to 'Agregar Adjunto Impreso' , "javascript:void(0)", onclick: "$('#nuevo_adjunto_propio').show(300); $(this).hide();", class: 'btn btn-info' %>
+
+
+  <div id="nuevo_adjunto" style="display: none;">
+    <h4>Agregar Adjunto:</h4>
+    <%= render partial: '/adjuntos/form' %>
+  </div>
+
+  <div id="nuevo_adjunto_propio" style="display: none;">
+    <h4>Agregar Adjunto Impreso:</h4>
+    <%= render partial: '/adjuntos/form_adjuntos_propios' %>
+  </div>
+
+
+<%- if @total_notas.count > 0 %>
+
+      <%-@notas = @total_notas %>
+      <%- @table_name = 'resumen'%>    
+      <%= render partial: '/adjuntos/tabla_adjuntos'%>
+
+<% end -%>

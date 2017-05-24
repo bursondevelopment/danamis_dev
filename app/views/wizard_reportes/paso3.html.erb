@@ -8,4 +8,12 @@
 </div>
 
 <%= render :partial => 'index_reporte' %>
-<%= render partial: 'agregables_vs_otro_cliente_link' %>
+
+
+<%- if @total_notas.count > 0 %>
+
+      <%-@notas = @total_notas %>
+      <%- @table_name = 'resumen'%>    
+      <%= render partial: '/adjuntos/tabla_adjuntos'%>
+
+<% end -%>
