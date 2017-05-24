@@ -65,6 +65,9 @@
     <% end %>
   </tbody>
 </table>
+<%= will_paginate @actores, previous_label: '« Anterior', next_label: 'Próxima »', class: 'pager', link_separator: ' | ' %>
+
+
 <%- if controller_name.eql? 'actores' %>
   <%= link_to t('.new', :default => t("helpers.links.new")), new_actor_path, :class => 'btn btn-primary' %>
 

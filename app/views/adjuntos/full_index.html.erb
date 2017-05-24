@@ -2,12 +2,15 @@
 </br>
 <div class="well well-small">
   
-  <%= raw btn_icon 'Descargar Reportes en Excel', 'Descargar', '/adjuntos/descargar', 'btn-success', 'icon-download' %>  
+  <%= raw btn_icon 'Descargar Reportes en Excel', 'Descargar últimos 500 registos', '/adjuntos/descargar', 'btn-success', 'icon-download' %>  
 
   </br>
   </br>
   <%- @table_name = 'adjuntos'%>
   <%= render partial: '/layouts/filtro_tabla' %>
+
+  <%= will_paginate @reportes, previous_label: '« Anterior', next_label: 'Próxima »', class: 'pager', link_separator: ' | ' %>
+
 
   <table class="table table-striped table-hover table-condensed" id='adjuntos'>
     <thead>
@@ -33,8 +36,8 @@
           <tr>
             <td><%= adjunto.id %></td>
             <td><%= reporte.titulo %></td>
-            <td><%= reporte.argumento %></td>
-            <td><%= reporte.palabras_claves %></td>
+            <td><%= truncate reporte.argumento, length: 200 %></td>
+            <td><%= truncate reporte.palabras_claves, length: 200 %></td>
             <td><%= link_to adjunto.medio.nombre, adjunto.medio.url if adjunto.medio %></td>
             <td><%= adjunto.autor %></td>
             <td><%= link_to adjunto.medio.descripcion, adjunto.url %></td>
@@ -50,3 +53,4 @@
   </table>
 
 </div>
+<%= will_paginate @reportes, previous_label: '« Anterior', next_label: 'Próxima »', class: 'pager', link_separator: ' | ' %>

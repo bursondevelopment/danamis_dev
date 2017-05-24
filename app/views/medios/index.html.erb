@@ -6,12 +6,10 @@
       
     </h1>
 
-    <e class='tooltip-btn' data_toggle='tooltip' title= "Sólo para uso temporal de pruebas" >
-      <%= link_to "", {:href => "/adjuntos/eliminar_total_adjuntos", :class => 'btn btn-danger pull-right'} do %>
-        <%= "Eliminar notas adjuntas" %>
-        <%= content_tag(:i, "", class: "icon-exclamation-sign icon-white") %>
-      <% end -%>
-    </e>
+      <%# link_to "", {:href => "/adjuntos/eliminar_total_adjuntos", :class => 'btn btn-danger pull-right'} do %>
+        <%# "Eliminar notas adjuntas" %>
+        <%# content_tag(:i, "", class: "icon-exclamation-sign icon-white") %>
+      <%# end -%>
   </div>
 <% end -%>
 
@@ -22,8 +20,8 @@
   <thead>
     <tr>
 
-      <th><%= model_class.human_attribute_name(:nombre) %></th>
-      <th><%= model_class.human_attribute_name(:descripcion) %></th>
+      <th style="width:10%;"><%= model_class.human_attribute_name(:nombre) %></th>
+      <th style="width:20%;"><%= model_class.human_attribute_name(:descripcion) %></th>
       <th><%= model_class.human_attribute_name(:vpe) %></th>
       <th><%= model_class.human_attribute_name(:impacto) %></th>
       <th>Especialidad</th>
@@ -35,7 +33,7 @@
     <% @medios.each do |medio| %>
       <tr>
         <td><%= medio.nombre %></td>
-        <td><%= link_to medio.descripcion, medio_path(medio) %></td>
+        <td><%= link_to (truncate medio.descripcion, length: 20 ), medio_path(medio) %></td>
         <td><%= medio.vpe %></td>
         <td><%= medio.impacto %></td>
         <td><%= medio.tipo_especializacion.description.capitalize %></td>

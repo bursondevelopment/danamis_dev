@@ -46,7 +46,7 @@ class MediosController < ApplicationController
 
 
   def index
-    @medios = Medio.digitales
+    @medios = Medio.digitales.order('nombre ASC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -55,7 +55,7 @@ class MediosController < ApplicationController
   end
 
   def index_impresos
-    @medios = Medio.impresos
+    @medios = Medio.impresos.order('nombre ASC')
 
     respond_to do |format|
       format.html # index.html.erb

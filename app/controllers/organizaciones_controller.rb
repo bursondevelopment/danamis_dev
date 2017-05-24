@@ -8,7 +8,7 @@ class OrganizacionesController < ApplicationController
   
   def index
     if params[:clientes]
-      @organizaciones = Organizacion.clientes.order(['interna_id DESC'])
+      @organizaciones = Organizacion.clientes.order(['interna_id DESC']).paginate(:page => params[:page], :per_page => 10)
       @titulo = "Clientes"
     else
       @organizaciones = Organizacion.order(['interna_id DESC'])

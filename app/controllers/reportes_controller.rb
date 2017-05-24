@@ -7,7 +7,7 @@ class ReportesController < ApplicationController
   def index
 
 
-    @reportes = Reporte.count > 1 ? Reporte.joins(:organizacion).order(['organizaciones.razon_social ASC', 'created_at DESC']) : Reporte.all
+    @reportes = Reporte.count > 1 ? Reporte.joins(:organizacion).order(['organizaciones.razon_social ASC', 'created_at DESC']).paginate(:page => params[:page], :per_page => 10) : Reporte.all.paginate(:page => params[:page], :per_page => 10)
 
 
     respond_to do |format|

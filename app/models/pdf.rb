@@ -14,7 +14,7 @@ class Pdf
     data = %w{ID CLIENTE TITULO ARGUMENTO PALABRAS_CLAVES MEDIO AUTOR URL_NOTA ACTOR FECHA SUBTIPO_MEDIO CPM VPE}
 
     @sheet.row(0).concat data
-    reportes = Reporte.order('created_at DESC')
+    reportes = Reporte.order('created_at DESC').limit(500)
 
     data = []
     indice = 0

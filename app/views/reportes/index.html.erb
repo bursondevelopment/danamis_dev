@@ -7,6 +7,7 @@
 <%- @table_name = 'reportes'%>
 <%= render partial: '/layouts/filtro_tabla' %>
 
+<%= will_paginate @reportes, previous_label: '« Anterior', next_label: 'Próxima »', class: 'pager', link_separator: ' | ' %>
 
 <table class="table table-striped table-hover table-condensed" id="reportes">
 
@@ -20,21 +21,16 @@
     </tr>
   </thead>
   <tbody>
-    <% @reportes.each do |reporte| %>
+    <%- @reportes.each do |reporte| %>
       <tr>
-        <td><%=l reporte.created_at %></td>
+        <td><%= reporte.created_at %></td>
         <td><%= reporte.organizacion.razon_social if reporte.organizacion_id %></td>
-        <td><%= link_to reporte.informe_id, informe_path(reporte.informe) if reporte.informe %></td>s
+        <td><%= link_to reporte.informe_id, informe_path(reporte.informe) if reporte.informe %></td>
         <td><%= raw contenedor_media_descripcion_sin_editar reporte %></td>
-        <td>
-          <%= raw btn_mini 'Editar este reporte', "/wizard_reportes/paso3/#{reporte.id}", 'btn-info', 'icon-edit' %>
-          <%# link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      reporte_path(reporte),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
+        <td><%= raw btn_mini 'Editar este reporte', "/wizard_reportes/paso3/#{reporte.id}", 'btn-info', 'icon-edit' %></td>
       </tr>
-    <% end %>
+    <%- end %>
   </tbody>
 </table>
+
+<%= will_paginate @reportes, previous_label: '« Anterior', next_label: 'Próxima »', class: 'pager', link_separator: ' | ' %>

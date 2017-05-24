@@ -15,7 +15,7 @@ class AdjuntosController < ApplicationController
   end
 
   def full_index
-    @reportes = Reporte.order('created_at DESC')
+    @reportes = Reporte.order('created_at DESC').paginate(:page => params[:page], :per_page => 10)
   end
 
   def descartar_adjunto
